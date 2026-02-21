@@ -1,0 +1,5 @@
+Contact: mailto:info@chiropraxiakosice.eu
+Expires: 2026-12-31T23:59:00.000Z
+Preferred-Languages: sk, en
+Canonical: https://chiropraxiakosice.eu/.well-known/security.txt
+Policy: https://chiropraxiakosice.eu/ochrana-osobnych-udajov

@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+.vercel/
+.astro/
+test-results/
+playwright-report/
+blob-report/
+
+# Environment - SECRETS
+.env
+.env.*.local
+.env.local
+.env.production
+.env.development
+*.env
+
+# Supabase Local
+# supabase/config.toml
+supabase/.branches
+supabase/.temp
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+debug-*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# PWA generated files
+dev-dist/
+docs/gem-apkey.md
+dev_log.txt
+.env*.local

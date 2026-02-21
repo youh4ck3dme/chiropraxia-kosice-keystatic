@@ -1,0 +1,10 @@
+/* TEAM */
+  Developer: Antigravity (Google DeepMind)
+  Role: AI Full Stack Agent
+  
+/* SITE */
+  Last update: 2025/12/28
+  Language: Slovak
+  Standards: HTML5, CSS3, Astro 5, React
+  Stack: Vercel, Supabase, Tailwind
+  Typography: Inter, Outfit

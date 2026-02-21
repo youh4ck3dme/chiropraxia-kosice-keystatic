@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Stránka nenájdená | Chiropraxia Košice">
+  <main class="min-h-[80vh] flex items-center justify-center px-6 relative overflow-hidden">
+    <div class="relative z-10 max-w-2xl mx-auto text-center">
+      <div class="relative inline-block mb-8">
+        <h1 class="text-[120px] md:text-[180px] font-black text-white/5 leading-none select-none">
+          404
+        </h1>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-aurora/20 blur-3xl animate-pulse"></div>
+        </div>
+      </div>
+      
+      <div class="space-y-6 -mt-12 md:-mt-20">
+        <h2 class="text-3xl md:text-5xl font-bold text-chrome tracking-tight">
+          Ups! Táto stránka bola <span class="text-aurora-glow">napravená</span> až príliš.
+        </h2>
+        
+        <p class="text-lg md:text-xl text-chrome-gray max-w-xl mx-auto leading-relaxed">
+          Zrejme sme ju "pukli" tak silno, že zmizla z existencie. <br class="hidden md:block"/>
+          Vráťme vašu chrbticu (a vás) späť do rovnováhy.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 animate-slide-up">
+          <a href="/" class="btn-glass px-10">
+            Späť na domov
+          </a>
+          <a href="/rezervacia" class="btn-aurora px-10">
+            <span>Objednať sa online</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+

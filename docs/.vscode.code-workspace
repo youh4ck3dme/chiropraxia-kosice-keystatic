@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": "../.vscode"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../e2e"
+		},
+		{
+			"path": "../public"
+		},
+		{
+			"path": "../scripts"
+		},
+		{
+			"path": "../src"
+		},
+		{
+			"path": "../supabase"
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"saoudrizwan.claude-dev"
+		]
+	},
+	"settings": {
+		"powershell.cwd": ".vscode"
+	}
+}

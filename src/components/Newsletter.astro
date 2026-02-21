@@ -1,0 +1,119 @@
+---
+---
+
+<section class="relative py-24 px-6 overflow-hidden">
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div class="glass-card border border-white/10 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden group">
+      <div class="relative z-10 flex flex-col items-center">
+        <!-- Icon -->
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-aurora to-aurora-glow p-[1px] mb-6 shadow-lg shadow-aurora/20">
+          <div class="w-full h-full bg-void-dark rounded-2xl flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-black text-chrome mb-4">
+          Tipy pre zdravší život
+        </h2>
+        
+        <p class="text-gray-400 mb-8 max-w-lg leading-relaxed">
+          Získajte prístup k exkluzívnym radám o prevencii bolesti chrbta a novinky z našej kliniky priamo do emailu. Žiadny spam, len hodnotný obsah.
+        </p>
+
+        <form id="newsletter-form" class="w-full max-w-md flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+            </div>
+            <input 
+              type="email" 
+              name="email" 
+              id="email-input" 
+              required
+              class="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-aurora focus:border-transparent text-white placeholder-gray-500 transition-all outline-none"
+              placeholder="vas@email.com"
+            />
+          </div>
+          <button 
+            type="submit" 
+            id="subscribe-btn"
+            class="px-6 py-3 bg-gradient-to-r from-aurora to-aurora-glow text-white font-bold rounded-xl hover:shadow-[0_0_20px_theme('colors.aurora.DEFAULT' / 30%)] hover:scale-105 transition-all duration-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="btn-text">Odoberať</span>
+            <span class="btn-loader hidden">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+        <!-- Feedback Messages -->
+        <p id="success-msg" class="hidden mt-4 text-aurora font-medium flex items-center gap-2 animate-fade-in-up">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          Úspešne prihlásený! Ďakujeme.
+        </p>
+        <p id="error-msg" class="hidden mt-4 text-red-400 font-medium animate-fade-in-up">
+          Nastala chyba. Skúste to prosím znova.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const btn = document.getElementById('subscribe-btn');
+  const btnText = btn?.querySelector('.btn-text');
+  const btnLoader = btn?.querySelector('.btn-loader');
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+  const emailInput = document.getElementById('email-input') as HTMLInputElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Reset state
+      successMsg?.classList.add('hidden');
+      errorMsg?.classList.add('hidden');
+      btnText?.classList.add('hidden');
+      btnLoader?.classList.remove('hidden');
+      if (btn) (btn as HTMLButtonElement).disabled = true;
+
+      const email = emailInput?.value;
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          successMsg?.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(data.error || 'Unknown error');
+        }
+      } catch (err) {
+        console.error(err);
+        errorMsg?.classList.remove('hidden');
+      } finally {
+        btnText?.classList.remove('hidden');
+        btnLoader?.classList.add('hidden');
+        if (btn) (btn as HTMLButtonElement).disabled = false;
+      }
+    });
+  }
+</script>
+
+

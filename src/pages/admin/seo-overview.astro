@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { computeSeoScore } from '../../lib/seo-score';
+
+const posts = await getCollection('blog');
+const withScore = posts.map((post) => {
+  const result = computeSeoScore({
+    title: post.data.title,
+    metaTitle: post.data.metaTitle ?? null,
+    seoDescription: post.data.seoDescription,
+    slug: post.slug,
+    focusKeyword: post.data.focusKeyword ?? null,
+    coverImageAlt: post.data.coverImageAlt ?? null,
+    body: post.body,
+  });
+  return { post, result };
+});
+const sorted = [...withScore].sort((a, b) => a.result.score - b.result.score);
+
+function scoreBadgeClass(score: number): string {
+  if (score >= 80) return 'bg-emerald-500/20 text-emerald-400';
+  if (score >= 50) return 'bg-amber-500/20 text-amber-400';
+  return 'bg-red-500/20 text-red-400';
+}
+---
+
+<Layout
+  title="SEO prehľad článkov | Chiropraxia Košice"
+  description="Prehľad SEO skóre blog článkov."
+>
+  <section class="py-12 px-6 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold text-white mb-2">SEO prehľad článkov</h1>
+    <p class="text-gray-400 mb-6">
+      Články zoradené podľa SEO skóre (najnižšie first). Pre živý panel otvorte článok s <code class="bg-white/10 px-1 rounded">?seo=1</code>.
+    </p>
+    {sorted.length === 0 ? (
+      <p class="text-gray-400 py-8">Žiadne články na zobrazenie.</p>
+    ) : (
+      <ul class="space-y-3">
+        {sorted.map(({ post, result }) => (
+          <li class="flex items-center justify-between gap-4 p-4 rounded-xl border border-white/10 bg-white/5">
+            <div class="min-w-0">
+              <a href={`/blog/${post.slug}?seo=1`} class="text-aurora-teal hover:underline font-medium truncate block">
+                {post.data.title}
+              </a>
+              <p class="text-sm text-gray-500 truncate">{post.slug}</p>
+            </div>
+            <div class="flex items-center gap-4 flex-shrink-0">
+              <span class={`px-2 py-0.5 rounded text-sm font-semibold ${scoreBadgeClass(result.score)}`} data-testid="seo-score-value">{result.score}</span>
+              <span class="text-gray-500">/ 100</span>
+              <a href={`/keystatic/collection/blog/${post.slug}`} class="text-sm text-gray-400 hover:text-white">Edit v Keystatic</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</Layout>

@@ -1,0 +1,40 @@
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Povolíme AI botov (Dôležité pre rok 2026 - AI Search Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Blokujeme zbytočné SEO nástroje a spam boty (šetrí server)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Ochrana admin a systémových priečinkov
+User-agent: *
+Disallow: /keystatic/
+Disallow: /api/
+Disallow: /_astro/
+Allow: /
+
+Sitemap: https://chiropraxiakosice.eu/sitemap-index.xml
+Host: https://chiropraxiakosice.eu

@@ -1,0 +1,102 @@
+---
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = 'Video' } = Astro.props;
+
+// Extract video ID and platform
+function getVideoData(url: string) {
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if (ytMatch) {
+    return {
+      platform: 'youtube',
+      id: ytMatch[1],
+      embedUrl: `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?rel=0`,
+      thumbnail: `https://img.youtube.com/vi/${ytMatch[1]}/maxresdefault.jpg`,
+    };
+  }
+  
+  // Vimeo
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    return {
+      platform: 'vimeo',
+      id: vimeoMatch[1],
+      embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}?dnt=1`,
+      thumbnail: null, // Vimeo thumbnails require API call
+    };
+  }
+  
+  return null;
+}
+
+const video = getVideoData(url);
+---
+
+{video && (
+  <div class="video-embed my-8 rounded-xl overflow-hidden border border-white/10 bg-chrome-dark">
+    <div class="relative aspect-video group">
+      <!-- Lazy Load: Show thumbnail first, load iframe on click -->
+      <div 
+        class="video-placeholder absolute inset-0 cursor-pointer"
+        data-embed-url={video.embedUrl}
+      >
+        {video.thumbnail && (
+          <img 
+            src={video.thumbnail} 
+            alt={title}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        )}
+        
+        <!-- Play Button Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/30 transition-colors">
+          <div class="w-16 h-16 rounded-full bg-aurora text-black flex items-center justify-center shadow-lg shadow-aurora/30 group-hover:scale-110 transition-transform">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Iframe container (hidden until clicked) -->
+      <div class="video-iframe hidden absolute inset-0"></div>
+    </div>
+    
+    {title && (
+      <div class="p-3 text-sm text-gray-400 border-t border-white/5">
+        📹 {title}
+      </div>
+    )}
+  </div>
+)}
+
+<script>
+  document.querySelectorAll('.video-placeholder').forEach((placeholder) => {
+    placeholder.addEventListener('click', () => {
+      const embedUrl = placeholder.getAttribute('data-embed-url');
+      const iframeContainer = placeholder.nextElementSibling;
+      
+      if (embedUrl && iframeContainer) {
+        iframeContainer.innerHTML = `
+          <iframe 
+            src="${embedUrl}&autoplay=1" 
+            class="w-full h-full"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Prehrávač videa"
+          ></iframe>
+        `;
+        iframeContainer.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
+

@@ -1,0 +1,19 @@
+{
+  "companyInfo": {
+    "name": "Chiropraxia Košice",
+    "phone": "+421 905 307 198",
+    "email": "info@chiropraxiakosice.eu",
+    "address": "Krmanova 854/6, 040 01 Košice",
+    "instagramUrl": "https://www.instagram.com/jaro_fyziofit/",
+    "facebookUrl": "https://www.facebook.com/Jaro.Begala/"
+  },
+  "openingHours": {
+    "monday": "08:00 - 17:00",
+    "tuesday": "08:00 - 17:00",
+    "wednesday": "08:00 - 17:00",
+    "thursday": "08:00 - 17:00",
+    "friday": "08:00 - 17:00",
+    "saturday": "09:00 - 13:00",
+    "sunday": "Zatvorené"
+  }
+}

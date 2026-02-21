@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AdminDashboard } from '../../components/react/AdminDashboard';
+
+// Force client-side rendering for the dashboard
+---
+
+<Layout title="Admin | Chiropraxia Košice" description="Administrácia rezervácií">
+  <div class="min-h-screen pt-20 pb-10">
+    <AdminDashboard client:only="react" />
+  </div>
+</Layout>
+
+

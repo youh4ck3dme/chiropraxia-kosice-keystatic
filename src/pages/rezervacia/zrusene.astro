@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Logo } from '../../components/react/Logo';
+
+const already = Astro.url.searchParams.get('already') === 'true';
+---
+
+<Layout title="Rezervácia zrušená | Chiropraxia Košice">
+  <div class="min-h-[80vh] flex items-center justify-center p-4">
+    <div class="max-w-md w-full text-center">
+      <div class="mb-8">
+        <Logo className="w-48 h-auto mx-auto text-void opacity-50" />
+      </div>
+      
+      <div class="glass-card p-8 border-red-500/20">
+        <div class="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+        
+        <h1 class="text-3xl font-bold text-white mb-4">
+          {already ? 'Rezervácia už bola zrušená' : 'Vaša rezervácia bola zrušená'}
+        </h1>
+        
+        <p class="text-chrome-gray mb-8">
+          Termín bol úspešne uvoľnený. Ak ste si to rozmysleli, môžete si kedykoľvek vytvoriť novú rezerváciu.
+        </p>
+        
+        <div class="flex flex-col gap-4">
+          <a href="/rezervacia" class="btn-aurora w-full justify-center py-3">
+            Vytvoriť novú rezerváciu
+          </a>
+          <a href="/" class="btn-glass w-full justify-center py-3">
+            Späť na úvod
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .btn-aurora {
+    background: var(--color-aurora);
+    color: black;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    display: flex;
+    transition: all 0.2s;
+  }
+  .btn-aurora:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px var(--color-aurora-glow);
+  }
+  .btn-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 0.75rem;
+    display: flex;
+    transition: all 0.2s;
+  }
+</style>

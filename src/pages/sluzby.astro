@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ServiceCard } from '../components/react/ServiceCard';
+
+const services = [
+  {
+    id: '1',
+    name: 'Chiropraktická masáž',
+    description: 'Kombinácia chiropraxie, klasickej masáže, mobilizácie, bankovania a masážnej pištole pre komplexnú úľavu.',
+    duration_min: 50,
+    price: 49,
+  },
+  {
+    id: '2',
+    name: 'Korekcia',
+    description: 'Rýchle chiropraktické ošetrenie zamerané na nápravu, doplnené o masážnu pištoľ a klasickú masáž.',
+    duration_min: 15,
+    price: 25,
+  },
+  {
+    id: '3',
+    name: 'Celotelová chiro masáž',
+    description: 'Dôkladná celotelová procedúra zahŕňajúca klasickú masáž, bankovanie, mobilizáciu a chiropraxiu.',
+    duration_min: 70,
+    price: 65,
+  },
+  {
+    id: '4',
+    name: 'Expresný termín',
+    description: 'Príplatok k cene služby za termín do 2 pracovných dní alebo víkendové termíny.',
+    duration_min: 0,
+    price: 10,
+  },
+];
+
+const faqs = [
+  {
+    question: "Čo mám očakávať pri prvej návšteve?",
+    answer: "Pri prvej návšteve vykonáme komplexné vyšetrenie vrátane anamnézy, fyzikálneho vyšetrenia a prípadne RTG snímkov. Na základe diagnostiky navrhneme individuálny liečebný plán."
+  },
+  {
+    question: "Je chiropraktické ošetrenie bolestivé?",
+    answer: "Väčšina pacientov opisuje ošetrenie ako príjemné uvoľnenie. Môžete cítiť mierny tlak alebo počuť 'prasknutie' pri úprave kĺbov, čo je úplne normálne a bezbolestné."
+  },
+  {
+    question: "Koľko ošetrení potrebujem?",
+    answer: "Závisí to od vášho stavu. Akútne problémy môžu vyžadovať 3-6 ošetrení, chronické stavy viac. Pri prvej konzultácii vám navrhneme realistický plán."
+  }
+];
+
+const rating = { value: 4.9, count: 520 };
+---
+
+<Layout 
+  title="Naše služby | Chiropraxia Košice"
+  description="Chiropraktické služby v Košiciach: vyšetrenie chrbtice, manuálna terapia, liečba migrény, rehabilitácia. Pozrite si cenník a objednajte sa."
+  faqs={faqs}
+  rating={rating}
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Chiropraxia a manuálna terapia",
+      "name": "Komplexná náprava chrbtice",
+      "description": "Profesionálna chiropraktická starostlivosť zameraná na odstránenie bolesti krížov, krčnej chrbtice a kĺbov pomocou manuálnych techník.",
+      "provider": {
+        "@type": "MedicalClinic",
+        "name": "Chiropraxia Košice"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Košice"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Služby ambulancie",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Vstupné vyšetrenie + Terapia"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Opakovaná náprava"
+            }
+          }
+        ]
+      }
+    })} />
+  </Fragment>
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <!-- Page Header -->
+      <div class="text-center mb-16 parallax-3d">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">
+          <span class="text-chrome">Naše</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurora to-aurora-glow"> služby</span>
+        </h1>
+        <p class="text-chrome-gray text-lg max-w-2xl mx-auto">
+          Ponúkame široké spektrum chiropraktických služieb zameraných na riešenie bolestí pohybového aparátu.
+        </p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid md:grid-cols-2 gap-6 mb-16">
+        {services.map((service) => (
+          <ServiceCard
+            client:visible
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            duration={service.duration_min}
+            price={service.price}
+          />
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="glass-card p-8 md:p-12 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-chrome mb-4">
+          Pripravení začať?
+        </h2>
+        <p class="text-chrome-gray mb-8 max-w-xl mx-auto">
+          Objednajte sa online a urobte prvý krok k životu bez bolesti.
+        </p>
+        <a href="/rezervacia" class="btn-aurora text-lg px-8 py-4 inline-flex">
+          <span>Rezervovať termín</span>
+        </a>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mt-20">
+        <h2 class="text-2xl font-bold text-chrome text-center mb-12">
+          Často kladené otázky
+        </h2>
+        
+        <div class="space-y-4 max-w-3xl mx-auto">
+          <details class="glass-card p-6 group">
+            <summary class="flex items-center justify-between cursor-pointer text-chrome font-medium">
+              Čo mám očakávať pri prvej návšteve?
+              <svg class="w-5 h-5 text-aurora transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </summary>
+            <p class="mt-4 text-chrome-gray text-sm">
+              Pri prvej návšteve vykonáme komplexné vyšetrenie vrátane anamnézy, fyzikálneho vyšetrenia a prípadne RTG snímkov. Na základe diagnostiky navrhneme individuálny liečebný plán.
+            </p>
+          </details>
+
+          <details class="glass-card p-6 group">
+            <summary class="flex items-center justify-between cursor-pointer text-chrome font-medium">
+              Je chiropraktické ošetrenie bolestivé?
+              <svg class="w-5 h-5 text-aurora transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </summary>
+            <p class="mt-4 text-chrome-gray text-sm">
+              Väčšina pacientov opisuje ošetrenie ako príjemné uvoľnenie. Môžete cítiť mierny tlak alebo počuť "prasknutie" pri úprave kĺbov, čo je úplne normálne a bezbolestné.
+            </p>
+          </details>
+
+          <details class="glass-card p-6 group">
+            <summary class="flex items-center justify-between cursor-pointer text-chrome font-medium">
+              Koľko ošetrení potrebujem?
+              <svg class="w-5 h-5 text-aurora transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </summary>
+            <p class="mt-4 text-chrome-gray text-sm">
+              Závisí to od vášho stavu. Akútne problémy môžu vyžadovať 3-6 ošetrení, chronické stavy viac. Pri prvej konzultácii vám navrhneme realistický plán.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+

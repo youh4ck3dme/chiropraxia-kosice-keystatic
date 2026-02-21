@@ -1,0 +1,391 @@
+/* Self-hosted fonts via @fontsource (eliminates CLS from Google Fonts) */
+@import '@fontsource/inter/300.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/outfit/400.css';
+@import '@fontsource/outfit/500.css';
+@import '@fontsource/outfit/600.css';
+@import '@fontsource/outfit/700.css';
+@import '@fontsource/outfit/800.css';
+
+@import 'tailwindcss';
+
+@theme {
+  /* Colors - Inverted Baby Blue Theme */
+  --color-void: #89CFF0;        /* Main Background: Baby Blue */
+  --color-void-light: #BFE4F7;  /* Secondary Background */
+  --color-chrome: #0a0b1e;      /* Main Text: Dark Navy */
+  --color-chrome-white: #000000; /* Headings: Black */
+  --color-chrome-gray: #334155;  /* Secondary Text: Slate 700 */
+  --color-aurora: #ffffff;      /* Accent 1: White (Clouds) */
+  --color-aurora-glow: #E0F7FA; /* Accent 2: Light Cyan */
+  --color-aurora-dim: #0a0b1e;  /* Accent 3: Dark Navy (Depth) */
+  --color-signal-error: #ef4444;
+  --color-signal-success: #22c55e;
+  --color-glass-subtle: rgba(255, 255, 255, 0.2);
+  --color-glass-medium: rgba(255, 255, 255, 0.4);
+  --color-glass-strong: rgba(255, 255, 255, 0.6);
+  --color-deep-space: #89CFF0;
+  
+  /* Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================
+   BASE STYLES - Liquid Chrome Design System
+   ============================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-optical-sizing: auto;
+    font-size: 125%; /* Increased base size for mobile (+~4px from 16px base) */
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-deep-space);
+    color: var(--color-chrome);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Mobile Color Adjustment: Brighter Baby Blue */
+  @media (max-width: 768px) {
+    :root {
+      --color-aurora: #BFE4F7;      /* Lighter Baby Blue */
+      --color-aurora-glow: #D0F0FD; /* Lighter Glow */
+      --color-aurora-dim: #98D6F2;  /* Lighter Dim */
+    }
+  }
+
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-chrome-white);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .parallax-3d {
+    perspective: 1000px;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  p {
+    color: var(--color-chrome-gray);
+    line-height: 1.8;
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(0, 111, 184, 0.4);
+    color: #0a0a1a;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050510;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #006fb8, #00a7ed);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2a4897, #006fb8);
+  }
+}
+
+/* ============================================
+   COMPONENT STYLES
+   ============================================ */
+
+@layer components {
+
+  /* Chrome Metallic Text - Adjusted for Light */
+  .text-chrome {
+    @apply text-chrome;
+  }
+
+  .text-chrome-gray {
+    color: #334155;
+  }
+
+  .text-chrome-white {
+    color: #F8FAFC;
+  }
+
+  .text-aurora {
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  /* White Glass Card - Fresh & Clean */
+  .glass-card {
+    @apply relative overflow-hidden;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 
+      0 12px 40px rgba(0, 111, 184, 0.1),
+      inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  }
+
+  /* Interactive Glass Card */
+  .glass-card-interactive {
+    position: relative;
+    @apply overflow-hidden transition-all duration-500;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 
+      0 12px 40px rgba(0, 111, 184, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+  }
+
+  .glass-card-interactive:hover {
+    border-color: rgba(0, 111, 184, 0.5);
+    box-shadow: 
+      0 20px 50px -12px rgba(0, 111, 184, 0.3),
+      0 0 30px -5px rgba(137, 207, 240, 0.5);
+    transform: translateY(-4px) scale(1.005);
+  }
+
+
+  /* Button Styles */
+  .btn-aurora {
+    @apply relative inline-flex items-center justify-center px-8 py-3.5 font-bold overflow-hidden rounded-xl transition-all duration-500;
+    background: linear-gradient(135deg, var(--color-aurora) 0%, var(--color-aurora-dim) 100%);
+    color: #fdfaf1;
+    box-shadow: 0 12px 24px -6px rgba(137, 207, 240, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-aurora::before {
+    content: '';
+    @apply absolute inset-0 opacity-100 transition-opacity duration-500;
+    background: linear-gradient(135deg, #00a7ed 0%, #006fb8 100%);
+  }
+
+  .btn-aurora::after {
+    content: '';
+    @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    animation: sheen 4s infinite linear;
+  }
+
+  /* Hover effect removed per user request - static blue */
+  .btn-aurora:hover {
+    /* No change on hover */
+  }
+
+  .btn-aurora:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  .btn-aurora span {
+    @apply relative z-10;
+  }
+
+  .btn-glass {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 12px 40px rgba(0, 111, 184, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    font-weight: 700;
+    transition: all 0.5s;
+    color: #0a0b1e;
+  }
+
+  .btn-glass:hover {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    color: #000;
+  }
+
+  .btn-glass:active {
+    transform: scale(0.97);
+  }
+
+  /* Input Styles */
+  .input-glass {
+    @apply w-full px-5 py-3.5 rounded-xl transition-all duration-500;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #0a0b1e;
+    backdrop-filter: blur(12px);
+  }
+
+  .input-glass::placeholder {
+    color: rgba(148, 163, 184, 0.4);
+  }
+
+  .input-glass:focus {
+    @apply outline-none;
+    border-color: var(--color-aurora);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 4px rgba(137, 207, 240, 0.15);
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+@layer utilities {
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+
+  .bg-deep-space {
+    background: var(--color-deep-space);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .text-balance { text-wrap: balance; }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sheen {
+  0% { left: -100%; }
+  20%, 100% { left: 200%; }
+}
+
+.animate-float { animation: float 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
+.animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Stagger Animation for Lists */
+.stagger-item {
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 50ms; }
+.stagger-item:nth-child(2) { animation-delay: 150ms; }
+.stagger-item:nth-child(3) { animation-delay: 250ms; }
+.stagger-item:nth-child(4) { animation-delay: 350ms; }
+.stagger-item:nth-child(5) { animation-delay: 450ms; }
+.stagger-item:nth-child(6) { animation-delay: 550ms; }
+
+/* GPU Acceleration */
+.gpu-accelerated, .glass-card, img, video {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Link Premium */
+.link-premium {
+  @apply relative transition-colors duration-300;
+  color: var(--color-aurora);
+}
+
+/* 3D Shadows - Soft Blue Tint */
+.shadow-3d {
+  box-shadow: 
+    0 1px 1px rgba(0, 50, 100, 0.05), 
+    0 2px 2px rgba(0, 50, 100, 0.05), 
+    0 4px 4px rgba(0, 50, 100, 0.05), 
+    0 8px 8px rgba(0, 50, 100, 0.05),
+    0 16px 16px rgba(0, 50, 100, 0.05);
+}
+
+.shadow-3d-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-3d-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 1px 1px rgba(0, 70, 130, 0.1), 
+    0 2px 2px rgba(0, 70, 130, 0.1), 
+    0 4px 4px rgba(0, 70, 130, 0.1), 
+    0 8px 8px rgba(0, 70, 130, 0.1),
+    0 16px 16px rgba(0, 70, 130, 0.1),
+    0 32px 32px rgba(0, 70, 130, 0.15);
+  border-color: #006fb8;
+}
+
+.link-premium::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300;
+}
+
+.link-premium:hover::after {
+  @apply w-full;
+}

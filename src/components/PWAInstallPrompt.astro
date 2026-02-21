@@ -1,0 +1,77 @@
+---
+---
+
+<div id="pwa-install-toast" class="fixed bottom-4 left-4 z-[9999] translate-y-[200%] transition-transform duration-500 will-change-transform">
+  <div class="glass-card p-4 rounded-xl shadow-2xl flex items-center gap-4 max-w-sm border border-white/10 bg-[#1a1a1a]/90 backdrop-blur-xl">
+    <!-- App Icon -->
+    <div class="relative shrink-0">
+      <div class="absolute inset-0 bg-accent blur-md opacity-50 rounded-lg animate-pulse"></div>
+      <img src="/icons/icon-192.png" alt="App Icon" class="w-12 h-12 rounded-lg relative z-10 shadow-lg" />
+    </div>
+    
+    <div class="flex-1 min-w-0">
+      <h3 class="font-bold text-white text-sm leading-tight">Nainštalovať aplikáciu</h3>
+      <p class="text-xs text-gray-400 mt-0.5 truncate">
+        Pre rýchlejší prístup a offline režim.
+      </p>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <button id="pwa-close" class="p-2 text-gray-400 hover:text-white transition-colors" aria-label="Zatvoriť">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
+      </button>
+      <button id="pwa-install-btn" class="px-3 py-1.5 bg-accent hover:bg-accent/90 text-white text-xs font-bold rounded-lg shadow-lg shadow-accent/20 transition-transform hover:scale-105">
+        Inštalovať
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let deferredPrompt: any;
+  const toast = document.getElementById('pwa-install-toast');
+  const installBtn = document.getElementById('pwa-install-btn');
+  const closeBtn = document.getElementById('pwa-close');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    
+    // Check if user has already dismissed it recently
+    const dismissedAt = localStorage.getItem('pwa_dismissed_at');
+    if (dismissedAt) {
+      const daysSinceDismissal = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
+      if (daysSinceDismissal < 7) return; // Don't show for 7 days if dismissed
+    }
+
+    // Show the prompt after a small delay
+    setTimeout(() => {
+      toast?.classList.remove('translate-y-[200%]');
+    }, 3000);
+  });
+
+  installBtn?.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to the install prompt: ${outcome}`);
+      deferredPrompt = null;
+      toast?.classList.add('translate-y-[200%]');
+    }
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    toast?.classList.add('translate-y-[200%]');
+    localStorage.setItem('pwa_dismissed_at', Date.now().toString());
+  });
+
+  window.addEventListener('appinstalled', () => {
+    toast?.classList.add('translate-y-[200%]');
+    deferredPrompt = null;
+    console.log('PWA was installed');
+  });
+</script>
+
+

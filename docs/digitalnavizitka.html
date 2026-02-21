@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FYZIO&FIT | Jaroslav Begala</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --glass-panel: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gold-primary: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #C08805 100%);
+            --chrome-text: linear-gradient(to bottom, #ffffff 0%, #d1d5db 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+            height: 100dvh; /* Dynamic Viewport Height pre mobily */
+            width: 100vw;
+            overflow: hidden; /* Zamedzí scrollovaniu celej stránky */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- Aurora Pozadie (Animované) --- */
+        .ambient-light {
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.2) 0%, transparent 70%);
+            top: -10%; left: -10%;
+            filter: blur(60px);
+            animation: float 10s infinite ease-in-out;
+            z-index: 0;
+        }
+        .ambient-gold {
+            position: absolute;
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            bottom: -10%; right: -10%;
+            filter: blur(60px);
+            animation: float 12s infinite ease-in-out reverse;
+            z-index: 0;
+        }
+
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, 40px); } }
+
+        /* --- Hlavný Kontajner (Mobile Card) --- */
+        .app-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            max-width: 450px; /* Na desktope to bude vyzerať ako mobil */
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Cover Image (Hore) --- */
+        .cover-area {
+            height: 35%;
+            width: 100%;
+            position: relative;
+            /* Placeholder pre cover fotku - ideálne použiť reálnu fotku */
+            background: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+        
+        .cover-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2), var(--bg-dark));
+        }
+
+        /* --- Profile Section --- */
+        .profile-section {
+            margin-top: -60px; /* Vytiahne to hore do coveru */
+            text-align: center;
+            padding: 0 20px;
+            flex-grow: 1; /* Roztiahne sa aby vyplnil priestor */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gold-gradient);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bg-dark);
+            background-color: #222; /* Fallback */
+        }
+
+        /* --- Texty --- */
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0px 4px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .person-name {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-size: 14px;
+            color: var(--gold-primary);
+            opacity: 0.9;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .bio-box {
+            background: var(--glass-panel);
+            border: 1px solid var(--glass-border);
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #d1d5db;
+            max-width: 90%;
+            margin-bottom: 20px;
+        }
+
+        /* --- Grid akcií (3 tlačidlá) --- */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: auto; /* Tlačí spodné tlačidlá dole */
+        }
+
+        .icon-btn {
+            background: var(--glass-panel);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .icon-btn i { font-size: 20px; color: var(--gold-primary); }
+        .icon-btn span { font-size: 11px; font-weight: 500; opacity: 0.8; }
+        
+        .icon-btn:active { background: rgba(255,255,255,0.1); transform: scale(0.95); }
+
+        /* --- Spodné veľké tlačidlá (Sticky Bottom) --- */
+        .bottom-actions {
+            width: 100%;
+            padding: 20px 0 30px 0; /* Extra padding dole pre moderné mobily */
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-large {
+            flex: 1;
+            padding: 16px;
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn-web {
+            background: var(--glass-panel);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+        }
+        
+        .btn-save {
+            background: var(--gold-gradient);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
+            border: none;
+        }
+
+        .btn-large:active { transform: scale(0.98); }
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-light"></div>
+    <div class="ambient-gold"></div>
+
+    <main class="app-container">
+        
+        <div class="cover-area">
+            <div class="cover-overlay"></div>
+        </div>
+
+        <div class="profile-section">
+            
+            <div class="avatar-wrapper">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Profile" class="avatar">
+            </div>
+
+            <h1 class="brand-name">FYZIO&FIT</h1>
+            <h2 class="person-name">Jaroslav Begala</h2>
+            <p class="job-title">Fyzioterapeut</p>
+
+            <div class="bio-box">
+                "FYZIO&FIT - Poskytovanie masáží, fyzioterapie a chiropraxie na profesionálnej úrovni"
+            </div>
+
+            <div class="action-grid">
+                <a href="#" class="icon-btn">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="icon-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>O nás</span>
+                </a>
+                <a href="tel:+421900000000" class="icon-btn">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Zavolať</span>
+                </a>
+            </div>
+
+            <div class="bottom-actions">
+                <a href="https://chiropraxiakosice.eu" class="btn-large btn-web">
+                    <i class="fas fa-globe"></i>
+                    Web
+                </a>
+                <a href="#" class="btn-large btn-save">
+                    <i class="fas fa-user-plus"></i>
+                    Uložiť kontakt
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

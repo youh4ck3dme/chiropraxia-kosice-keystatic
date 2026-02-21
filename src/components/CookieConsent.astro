@@ -1,0 +1,78 @@
+---
+---
+
+<div id="cookie-banner" class="fixed bottom-6 left-6 z-50 transform translate-y-[200%] transition-all duration-700 ease-in-out opacity-0 pointer-events-none">
+  <div class="glass-card max-w-[320px] p-4 flex flex-col gap-4 shadow-2xl border-white/10">
+    <div class="flex-1">
+      <h3 class="text-white text-sm font-bold flex items-center gap-2 mb-1">
+        <span class="text-lg">🍪</span> Sušienky? (Cookies)
+      </h3>
+      <p class="text-[11px] text-chrome-gray leading-tight">
+        Používame ich na analýzu návštevnosti, aby sme vedeli, či naše SEO funguje. Žiadne špehovanie, len dáta o tom, koľko ľudí bolí chrbát.
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="cookie-reject" class="flex-1 px-3 py-1.5 text-[10px] text-chrome-gray hover:text-white transition-colors border border-white/5 rounded-lg">
+        Odmietnuť
+      </button>
+      <button id="cookie-accept" class="flex-1 px-3 py-1.5 bg-aurora !text-black text-[10px] font-bold rounded-lg shadow-lg shadow-aurora/20 transition-all hover:brightness-110 active:scale-95">
+        Súhlasím
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #cookie-banner.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+
+  const CONSENT_KEY = 'chiro_cookie_consent';
+
+  // Check if user has already made a choice
+  const hasConsent = localStorage.getItem(CONSENT_KEY);
+
+  if (!hasConsent) {
+    // Show banner after a small delay
+    setTimeout(() => {
+      banner?.classList.add('visible');
+    }, 1000);
+  } else if (hasConsent === 'granted') {
+    // Initialize analytics if already granted
+    enableAnalytics();
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'granted');
+    banner?.classList.remove('visible');
+    enableAnalytics();
+  });
+
+  rejectBtn?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'denied');
+    banner?.classList.remove('visible');
+  });
+
+  function enableAnalytics() {
+    // Defines the gtag function if not already defined (usually done in Layout head)
+    // and pushes the consent update.
+    // Real GA initialization happens in Layout.astro based on this or immediately if configured
+    console.log('Analytics consent granted');
+    if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'analytics_storage': 'granted'
+        });
+    }
+  }
+</script>
+
+

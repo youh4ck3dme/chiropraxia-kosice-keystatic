@@ -1,0 +1,34 @@
+{
+    "css.customData": [
+        ".vscode/tailwind.css-data.json"
+    ],
+    "css.validate": true,
+    "scss.validate": true,
+    "less.validate": true,
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "less.lint.unknownAtRules": "ignore",
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "tailwindCSS.includeLanguages": {
+        "astro": "html"
+    },
+    "files.autoSave": "off",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.markdownlint": "always"
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true,
+        "editor.wordWrap": "on"
+    },
+    "markdownlint.run": "onSave",
+    "markdownlint.fixAll": true,
+    "cSpell.ignorePaths": [
+        "**/*.md"
+    ]
+}
