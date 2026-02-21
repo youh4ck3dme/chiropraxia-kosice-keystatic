@@ -49,6 +49,23 @@ export function NewBookingFlow() {
         setShowForm(true);
     };
 
+    const isSuspended = Boolean(error && error.includes('dočasne nedostupné'));
+
+    if (isSuspended) {
+        return (
+            <div className="max-w-4xl mx-auto p-4">
+                <div className="glass-card p-8 text-center border-white/10">
+                    <p className="text-lg text-chrome mb-4">
+                        Online rezervácia je dočasne pozastavená. Kontaktujte nás telefónom alebo e-mailom.
+                    </p>
+                    <p className="text-chrome-gray text-sm">
+                        <a href="/#kontakt" className="text-aurora hover:underline">Kontakt</a>
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-4xl mx-auto p-4">
             <AnimatePresence mode="wait">

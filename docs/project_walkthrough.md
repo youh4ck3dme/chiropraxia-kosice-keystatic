@@ -12,12 +12,12 @@
 
 | Component | Purpose |
 |-----------|---------|
-| [BookingManager.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/BookingManager.tsx) | List/Calendar view, search, filtering |
-| [BookingCalendar.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/BookingCalendar.tsx) | 📅 react-big-calendar (Slovak) |
-| [StaffManager.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/StaffManager.tsx) | Full CRUD for staff |
-| [SettingsManager.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/SettingsManager.tsx) | Opening hours config |
-| [LinksManager.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/LinksManager.tsx) | External links |
-| [Skeletons.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/admin/Skeletons.tsx) | 💀 Loading skeletons |
+| [BookingManager.tsx](../src/components/admin/BookingManager.tsx) | List/Calendar view, search, filtering |
+| [BookingCalendar.tsx](../src/components/admin/BookingCalendar.tsx) | 📅 react-big-calendar (Slovak) |
+| [StaffManager.tsx](../src/components/admin/StaffManager.tsx) | Full CRUD for staff |
+| [SettingsManager.tsx](../src/components/admin/SettingsManager.tsx) | Opening hours config |
+| [LinksManager.tsx](../src/components/admin/LinksManager.tsx) | External links |
+| [Skeletons.tsx](../src/components/admin/Skeletons.tsx) | 💀 Loading skeletons |
 
 **New Features:**
 - 📅 Calendar view with react-big-calendar
@@ -28,26 +28,26 @@
 
 ### ⚡️ Phase 2: MAX Level Core & SEO
 
-- ✅ [View Transitions](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/layouts/Layout.astro) - SPA-like navigation
-- ✅ Dynamic canonical URLs in [SEO.astro](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/SEO.astro)
-- ✅ Self-hosted fonts via [@fontsource](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/styles/global.css) (no CLS)
+- ✅ [View Transitions](../src/layouts/Layout.astro) – SPA-like navigation
+- ✅ Dynamic canonical URLs in [SEO.astro](../src/components/SEO.astro)
+- ✅ Self-hosted fonts via [global.css](../src/styles/global.css) (no CLS)
 
 ---
 
 ### ✨ Phase 3: Luxury UI & Polish
 
-- ✅ 100+ lines premium CSS in [global.css](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/styles/global.css)
-- ✅ [ScrollReveal.tsx](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/components/react/ScrollReveal.tsx) - Framer Motion reveal animations
+- ✅ 100+ lines premium CSS in [global.css](../src/styles/global.css)
+- ✅ [ScrollReveal.tsx](../src/components/react/ScrollReveal.tsx) – Framer Motion reveal animations
 
 ---
 
 ### 🧪 Phase 4: Testing & Security
 
-**E2E Tests:** 12 tests in [admin.spec.ts](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/e2e/admin.spec.ts)
+**E2E Tests:** 12 tests in [admin.spec.ts](../e2e/admin.spec.ts)
 
 **Security:**
-- [rate-limit.ts](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/lib/rate-limit.ts) - Chat: 10 req/min
-- [middleware.ts](file:///Users/youh4ck3dme/Documents/chiropraxia-kosice-main/src/middleware.ts) - CSP headers
+- [rate-limit.ts](../src/lib/rate-limit.ts) – Chat: 10 req/min
+- [middleware.ts](../src/middleware.ts) – CSP headers
 
 ---
 
@@ -121,7 +121,7 @@ Implemented a comprehensive E2E test suite with **50+ new tests**, covering:
 ### 🏁 Final Status
 The project is fully refactored, tested, and optimized.
 - **Frontend:** Astro + React + Tailwind (Premium UI)
-- **Backend:** Supabase + Vercel Edge Functions
+- **Backend:** Vercel Edge Functions (Supabase momentálne pozastavený)
 - **Quality:** ~260 E2E Tests Passing
 - **AI:** Active & Integrated
 - **Design:** New Premium Logo (Patient Portal v2.0) implemented in Admin Dashboard 🎨

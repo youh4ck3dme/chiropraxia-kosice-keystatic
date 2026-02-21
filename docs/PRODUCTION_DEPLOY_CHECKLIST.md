@@ -2,6 +2,10 @@
 
 # Production Deploy Checklist
 
+> **Ak nefunguje doména https://chiropraxiakosice.eu**, pozri [DOMAIN_VERCEL.md](DOMAIN_VERCEL.md) (doména vo Vercel, DNS, SSL, projekt).
+
+> **Poznámka:** Supabase je momentálne pozastavený – rezervácie a admin z DB nie sú aktívne. Položky týkajúce sa Supabase sú voliteľné až do opätovného zapnutia (pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md)). V produkcii môžete použiť `SKIP_KEYSTATIC=true` a vypnúť CMS UI (pozri [KEYSTATIC.md](KEYSTATIC.md)).
+
 ## 1) Runtime a závislosti
 
 - [ ] Node.js `20.x` (odporúčané: `20.20.0`)
@@ -33,14 +37,10 @@
 
 ## 5) Keystatic/CMS
 
-- [ ] Cesta `/keystatic` dostupná
-- [ ] GitHub auth flow funkčný (ak používaš GitHub storage)
+- [ ] Cesta `/keystatic` dostupná na https://chiropraxiakosice.eu/keystatic
+- [ ] GitHub App „Keystatic Chiropraxia Kosice“ (slug `keystatic-chiropraxia-kosice`) – Callback URL: `https://chiropraxiakosice.eu/api/keystatic/github/oauth/callback`
+- [ ] Vo Vercel: `SITE_URL`, `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, voliteľne `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=keystatic-chiropraxia-kosice` – **presný návod:** [VERCEL_KEYSTATIC_AUDIT.md](VERCEL_KEYSTATIC_AUDIT.md)
 - [ ] Kolekcie `digital-cards` a `testimonials` majú aspoň 1 záznam
-- [ ] `KEYSTATIC_GITHUB_CLIENT_ID` vyplnené
-- [ ] `KEYSTATIC_GITHUB_CLIENT_SECRET` vyplnené
-- [ ] `KEYSTATIC_SECRET` (min. 32 znakov)
-- [ ] Callback URL (prod): `https://chiropraxiakosice.eu/api/keystatic/github/oauth/callback`
-- [ ] Callback URL (local): `http://localhost:4322/api/keystatic/github/oauth/callback`
 
 ## 6) SEO/obsah
 

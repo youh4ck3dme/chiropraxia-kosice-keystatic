@@ -46,7 +46,7 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     font-optical-sizing: auto;
-    font-size: 125%; /* Increased base size for mobile (+~4px from 16px base) */
+    font-size: 90%; /* cca 14.4px; celá appka ešte o ~10% menšia (rem) */
   }
 
   body {

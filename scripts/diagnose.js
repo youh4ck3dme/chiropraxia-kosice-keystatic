@@ -125,10 +125,7 @@ for (const d of contentDirs) {
 
 // --- 5. Známé problémy ---
 section('5. Známé problémy');
-const apiOg = path.join(ROOT, 'src', 'pages', 'api', 'og.tsx');
-if (fs.existsSync(apiOg)) {
-  log('warn', 'src/pages/api/og.tsx – Astro nepodporuje .tsx v api. Pridajte podčiarknutník _og.tsx na ignorovanie.');
-}
+// Note: API route is og.ts; no need to warn about og.tsx unless it is re-introduced.
 
 const envExample = path.join(ROOT, '.env.example');
 const env = path.join(ROOT, '.env');

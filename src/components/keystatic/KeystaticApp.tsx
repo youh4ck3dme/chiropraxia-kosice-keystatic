@@ -7,7 +7,7 @@ export default function KeystaticApp() {
       config={config as any} 
       appSlug={{
         envName: 'PUBLIC_KEYSTATIC_GITHUB_APP_SLUG',
-        value: 'keystatic-cms-chiropraxia'
+        value: 'keystatic-chiropraxia-kosice'
       }}
     />
   );

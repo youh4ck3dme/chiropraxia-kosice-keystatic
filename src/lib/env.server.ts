@@ -5,9 +5,9 @@ import { z } from 'zod';
  * Ensures all required secrets are present and correctly formatted.
  */
 const EnvSchema = z.object({
-    // Supabase
-    PUBLIC_SUPABASE_URL: z.string().url(),
-    PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+    // Supabase (optional when Supabase is suspended)
+    PUBLIC_SUPABASE_URL: z.string().url().optional(),
+    PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
 
     // Notifications
     RESEND_API_KEY: z.string().min(1),

@@ -308,13 +308,18 @@ export function AdminDashboard() {
     cancelled: bookings.filter(b => b.status === 'cancelled').length,
   };
 
-  // Login Screen
+  // Login Screen (when Supabase suspended, session is always null)
   if (!session) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <Logo className="w-64 h-auto mx-auto text-white" />
+          </div>
+
+          <div className="glass-card shadow-3d p-6 sm:p-8 mb-6 text-center">
+            <p className="text-chrome mb-2">Admin je dočasne nedostupný.</p>
+            <p className="text-chrome-gray text-sm">Rezervácie, personál a nastavenia z databázy nie sú aktívne.</p>
           </div>
 
           <div className="glass-card shadow-3d p-6 sm:p-8">

@@ -1,57 +1,50 @@
-# 🚀 Poznámky pred spustením do produkcie (Checklist)
+# Poznámky pred spustením do produkcie
 
-Tento dokument slúži ako finálna kontrola pred tým, než web vypustíte do sveta.
+Tento dokument slúži ako finálna kontrola pred nasadením. Pre kompletný zoznam úloh pozri **[PRODUCTION_DEPLOY_CHECKLIST.md](PRODUCTION_DEPLOY_CHECKLIST.md)**. Všetky citlivé údaje sa nastavujú v **Environment Variables** vo Verceli (alebo v lokálnom `.env`); pozri **[.env.example](../.env.example)** v root projektu.
 
-## 1. Vercel - Nastavenie Premenných (Environment Variables)
-Aby web fungoval na Verceli rovnako ako u vás, musíte v **Settings -> Environment Variables** pridať tieto kľúče.
-*Hodnoty nájdete vo vašom lokálnom `.env` súbore.*
-
-### 🛠 Supabase (Databáza)
-Bez týchto nebude fungovať načítanie služieb ani rezervácie.
-- **`PUBLIC_SUPABASE_URL`**: `https://ftmdpkibpxvdjxgkzkqk.supabase.co`
-- **`PUBLIC_SUPABASE_ANON_KEY`**: *(Váš dlhý kľúč začínajúci na eyJh...)*
-
-### 📧 Resend (Primárne odosielanie emailov)
-Používa sa pre kontaktný formulár, rezervácie a notifikácie o newsletteri.
-- **`RESEND_API_KEY`**: *(Váš kľúč z resend.com)*
-
-### 📧 SMTP (Staršie/Záložné odosielanie)
-Používa sa len ako fallback v niektorých častiach alebo ak Resend nie je k dispozícii.
-- **`SMTP_HOST`**: `smtp.m1.websupport.sk`
-- **`SMTP_PORT`**: `465`
-- **`SMTP_SECURE`**: `true`
-- **`SMTP_USER`**: `info@chiropraxiakosice.eu`
-- **`SMTP_PASSWORD`**: *(Vaše heslo k schránke)*
+> **Aktuálny stav:** Supabase je v projekte momentálne pozastavený. Rezervácie a admin z databázy nie sú aktívne. Blog je plne statický (Astro content collections). Pri zapnutí Supabase pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
 
 ---
 
-## 2. Supabase - Na čo dať pozor
-- **Table Editor**: Tu môžete ručne mazať testovacie rezervácie, ktoré sme vytvorili.
-- **Authentication**: V sekcii *Authentication -> URL Configuration* skontrolujte "Site URL".
-    - Pre Vercel by tam malo byť: `https://vas-projekt.vercel.app` (alebo vaša doména `chiropraxiakosice.eu`).
-    - Ak to nenastavíte, niektoré presmerovania (napr. pri zmene hesla) nemusia fungovať.
+## 1. Vercel – Environment Variables
+
+V **Settings → Environment Variables** nastavte premenné podľa `.env.example`:
+
+- **`SITE_URL`** – produkčná URL (napr. `https://chiropraxiakosice.eu`). Lokálne: `http://localhost:4322`.
+- **`RESEND_API_KEY`** – kľúč z Resend (odosielanie emailov).
+- **`RESEND_FROM_EMAIL`** – odosielateľská adresa (overená v Resend).
+- **Supabase** (voliteľné, keď budete databázu zapínať): `PUBLIC_SUPABASE_URL`, `PUBLIC_SUPABASE_ANON_KEY` – pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
+- **Twilio / SMS** (voliteľné): `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER`; pri pozastavenom Supabase zapínate SMS cez `SMS_ENABLED=true`.
+- **Keystatic**: `KEYSTATIC_STORAGE`, `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`. Voliteľne `SKIP_KEYSTATIC=true` v produkcii (pozri [KEYSTATIC.md](KEYSTATIC.md)).
+- **Ostatné**: `JWT_SECRET` (min. 16 znakov), `GOOGLE_GENERATIVE_AI_API_KEY` ak používate AI chat.
+
+Žiadne heslá ani API kľúče neukladajte do repozitára – len do `.env` / Vercel.
 
 ---
 
-## 3. WebSupport (DNS)
-Ak nasadzujete na Vercel, ale doménu máte na WebSupporte:
-1.  Vo Verceli pridajte doménu `chiropraxiakosice.eu`.
-2.  Vercel vám dá **A Record** (IP adresu) alebo **CNAME**.
-3.  V administrácii WebSupportu (DNS záznamy) zmeňte A záznam tak, aby smeroval na Vercel.
-4.  **POZOR:** Nemeňte `MX` záznamy (tie zabezpečujú emaily). Tie musia ostať na WebSupporte, aby vám fungovala schránka `info@...`.
+## 2. Supabase (ak ho neskôr zapnete)
+
+- **Site URL** v Supabase Authentication: nastaviť na vašu produkčnú doménu (napr. `https://chiropraxiakosice.eu`), aby presmerovania (auth callback) fungovali.
+- Schéma sa aplikuje cez migrácie v `supabase/migrations/` – pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
 
 ---
 
-## 4. GitHub & Bezpečnosť 🔒
-**Otázka:** *Môžem už repo zatvoriť a dať privatne?*
-**Odpoveď:** **ÁNO.**
+## 3. DNS (WebSupport / Vercel)
 
-Váš súbor `.gitignore` je nastavený správne. Obsahuje:
-```gitignore
-.env
-.env.*
-supabase/config.toml
-```
-To znamená, že **žiadne heslá, API kľúče ani citlivé údaje sa nenahrali na GitHub**. Sú len u vás v počítači (v súbore `.env`) a budú vo Verceli (v Environment Variables).
+Ak nasadzujete na Vercel a doménu máte inde (napr. WebSupport):
 
-Repozitár na GitHube obsahuje len "čistý kód". Môžete ho pokojne prepnúť na **Private** v nastaveniach GitHubu (Settings -> Danger Zone -> Change visibility), aby k nemu nikto iný nemal prístup.
+1. Vo Verceli pridajte doménu (napr. `chiropraxiakosice.eu`).
+2. Vercel zobrazí **A** alebo **CNAME** záznam.
+3. V DNS nastavte tento záznam smerovať na Vercel.
+4. **Neměňte MX záznamy** – potrebujete ich pre emailovú schránku (napr. `info@...`).
+
+---
+
+## 4. Bezpečnosť
+
+- `.gitignore` vylučuje `.env` a citlivé súbory – do repozitára sa nedostanú heslá ani kľúče.
+- Repozitár môžete mať súkromný (Private); nasadenie beží cez Vercel a env premenné v ich dashboarde.
+
+---
+
+Pre presný zoznam checkboxov a smoke testov po nasadení použite **[PRODUCTION_DEPLOY_CHECKLIST.md](PRODUCTION_DEPLOY_CHECKLIST.md)**.

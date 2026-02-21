@@ -1,8 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+const baseUrl = process.env.SITE_URL || 'http://localhost:4322';
+
 async function triggerEmail() {
     console.log('🚀 Triggering Live Email API Endpoint...');
     
     try {
-        const response = await fetch('http://localhost:4321/api/send-email', {
+        const response = await fetch(`${baseUrl}/api/send-email`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

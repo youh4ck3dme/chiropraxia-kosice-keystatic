@@ -1,24 +1,26 @@
-# Admin Credentials
+# Admin – prístup a služby
 
-## Superuser Account
-
-- **Email:** info@chiropraxiakosice.eu
-- **Password:** admin123
-
-> Tento účet sa používa pre prístup do admin panelu na `/admin`
+> **Bezpečnosť:** Citlivé údaje (heslá, API kľúče) sa neukladajú v repozitári. Nastavte ich v **Environment Variables** vo Verceli alebo v lokálnom **`.env`** (pozri `.env.example` v root projektu).
 
 ---
 
-## Resend Email API
+## Admin panel (`/admin`)
 
-- **API Key:** re_SvaaBXaP_DNNh488ZJboffdiC86k6QXya
-- **From Email:** info@chiropraxiakosice.eu
-
-> Používa sa pre odosielanie notifikácií a potvrdzovacích emailov
+- **Prístup:** Stránka `/admin` vyžaduje prihlásenie (Supabase Auth). Keď je Supabase pozastavený, admin je dočasne nedostupný – pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
+- **Účet:** Email a heslo sa nastavujú pri vytvorení používateľa v Supabase Authentication (alebo v lokálnom `.env` pri vývoji). Do dokumentácie neuvádzajte skutočné heslá.
 
 ---
 
-## Supabase Database
+## Resend (email)
 
-- **Console:** [https://supabase.com/dashboard/project/ftmdpkibpxvdjxgkzkqk](https://supabase.com/dashboard/project/ftmdpkibpxvdjxgkzkqk)
-- **Tables:** bookings, services, staff, availability
+- **API Key:** Nastaviť v premennej `RESEND_API_KEY` (hodnotu z Resend dashboard).
+- **From Email:** Premenná `RESEND_FROM_EMAIL` – overená adresa v Resend.
+
+Používa sa na notifikácie a potvrdzovacie emaily.
+
+---
+
+## Supabase (databáza)
+
+- **Stav:** Supabase je v projekte momentálne pozastavený. Pri opätovnom zapnutí: Project URL a anon kľúč nastavte v `PUBLIC_SUPABASE_URL` a `PUBLIC_SUPABASE_ANON_KEY` (pozri [SUPABASE_SETUP.md](SUPABASE_SETUP.md)).
+- **Konzola:** Váš projekt nájdete na [Supabase Dashboard](https://supabase.com/dashboard); tabuľky: bookings, services, staff, availability, settings.

@@ -176,6 +176,14 @@ function BookingWidgetContent(): React.ReactElement {
   const renderStep = () => {
     switch (step) {
       case 'service':
+        if (services.length === 0 && !isLoading) {
+          return (
+            <div className="text-center py-8">
+              <p className="text-chrome mb-2">Online rezervácia je dočasne pozastavená.</p>
+              <p className="text-chrome-gray text-sm">Kontaktujte nás telefónom alebo e-mailom.</p>
+            </div>
+          );
+        }
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">

@@ -33,6 +33,9 @@ supabase/.temp
 .DS_Store
 Thumbs.db
 
+# Diagnose / reports
+.diagnose/
+
 # Debug
 debug-*.log
 npm-debug.log*
@@ -44,3 +47,4 @@ dev-dist/
 docs/gem-apkey.md
 dev_log.txt
 .env*.local
+.vercel

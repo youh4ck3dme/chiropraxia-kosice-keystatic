@@ -30,10 +30,14 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
 
-  integrations: [mdx(), react(), keystatic(),
-  sitemap(),
-  sentry(),
-  spotlightjs()
+  // Omit Keystatic routes in production by setting SKIP_KEYSTATIC=true (e.g. in Vercel env)
+  integrations: [
+    mdx(),
+    react(),
+    ...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
+    sitemap(),
+    sentry(),
+    spotlightjs(),
   ],
 
   server: {

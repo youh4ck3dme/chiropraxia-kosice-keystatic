@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+// Skip when Supabase is suspended (stub auth never logs in)
+const skipIfSupabaseSuspended = !process.env.PUBLIC_SUPABASE_URL;
+
 test.describe('Admin Dashboard', () => {
-    
+    test.skip(skipIfSupabaseSuspended, 'Supabase suspended – admin uses stub auth');
+
     // Mock Supabase Auth & Data
     test.beforeEach(async ({ page }) => {
         // Bypass cookie consent
