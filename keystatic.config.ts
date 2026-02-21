@@ -8,7 +8,7 @@ export default config({
     ? { kind: 'local' }
     : {
       kind: 'github',
-      repo: 'youh4ck3dme/chiropraxia-kosice',
+      repo: 'youh4ck3dme/chiropraxia-kosice-keystatic',
     },
 
   singletons: {
