@@ -35,6 +35,15 @@ Po pridaní domény Vercel automaticky vystaví certifikát. Stav uvidíte v **S
 - Overte, že **Git** repozitár napojený na projekt je **youh4ck3dme/chiropraxia-kosice-keystatic** (alebo ten, z ktorého deployujete).
 - Overte, že **Production Branch** je `main` (Settings → Git).
 
+## 6. Chyba 404 DEPLOYMENT_NOT_FOUND
+
+Ak Vercel vráti **404 DEPLOYMENT_NOT_FOUND**, znamená to, že URL smeruje na deployment, ktorý neexistuje alebo bol vymazaný. Žiadna zmena v kóde nie je potrebná.
+
+**Skontrolujte:**
+- **Deployments**: Musí existovať aspoň jeden deployment so stavom **Ready** a typom **Production**. Ak nie, spustite nový deploy (push na `main` alebo v Deployments kliknite **Redeploy** na posledný commit).
+- **Domains**: Overte, že `chiropraxiakosice.eu` a `www.chiropraxiakosice.eu` sú priradené k **tomuto** projektu (ten s repo `chiropraxia-kosice-keystatic`). Ak je doména na inom projekte, odstráňte ju tam a pridajte sem.
+- Nepoužívajte staré **Preview URL** z e-mailov – tie deploymenty môžu byť vymazané. Používajte len production doménu.
+
 ---
 
 **Rýchly test:** Ak **Vercel Preview URL** (napr. `projekt.vercel.app` alebo `projekt-xxx.vercel.app`) funguje, ale vlastná doména nie, problém je takmer určite v krokoch 1 alebo 2 (doména/DNS vo Vercel a u registrátora).
