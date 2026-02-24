@@ -2,6 +2,8 @@
 
 Prehľad dokumentov v `docs/`.
 
+**Jedno miesto pre sync/recovery nastavenia:** [**IDEAL_SETUP_CHECKPOINT.md**](IDEAL_SETUP_CHECKPOINT.md) – GitHub, Vercel, env, doména, lokálne prostredie a rýchle príkazy. Pri poruche alebo novom klone začni tu.
+
 ---
 
 ## Prvý beh / Lokálne nastavenie
