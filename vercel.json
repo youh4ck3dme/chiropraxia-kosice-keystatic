@@ -1,0 +1,15 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.chiropraxiakosice.eu" }],
+      "destination": "https://chiropraxiakosice.eu/$1",
+      "permanent": true
+    }
+  ]
+}
