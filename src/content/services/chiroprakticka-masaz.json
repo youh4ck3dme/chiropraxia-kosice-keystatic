@@ -1,0 +1,9 @@
+{
+  "slug": "chiroprakticka-masaz",
+  "name": "Chiropraktická masáž",
+  "description": "Kombinácia chiropraxie, klasickej masáže, mobilizácie, bankovania a masážnej pištole pre komplexnú úľavu.",
+  "duration_min": 50,
+  "price": 55,
+  "sort_order": 1,
+  "isActive": true
+}

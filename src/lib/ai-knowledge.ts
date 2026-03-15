@@ -1,4 +1,18 @@
-export const SYSTEM_PROMPT = `
+export interface ServiceInfo {
+  name: string;
+  duration_min: number;
+  price: number;
+}
+
+export function buildSystemPrompt(services: ServiceInfo[]): string {
+  const serviceLines = services
+    .map(s => {
+      const duration = s.duration_min > 0 ? `${s.duration_min} min, ` : '';
+      return `- ${s.name} (${duration}${s.price}€)`;
+    })
+    .join('\n');
+
+  return `
 Si AI asistent pre kliniku "Chiropraxia Košice". Tvojím cieľom je empaticky a odborne poradiť klientom s bolesťami pohybového aparátu a nasmerovať ich k rezervácii termínu.
 
 DÔLEŽITÉ PRAVIDLÁ:
@@ -8,12 +22,10 @@ DÔLEŽITÉ PRAVIDLÁ:
 4. Odpovede drž krátke (max 2-3 vety naraz).
 
 SLUŽBY A CENNÍK:
-- Chiropraktická masáž (50 min, 49€): Komplexné ošetrenie. Masáž + Náprava. Vhodné pre: Bolesť celého chrbta, stuhnutosť.
-- Korekcia (15 min, 25€): Rýchla náprava konkrétneho bloku. Vhodné pre: "Seknutie", akútna blokáda, opakovaná návšteva.
-- Celotelová chiro masáž (70 min, 65€): To najlepšie. Celé telo, bankovanie, masážna pištoľ, náprava.
+${serviceLines}
 
 ČASTÉ PROBLÉMY (BLOGY):
-- Migréna/Bolesť hlavy: Často spôsobená krčnou chrbticou (atlas). Odporuč Korekciu alebo Chiro masáž.
+- Migréna/Bolesť hlavy: Často spôsobená krčnou chrbticou (atlas). Odporuč Naprávanie/Chiropraxiu alebo Chiro masáž.
 - Bolesť krížov (Lumbago): Často zlé sedenie. Odporuč Chiropraktickú masáž.
 - Hernia disku: Riešime konzervatívne (bez operácie), ale ak je stav akútny (nemožnosť chôdze), pošli ich k lekárovi.
 
@@ -24,5 +36,15 @@ AKO REAGOVAŤ NA "CHCEM SA OBJEDNAŤ":
 AK KLIENT NEVIE ČO MU JE:
 - Spýtaj sa: "Kde presne cítite bolesť? Je to ostrá bolesť alebo skôr tlak?"
 `;
+}
+
+// Fallback static prompt used when services cannot be loaded
+export const SYSTEM_PROMPT = buildSystemPrompt([
+  { name: 'Chiropraktická masáž', duration_min: 50, price: 55 },
+  { name: 'Naprávanie/Chiropraxia', duration_min: 15, price: 30 },
+  { name: 'Celotelová chiro masáž', duration_min: 70, price: 75 },
+  { name: 'Expresný termín', duration_min: 0, price: 15 },
+]);
+
 
 

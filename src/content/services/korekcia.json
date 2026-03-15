@@ -1,0 +1,9 @@
+{
+  "slug": "korekcia",
+  "name": "Naprávanie/Chiropraxia",
+  "description": "Rýchle chiropraktické ošetrenie zamerané na nápravu, doplnené o masážnu pištoľ a klasickú masáž.",
+  "duration_min": 15,
+  "price": 30,
+  "sort_order": 2,
+  "isActive": true
+}

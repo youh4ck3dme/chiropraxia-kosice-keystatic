@@ -2,6 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import { BookingWidget } from '../components/react/BookingWidget';
 import FyzioFitBanner from '../components/FyzioFitBanner.astro';
+import { getCollection } from 'astro:content';
+
+const rawServices = await getCollection('services');
+const initialServices = rawServices
+  .filter(s => s.data.isActive)
+  .sort((a, b) => a.data.sort_order - b.data.sort_order)
+  .map(s => ({
+    id: s.id,
+    name: s.data.name,
+    description: s.data.description,
+    duration_min: s.data.duration_min,
+    buffer_time_min: 10,
+    price: s.data.price,
+    sort_order: s.data.sort_order,
+  }));
 
 const faqs = [
   {
@@ -166,7 +181,7 @@ const rating = { value: 4.9, count: 520 };
         </p>
       </div>
       
-      <BookingWidget client:visible />
+      <BookingWidget client:visible initialServices={initialServices} />
     </div>
   </section>
 

@@ -314,5 +314,48 @@ export default config({
         }),
       },
     }),
+
+    // Services & Pricing Collection
+    services: collection({
+      label: 'Služby a cenník',
+      slugField: 'slug',
+      path: 'src/content/services/*',
+      format: { data: 'json' },
+      schema: {
+        slug: fields.slug({
+          name: { label: 'Identifikátor (URL)' },
+          description: 'Automaticky generovaný z názvu. Nemeň bez nutnosti.',
+        }),
+        name: fields.text({
+          label: 'Názov služby',
+          validation: { isRequired: true },
+        }),
+        description: fields.text({
+          label: 'Popis služby',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        duration_min: fields.integer({
+          label: 'Trvanie (minúty)',
+          defaultValue: 30,
+          validation: { min: 0 },
+          description: 'Zadaj 0 pre príplatky bez časového trvania.',
+        }),
+        price: fields.number({
+          label: 'Cena (€)',
+          validation: { isRequired: true, min: 0 },
+        }),
+        sort_order: fields.integer({
+          label: 'Poradie zobrazenia',
+          defaultValue: 0,
+          validation: { min: 0 },
+          description: 'Nižšie číslo = zobrazí sa skôr.',
+        }),
+        isActive: fields.checkbox({
+          label: 'Aktívna služba (zobraziť na webe)',
+          defaultValue: true,
+        }),
+      },
+    }),
   },
 });
