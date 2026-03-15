@@ -16,22 +16,22 @@ type BookingStep = 'service' | 'datetime' | 'details' | 'confirm' | 'success';
  * Full booking flow with glassmorphism design and 3D tilt effects.
  * Handles service selection, date picking, and booking submission via secure API.
  */
-export function BookingWidget(): React.ReactElement {
+export function BookingWidget({ initialServices }: { initialServices?: Service[] }): React.ReactElement {
   return (
     <ErrorBoundary componentName="BookingWidget">
-      <BookingWidgetContent />
+      <BookingWidgetContent initialServices={initialServices} />
     </ErrorBoundary>
   );
 }
 
-function BookingWidgetContent(): React.ReactElement {
+function BookingWidgetContent({ initialServices }: { initialServices?: Service[] }): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // State
   const [step, setStep] = useState<BookingStep>('service');
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<Service[]>(initialServices ?? []);
   const [slots, setSlots] = useState<AvailableSlot[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!initialServices);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -69,6 +69,11 @@ function BookingWidgetContent(): React.ReactElement {
 
   useEffect(() => {
     async function loadData() {
+      // Skip fetching if services were provided as props
+      if (initialServices && initialServices.length > 0) {
+        setIsLoading(false);
+        return;
+      }
       try {
         const servicesData = await getServices();
         setServices(servicesData);

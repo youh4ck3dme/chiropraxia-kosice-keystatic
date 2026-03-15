@@ -13,10 +13,20 @@ vi.mock('./ServiceCard', () => ({
   ),
 }));
 
+// Mock fetch globally so the booking submission doesn't throw
+const mockFetch = vi.fn();
+
 describe('BookingWidget', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
+    // Provide a default successful fetch response for /api/book
+    global.fetch = mockFetch;
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ id: 'booking-123' }),
+    });
+
     // Setup default mock data
     vi.mocked(supabase.getServices).mockResolvedValue([
       { 
@@ -46,6 +56,33 @@ describe('BookingWidget', () => {
     });
   });
 
+  it('shows services from initialServices prop without calling getServices', async () => {
+    const initialServices = [
+      {
+        id: 'cms-1',
+        name: 'CMS Služba',
+        description: 'Popis zo CMS',
+        duration_min: 50,
+        buffer_time_min: 10,
+        price: 55,
+        sort_order: 1,
+      },
+    ];
+
+    render(<BookingWidget initialServices={initialServices} />);
+
+    // No loading skeleton should appear — services are provided synchronously via props
+    expect(screen.queryByText(/načítavam/i)).toBeNull();
+
+    // Service from CMS should appear immediately
+    await waitFor(() => {
+      expect(screen.getByText('CMS Služba')).toBeDefined();
+    });
+
+    // getServices must NOT have been called because props were provided
+    expect(supabase.getServices).not.toHaveBeenCalled();
+  });
+
   it('flows through booking steps', async () => {
     render(<BookingWidget />);
     
@@ -57,11 +94,11 @@ describe('BookingWidget', () => {
     // We expect to see "Vyberte termín"
     await waitFor(() => expect(screen.getByText('Vyberte termín')).toBeDefined());
     
-    // Select a date (first available button in the list)
-    const dateButtons = screen.getAllByRole('button');
-    // Filter for date buttons (usually short weekday names)
-    const firstDate = dateButtons.find(b => b.className.includes('flex-shrink-0'));
-    if (firstDate) fireEvent.click(firstDate);
+    // Select a date — date buttons carry the Tailwind class 'shrink-0'
+    const allButtons = screen.getAllByRole('button');
+    const firstDateButton = allButtons.find(b => b.className.includes('shrink-0'));
+    expect(firstDateButton).toBeDefined();
+    fireEvent.click(firstDateButton!);
     
     // 3. Select Time
     await waitFor(() => expect(screen.getByText('10:00')).toBeDefined());
@@ -81,19 +118,6 @@ describe('BookingWidget', () => {
     fireEvent.click(screen.getByText('Potvrdiť rezerváciu'));
     
     // 6. Success
-    // Mock the success response
-    vi.mocked(supabase.createBooking).mockResolvedValue('booking-123');
-    
-    // Check if we are in submitting state or ready to submit
-    await waitFor(() => screen.getByRole('button', { name: /Potvrdiť rezerváciu|Spracovávam/ }));
-    
-    // Ensure we are clicking "Confirm" not "Processing" (if test is fast enough)
-    // If it's already "Processing", then click happened previous step which is wrong logic in test flow
-    // The previous click was to "Pokračovať" (which is step 4->5). Now we are at step 5.
-    
-    const confirmBtn = screen.getByText('Potvrdiť rezerváciu');
-    fireEvent.click(confirmBtn);
-    
     await waitFor(() => expect(screen.getByText('Rezervácia úspešná!')).toBeDefined());
   });
 });

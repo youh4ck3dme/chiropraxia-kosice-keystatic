@@ -1,7 +1,8 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { SYSTEM_PROMPT } from '../../lib/ai-knowledge';
+import { buildSystemPrompt, SYSTEM_PROMPT } from '../../lib/ai-knowledge';
 import { rateLimit, rateLimitConfigs, getClientId, rateLimitResponse } from '../../lib/rate-limit';
+import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
@@ -39,13 +40,32 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    // Build system prompt dynamically from CMS services
+    let systemPrompt = SYSTEM_PROMPT;
+    try {
+      const servicesEntries = await getCollection('services');
+      const activeServices = servicesEntries
+        .filter(s => s.data.isActive)
+        .sort((a, b) => a.data.sort_order - b.data.sort_order)
+        .map(s => ({
+          name: s.data.name,
+          duration_min: s.data.duration_min,
+          price: s.data.price,
+        }));
+      if (activeServices.length > 0) {
+        systemPrompt = buildSystemPrompt(activeServices);
+      }
+    } catch {
+      // If collection fails to load, fall back to static prompt
+    }
+
     const google = createGoogleGenerativeAI({
       apiKey: apiKey,
     });
 
     const result = streamText({
       model: google('models/gemini-2.0-flash'),
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages,
     });
 

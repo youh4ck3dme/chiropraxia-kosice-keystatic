@@ -1,37 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { ServiceCard } from '../components/react/ServiceCard';
+import { getCollection } from 'astro:content';
 
-const services = [
-  {
-    id: '1',
-    name: 'Chiropraktická masáž',
-    description: 'Kombinácia chiropraxie, klasickej masáže, mobilizácie, bankovania a masážnej pištole pre komplexnú úľavu.',
-    duration_min: 50,
-    price: 49,
-  },
-  {
-    id: '2',
-    name: 'Korekcia',
-    description: 'Rýchle chiropraktické ošetrenie zamerané na nápravu, doplnené o masážnu pištoľ a klasickú masáž.',
-    duration_min: 15,
-    price: 25,
-  },
-  {
-    id: '3',
-    name: 'Celotelová chiro masáž',
-    description: 'Dôkladná celotelová procedúra zahŕňajúca klasickú masáž, bankovanie, mobilizáciu a chiropraxiu.',
-    duration_min: 70,
-    price: 65,
-  },
-  {
-    id: '4',
-    name: 'Expresný termín',
-    description: 'Príplatok k cene služby za termín do 2 pracovných dní alebo víkendové termíny.',
-    duration_min: 0,
-    price: 10,
-  },
-];
+const rawServices = await getCollection('services');
+const services = rawServices
+  .filter(s => s.data.isActive)
+  .sort((a, b) => a.data.sort_order - b.data.sort_order)
+  .map(s => ({
+    id: s.id,
+    name: s.data.name,
+    description: s.data.description,
+    duration_min: s.data.duration_min,
+    price: s.data.price,
+  }));
 
 const faqs = [
   {
