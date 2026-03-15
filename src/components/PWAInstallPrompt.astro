@@ -1,26 +1,51 @@
 ---
+
 ---
 
-<div id="pwa-install-toast" class="fixed bottom-4 left-4 z-[9999] translate-y-[200%] transition-transform duration-500 will-change-transform">
-  <div class="glass-card p-4 rounded-xl shadow-2xl flex items-center gap-4 max-w-sm border border-white/10 bg-[#1a1a1a]/90 backdrop-blur-xl">
+<div
+  id="pwa-install-toast"
+  class="fixed bottom-4 left-4 z-[9999] translate-y-[200%] transition-transform duration-500 will-change-transform"
+>
+  <div
+    class="glass-card flex max-w-sm items-center gap-4 rounded-xl border border-white/10 bg-[#1a1a1a]/90 p-4 shadow-2xl backdrop-blur-xl"
+  >
     <!-- App Icon -->
     <div class="relative shrink-0">
-      <div class="absolute inset-0 bg-accent blur-md opacity-50 rounded-lg animate-pulse"></div>
-      <img src="/icons/icon-192.png" alt="App Icon" class="w-12 h-12 rounded-lg relative z-10 shadow-lg" />
+      <div class="bg-accent absolute inset-0 animate-pulse rounded-lg opacity-50 blur-md"></div>
+      <img
+        src="/icons/icon-192.png"
+        alt="App Icon"
+        class="relative z-10 h-12 w-12 rounded-lg shadow-lg"
+      />
     </div>
-    
-    <div class="flex-1 min-w-0">
-      <h3 class="font-bold text-white text-sm leading-tight">Nainštalovať aplikáciu</h3>
-      <p class="text-xs text-gray-400 mt-0.5 truncate">
-        Pre rýchlejší prístup a offline režim.
-      </p>
+
+    <div class="min-w-0 flex-1">
+      <h3 class="text-sm leading-tight font-bold text-white">Nainštalovať aplikáciu</h3>
+      <p class="mt-0.5 truncate text-xs text-gray-400">Pre rýchlejší prístup a offline režim.</p>
     </div>
-    
+
     <div class="flex items-center gap-2">
-      <button id="pwa-close" class="p-2 text-gray-400 hover:text-white transition-colors" aria-label="Zatvoriť">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
+      <button
+        id="pwa-close"
+        class="p-2 text-gray-400 transition-colors hover:text-white"
+        aria-label="Zatvoriť"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 18 12"></path></svg
+        >
       </button>
-      <button id="pwa-install-btn" class="px-3 py-1.5 bg-accent hover:bg-accent/90 text-white text-xs font-bold rounded-lg shadow-lg shadow-accent/20 transition-transform hover:scale-105">
+      <button
+        id="pwa-install-btn"
+        class="bg-accent hover:bg-accent/90 shadow-accent/20 rounded-lg px-3 py-1.5 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105"
+      >
         Inštalovať
       </button>
     </div>
@@ -38,7 +63,7 @@
     e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
-    
+
     // Check if user has already dismissed it recently
     const dismissedAt = localStorage.getItem('pwa_dismissed_at');
     if (dismissedAt) {
@@ -73,5 +98,3 @@
     console.log('PWA was installed');
   });
 </script>
-
-

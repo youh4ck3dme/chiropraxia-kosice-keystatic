@@ -82,10 +82,13 @@ const astroConfig = path.join(ROOT, 'astro.config.mjs');
 if (fs.existsSync(astroConfig)) {
   log('ok', 'astro.config.mjs existuje');
   const astroContent = fs.readFileSync(astroConfig, 'utf-8');
-  if (astroContent.includes("define:") && astroContent.includes("process.env")) {
+  if (astroContent.includes('define:') && astroContent.includes('process.env')) {
     log('ok', 'Vite define (process polyfill) pre Keystatic je nastavený');
-  } else if (astroContent.includes('process.env') && !astroContent.includes("define:")) {
-    log('warn', 'astro.config používa process.env bez Vite define – môže spôsobiť chybu v prehliadači');
+  } else if (astroContent.includes('process.env') && !astroContent.includes('define:')) {
+    log(
+      'warn',
+      'astro.config používa process.env bez Vite define – môže spôsobiť chybu v prehliadači'
+    );
   }
 } else {
   log('err', 'astro.config.mjs chýba');
@@ -96,7 +99,10 @@ if (fs.existsSync(keystaticConfig)) {
   log('ok', 'keystatic.config.ts existuje');
   const kc = fs.readFileSync(keystaticConfig, 'utf-8');
   if (kc.includes('process.env')) {
-    log('err', 'keystatic.config.ts používa process.env – spôsobuje "process is not defined" v prehliadači');
+    log(
+      'err',
+      'keystatic.config.ts používa process.env – spôsobuje "process is not defined" v prehliadači'
+    );
   } else if (kc.includes('import.meta.env')) {
     log('ok', 'keystatic.config.ts používa import.meta.env (správne)');
   }

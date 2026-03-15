@@ -48,7 +48,7 @@ export interface StaffInput {
   photo_url?: string;
 }
 
-const emptyPromise = <T>(value: T): Promise<{ data: T; error: null }> =>
+const _emptyPromise = <T>(value: T): Promise<{ data: T; error: null }> =>
   Promise.resolve({ data: value, error: null });
 
 const emptyResult = { data: [], error: null };
@@ -71,9 +71,14 @@ const authStub = {
     callback(null);
     return { data: { subscription: { unsubscribe: () => {} } } };
   },
-  signInWithPassword: () => Promise.resolve({ data: { user: null, session: null }, error: { message: 'Auth je dočasne nedostupný.' } }),
+  signInWithPassword: () =>
+    Promise.resolve({
+      data: { user: null, session: null },
+      error: { message: 'Auth je dočasne nedostupný.' },
+    }),
   signOut: () => Promise.resolve({ error: null }),
-  exchangeCodeForSession: () => Promise.resolve({ data: null, error: { message: 'Auth je dočasne nedostupný.' } }),
+  exchangeCodeForSession: () =>
+    Promise.resolve({ data: null, error: { message: 'Auth je dočasne nedostupný.' } }),
 };
 
 export const supabase = {
@@ -98,7 +103,10 @@ export async function createStaff(_staff: StaffInput): Promise<Staff | null> {
   throw new Error('Rezervácie a admin sú dočasne nedostupné.');
 }
 
-export async function updateStaff(_id: string, _updates: Partial<StaffInput & { is_active?: boolean }>): Promise<Staff | null> {
+export async function updateStaff(
+  _id: string,
+  _updates: Partial<StaffInput & { is_active?: boolean }>
+): Promise<Staff | null> {
   throw new Error('Rezervácie a admin sú dočasne nedostupné.');
 }
 

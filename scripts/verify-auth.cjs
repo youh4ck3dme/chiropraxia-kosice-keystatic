@@ -9,12 +9,12 @@ const supabase = createClient(
 async function verifyAuth() {
   const email = 'info@chiropraxiakosice.eu';
   const password = 'admin123';
-  
+
   console.log(`🔐 Verifying login for: ${email}`);
-  
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
-    password
+    password,
   });
 
   if (error) {

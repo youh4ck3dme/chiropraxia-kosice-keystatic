@@ -3,36 +3,36 @@ import { wrapEmailLayout } from './email-templates';
 import { generateCancellationToken } from './tokens';
 
 export async function sendConfirmationEmail(
-    bookingId: string,
-    details: {
-        clientName: string;
-        clientEmail: string;
-        serviceId: string;
-        staffId: string;
-        bookingDate: string;
-        startTime: string;
-    },
-    serviceName: string,
-    staffName: string
+  bookingId: string,
+  details: {
+    clientName: string;
+    clientEmail: string;
+    serviceId: string;
+    staffId: string;
+    bookingDate: string;
+    startTime: string;
+  },
+  serviceName: string,
+  staffName: string
 ) {
-    const apiKey = import.meta.env.RESEND_API_KEY;
-    const siteUrl = import.meta.env.SITE_URL || 'https://chiropraxiakosice.eu';
-    if (!apiKey) return;
+  const apiKey = import.meta.env.RESEND_API_KEY;
+  const siteUrl = import.meta.env.SITE_URL || 'https://chiropraxiakosice.eu';
+  if (!apiKey) return;
 
-    const resend = new Resend(apiKey);
-    const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
-    const time = details.startTime.slice(0, 5);
+  const resend = new Resend(apiKey);
+  const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
+  const time = details.startTime.slice(0, 5);
 
-    const cancelToken = generateCancellationToken(bookingId);
-    const cancelLink = `${siteUrl}/api/cancel-booking?token=${cancelToken}`;
+  const cancelToken = generateCancellationToken(bookingId);
+  const cancelLink = `${siteUrl}/api/cancel-booking?token=${cancelToken}`;
 
-    await resend.emails.send({
-        from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
-        to: [details.clientEmail],
-        subject: `✅ Potvrdenie rezervácie: ${formattedDate} o ${time}`,
-        html: wrapEmailLayout(
-            'Vaša rezervácia je potvrdená',
-            `
+  await resend.emails.send({
+    from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
+    to: [details.clientEmail],
+    subject: `✅ Potvrdenie rezervácie: ${formattedDate} o ${time}`,
+    html: wrapEmailLayout(
+      'Vaša rezervácia je potvrdená',
+      `
       <p style="margin-bottom: 30px;">
         Vážený klient <strong>${details.clientName}</strong>,<br><br>
         radi by sme vám potvrdili váš termín u nás. Tešíme sa na vašu návštevu.
@@ -72,61 +72,61 @@ export async function sendConfirmationEmail(
         </a>
       </div>
       `
-        )
-    });
+    ),
+  });
 }
 
 export async function sendBookingEmail(
   _bookingId: string,
-    details: {
-        clientName: string;
-        clientEmail: string;
-        bookingDate: string;
-        startTime: string;
-    },
-    serviceName: string,
-    staffName: string,
-    status: 'confirmed' | 'cancelled' | 'updated'
+  details: {
+    clientName: string;
+    clientEmail: string;
+    bookingDate: string;
+    startTime: string;
+  },
+  serviceName: string,
+  staffName: string,
+  status: 'confirmed' | 'cancelled' | 'updated'
 ) {
-    const apiKey = import.meta.env.RESEND_API_KEY;
-    if (!apiKey) return;
+  const apiKey = import.meta.env.RESEND_API_KEY;
+  if (!apiKey) return;
 
-    const resend = new Resend(apiKey);
-    const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
-    const time = details.startTime.slice(0, 5);
+  const resend = new Resend(apiKey);
+  const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
+  const time = details.startTime.slice(0, 5);
 
-    let subject = '';
-    let title = '';
-    let message = '';
-    let color = '#14b8a6';
+  let subject = '';
+  let title = '';
+  let message = '';
+  let color = '#14b8a6';
 
-    switch (status) {
-        case 'confirmed':
-            subject = `✅ Termín potvrdený: ${formattedDate}`;
-            title = 'Rezervácia potvrdená';
-            message = 'Váš termín bol úspešne schválený.';
-            break;
-        case 'cancelled':
-            subject = `❌ Termín zrušený: ${formattedDate}`;
-            title = 'Rezervácia zrušená';
-            message = 'Je nám ľúto, ale váš termín bol zrušený.';
-            color = '#ef4444';
-            break;
-        case 'updated':
-            subject = `✏️ Zmena termínu: ${formattedDate}`;
-            title = 'Aktualizácia rezervácie';
-            message = 'Detaily vašej rezervácie boli zmenené.';
-            color = '#3b82f6';
-            break;
-    }
+  switch (status) {
+    case 'confirmed':
+      subject = `✅ Termín potvrdený: ${formattedDate}`;
+      title = 'Rezervácia potvrdená';
+      message = 'Váš termín bol úspešne schválený.';
+      break;
+    case 'cancelled':
+      subject = `❌ Termín zrušený: ${formattedDate}`;
+      title = 'Rezervácia zrušená';
+      message = 'Je nám ľúto, ale váš termín bol zrušený.';
+      color = '#ef4444';
+      break;
+    case 'updated':
+      subject = `✏️ Zmena termínu: ${formattedDate}`;
+      title = 'Aktualizácia rezervácie';
+      message = 'Detaily vašej rezervácie boli zmenené.';
+      color = '#3b82f6';
+      break;
+  }
 
-    await resend.emails.send({
-        from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
-        to: [details.clientEmail],
-        subject: subject,
-        html: wrapEmailLayout(
-            title,
-            `
+  await resend.emails.send({
+    from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
+    to: [details.clientEmail],
+    subject: subject,
+    html: wrapEmailLayout(
+      title,
+      `
       <p style="margin-bottom: 20px;">Vážený klient <strong>${details.clientName}</strong>,</p>
       
       <div style="background-color: #1a1a1a; border-left: 4px solid ${color}; padding: 15px; border-radius: 4px; margin-bottom: 25px;">
@@ -140,6 +140,6 @@ export async function sendBookingEmail(
          <tr><td style="color:#aaa;font-size:12px;">TERAPEUT:</td><td style="color:#fff;">${staffName}</td></tr>
       </table>
       `
-        )
-    });
+    ),
+  });
 }

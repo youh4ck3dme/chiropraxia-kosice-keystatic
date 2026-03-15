@@ -19,5 +19,3 @@ export function setTheme(theme: ThemeMode) {
 export function getThemeClass(theme: ThemeMode): string {
   return theme === 'liquid-teal' ? 'bg-liquid-teal' : 'bg-deep-space';
 }
-
-

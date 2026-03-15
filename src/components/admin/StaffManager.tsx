@@ -41,12 +41,9 @@ export function StaffManager({
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-bold text-white">👥 Zamestnanci</h2>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="btn-aurora text-sm"
-        >
+        <button onClick={() => setShowAddModal(true)} className="btn-aurora text-sm">
           + Pridať
         </button>
       </div>
@@ -54,37 +51,47 @@ export function StaffManager({
       {/* Staff Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {allStaff.map((staff) => (
-          <div key={staff.id} className={`glass-card p-4 ${staff.is_active === false ? 'opacity-50' : ''}`}>
+          <div
+            key={staff.id}
+            className={`glass-card p-4 ${staff.is_active === false ? 'opacity-50' : ''}`}
+          >
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-aurora to-aurora-glow flex items-center justify-center text-2xl flex-shrink-0">
+              <div className="from-aurora to-aurora-glow flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-2xl">
                 {staff.photo_url ? (
-                  <img src={staff.photo_url} alt={staff.name} className="w-full h-full rounded-full object-cover" />
+                  <img
+                    src={staff.photo_url}
+                    alt={staff.name}
+                    className="h-full w-full rounded-full object-cover"
+                  />
                 ) : (
                   staff.name.charAt(0).toUpperCase()
                 )}
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="font-bold text-white truncate">{staff.name}</div>
-                <div className="text-sm text-chrome-gray">{staff.role}</div>
-                <div className={`text-xs mt-1 ${staff.is_active === false ? 'text-red-400' : 'text-emerald-400'}`}>
+              <div className="min-w-0 flex-1">
+                <div className="truncate font-bold text-white">{staff.name}</div>
+                <div className="text-chrome-gray text-sm">{staff.role}</div>
+                <div
+                  className={`mt-1 text-xs ${staff.is_active === false ? 'text-red-400' : 'text-emerald-400'}`}
+                >
                   {staff.is_active === false ? '● Neaktívny' : '● Aktívny'}
                 </div>
               </div>
             </div>
-            <div className="flex gap-2 mt-4 pt-4 border-t border-white/10">
+            <div className="mt-4 flex gap-2 border-t border-white/10 pt-4">
               <button
                 onClick={() => setEditingStaff(staff)}
-                className="flex-1 py-2 rounded-lg bg-blue-500/20 text-blue-400 text-sm hover:bg-blue-500/40"
+                className="flex-1 rounded-lg bg-blue-500/20 py-2 text-sm text-blue-400 hover:bg-blue-500/40"
               >
                 Upraviť
               </button>
               <button
                 onClick={() => onToggleActive(staff)}
                 disabled={loading}
-                className={`flex-1 py-2 rounded-lg text-sm ${staff.is_active === false
-                  ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40'
-                  : 'bg-red-500/20 text-red-400 hover:bg-red-500/40'
-                  }`}
+                className={`flex-1 rounded-lg py-2 text-sm ${
+                  staff.is_active === false
+                    ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40'
+                    : 'bg-red-500/20 text-red-400 hover:bg-red-500/40'
+                }`}
               >
                 {staff.is_active === false ? 'Aktivovať' : 'Deaktivovať'}
               </button>
@@ -95,60 +102,75 @@ export function StaffManager({
 
       {allStaff.length === 0 && (
         <div className="glass-card p-12 text-center">
-          <div className="text-4xl mb-4">👤</div>
+          <div className="mb-4 text-4xl">👤</div>
           <div className="text-chrome-gray">Zatiaľ žiadni zamestnanci.</div>
         </div>
       )}
 
       {/* Add Staff Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-card max-w-lg w-full p-6">
-            <div className="flex items-center justify-between mb-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+          <div className="glass-card w-full max-w-lg p-6">
+            <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">+ Nový zamestnanec</h2>
-              <button onClick={() => setShowAddModal(false)} className="p-2 rounded-lg bg-white/5 text-chrome-gray hover:bg-white/10">✕</button>
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="text-chrome-gray rounded-lg bg-white/5 p-2 hover:bg-white/10"
+              >
+                ✕
+              </button>
             </div>
             <form onSubmit={handleAdd} className="space-y-4">
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Meno *</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Meno *</label>
                 <input
                   value={newStaff.name}
-                  onChange={e => setNewStaff({ ...newStaff, name: e.target.value })}
+                  onChange={(e) => setNewStaff({ ...newStaff, name: e.target.value })}
                   className="input-glass w-full"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Pozícia *</label>
                 <input
                   value={newStaff.role}
-                  onChange={e => setNewStaff({ ...newStaff, role: e.target.value })}
+                  onChange={(e) => setNewStaff({ ...newStaff, role: e.target.value })}
                   className="input-glass w-full"
                   placeholder="napr. Chiropraktik, Fyzioterapeut"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Bio</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Bio</label>
                 <textarea
                   value={newStaff.bio || ''}
-                  onChange={e => setNewStaff({ ...newStaff, bio: e.target.value })}
-                  className="input-glass w-full min-h-[80px]"
+                  onChange={(e) => setNewStaff({ ...newStaff, bio: e.target.value })}
+                  className="input-glass min-h-[80px] w-full"
                   placeholder="Krátky popis..."
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">URL fotky</label>
+                <label className="text-chrome-gray mb-2 block text-sm">URL fotky</label>
                 <input
                   value={newStaff.photo_url || ''}
-                  onChange={e => setNewStaff({ ...newStaff, photo_url: e.target.value })}
+                  onChange={(e) => setNewStaff({ ...newStaff, photo_url: e.target.value })}
                   className="input-glass w-full"
                   placeholder="https://..."
                 />
               </div>
-              <div className="flex gap-3 pt-4 border-t border-white/10">
-                <button type="button" onClick={() => setShowAddModal(false)} className="btn-glass flex-1">Zrušiť</button>
-                <button type="submit" disabled={loading} className="btn-aurora flex-1 justify-center">
+              <div className="flex gap-3 border-t border-white/10 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowAddModal(false)}
+                  className="btn-glass flex-1"
+                >
+                  Zrušiť
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-aurora flex-1 justify-center"
+                >
                   {loading ? 'Pridávam...' : 'Pridať'}
                 </button>
               </div>
@@ -159,50 +181,65 @@ export function StaffManager({
 
       {/* Edit Staff Modal */}
       {editingStaff && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-card max-w-lg w-full p-6">
-            <div className="flex items-center justify-between mb-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+          <div className="glass-card w-full max-w-lg p-6">
+            <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">✎ Upraviť zamestnanca</h2>
-              <button onClick={() => setEditingStaff(null)} className="p-2 rounded-lg bg-white/5 text-chrome-gray hover:bg-white/10">✕</button>
+              <button
+                onClick={() => setEditingStaff(null)}
+                className="text-chrome-gray rounded-lg bg-white/5 p-2 hover:bg-white/10"
+              >
+                ✕
+              </button>
             </div>
             <form onSubmit={handleUpdate} className="space-y-4">
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Meno *</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Meno *</label>
                 <input
                   value={editingStaff.name}
-                  onChange={e => setEditingStaff({ ...editingStaff, name: e.target.value })}
+                  onChange={(e) => setEditingStaff({ ...editingStaff, name: e.target.value })}
                   className="input-glass w-full"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Pozícia *</label>
                 <input
                   value={editingStaff.role}
-                  onChange={e => setEditingStaff({ ...editingStaff, role: e.target.value })}
+                  onChange={(e) => setEditingStaff({ ...editingStaff, role: e.target.value })}
                   className="input-glass w-full"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Bio</label>
+                <label className="text-chrome-gray mb-2 block text-sm">Bio</label>
                 <textarea
                   value={editingStaff.bio || ''}
-                  onChange={e => setEditingStaff({ ...editingStaff, bio: e.target.value })}
-                  className="input-glass w-full min-h-[80px]"
+                  onChange={(e) => setEditingStaff({ ...editingStaff, bio: e.target.value })}
+                  className="input-glass min-h-[80px] w-full"
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">URL fotky</label>
+                <label className="text-chrome-gray mb-2 block text-sm">URL fotky</label>
                 <input
                   value={editingStaff.photo_url || ''}
-                  onChange={e => setEditingStaff({ ...editingStaff, photo_url: e.target.value })}
+                  onChange={(e) => setEditingStaff({ ...editingStaff, photo_url: e.target.value })}
                   className="input-glass w-full"
                 />
               </div>
-              <div className="flex gap-3 pt-4 border-t border-white/10">
-                <button type="button" onClick={() => setEditingStaff(null)} className="btn-glass flex-1">Zrušiť</button>
-                <button type="submit" disabled={loading} className="btn-aurora flex-1 justify-center">
+              <div className="flex gap-3 border-t border-white/10 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setEditingStaff(null)}
+                  className="btn-glass flex-1"
+                >
+                  Zrušiť
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-aurora flex-1 justify-center"
+                >
                   {loading ? 'Ukladám...' : 'Uložiť'}
                 </button>
               </div>
@@ -213,5 +250,3 @@ export function StaffManager({
     </>
   );
 }
-
-

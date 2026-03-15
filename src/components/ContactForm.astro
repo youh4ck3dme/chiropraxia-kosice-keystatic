@@ -1,16 +1,17 @@
 ---
+
 ---
 
-<div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
-  <h2 class="text-2xl font-bold text-chrome mb-6 relative z-10">Napíšte nám</h2>
-  
-  <form id="contact-form" class="space-y-4 relative z-10">
-    <div class="grid md:grid-cols-2 gap-4">
+<div class="glass-card group relative overflow-hidden rounded-2xl p-8">
+  <h2 class="text-chrome relative z-10 mb-6 text-2xl font-bold">Napíšte nám</h2>
+
+  <form id="contact-form" class="relative z-10 space-y-4">
+    <div class="grid gap-4 md:grid-cols-2">
       <div>
-        <label for="name" class="block text-sm font-medium text-chrome-gray mb-1">Meno</label>
-        <input 
-          type="text" 
-          id="name" 
+        <label for="name" class="text-chrome-gray mb-1 block text-sm font-medium">Meno</label>
+        <input
+          type="text"
+          id="name"
           name="name"
           required
           class="input-glass w-full"
@@ -18,10 +19,11 @@
         />
       </div>
       <div>
-        <label for="phone" class="block text-sm font-medium text-chrome-gray mb-1">Tel. číslo</label>
-        <input 
-          type="tel" 
-          id="phone" 
+        <label for="phone" class="text-chrome-gray mb-1 block text-sm font-medium">Tel. číslo</label
+        >
+        <input
+          type="tel"
+          id="phone"
           name="phone"
           class="input-glass w-full"
           placeholder="+421 9XX XXX XXX"
@@ -30,10 +32,10 @@
     </div>
 
     <div>
-      <label for="email" class="block text-sm font-medium text-chrome-gray mb-1">Email *</label>
-      <input 
-        type="email" 
-        id="email" 
+      <label for="email" class="text-chrome-gray mb-1 block text-sm font-medium">Email *</label>
+      <input
+        type="email"
+        id="email"
         name="email"
         required
         class="input-glass w-full"
@@ -42,28 +44,39 @@
     </div>
 
     <div>
-      <label for="message" class="block text-sm font-medium text-chrome-gray mb-1">Správa *</label>
-      <textarea 
-        id="message" 
+      <label for="message" class="text-chrome-gray mb-1 block text-sm font-medium">Správa *</label>
+      <textarea
+        id="message"
         name="message"
         required
         rows="4"
         class="input-glass w-full resize-none"
-        placeholder="Ako vám môžeme pomôcť?"
-      ></textarea>
+        placeholder="Ako vám môžeme pomôcť?"></textarea>
     </div>
 
-    <div class="flex items-center gap-2 text-sm text-chrome-gray mb-4">
-      <input type="checkbox" required id="contact-gdpr" class="rounded border-glass-subtle bg-glass-dark text-aurora focus:ring-aurora/50" />
+    <div class="text-chrome-gray mb-4 flex items-center gap-2 text-sm">
+      <input
+        type="checkbox"
+        required
+        id="contact-gdpr"
+        class="border-glass-subtle bg-glass-dark text-aurora focus:ring-aurora/50 rounded"
+      />
       <label for="contact-gdpr">Súhlasím so spracovaním osobných údajov</label>
     </div>
 
-    <button type="submit" class="btn-aurora w-full justify-center group-hover:scale-[1.02] transition-transform">
+    <button
+      type="submit"
+      class="btn-aurora w-full justify-center transition-transform group-hover:scale-[1.02]"
+    >
       <span id="btn-text">Odoslať správu</span>
-      <div id="btn-loader" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+      <div
+        id="btn-loader"
+        class="hidden h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"
+      >
+      </div>
     </button>
-    
-    <div id="form-status" class="hidden mt-4 p-3 rounded-lg text-center text-sm"></div>
+
+    <div id="form-status" class="mt-4 hidden rounded-lg p-3 text-center text-sm"></div>
   </form>
 </div>
 
@@ -98,13 +111,17 @@
       if (res.ok) {
         statusEl.textContent = 'Správa bola úspešne odoslaná! Ozveme sa vám čoskoro.';
         statusEl.classList.remove('hidden');
-        statusEl.classList.add('bg-green-500/10', 'text-green-400', 'border', 'border-green-500/20');
+        statusEl.classList.add(
+          'bg-green-500/10',
+          'text-green-400',
+          'border',
+          'border-green-500/20'
+        );
         form.reset();
       } else {
         throw new Error(json.error || 'Chyba odosielania');
       }
-    } catch (err) {
-      statusEl.textContent = 'Nepodarilo sa odoslať správu. Skúste to prosím neskôr.';
+    } catch (_err) {
       statusEl.classList.remove('hidden');
       statusEl.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/20');
     } finally {
@@ -113,5 +130,3 @@
     }
   });
 </script>
-
-

@@ -1,4 +1,4 @@
-import { test, expect, Page, Route } from '@playwright/test';
+import { test, expect, type Page, type Route } from '@playwright/test';
 
 // Skip when Supabase is suspended (no real booking API)
 const skipIfSupabaseSuspended = !process.env.PUBLIC_SUPABASE_URL;
@@ -19,9 +19,9 @@ test.describe('Booking Flow UI/UX', () => {
             name: 'Vstupná konzultácia',
             duration_min: 30,
             price: 50,
-            description: 'Komplexné vyšetrenie'
-          }
-        ])
+            description: 'Komplexné vyšetrenie',
+          },
+        ]),
       });
     });
 
@@ -34,9 +34,9 @@ test.describe('Booking Flow UI/UX', () => {
           {
             id: 'staff-1',
             name: 'Dr. Martin Kováč',
-            role: 'Chiropraktik'
-          }
-        ])
+            role: 'Chiropraktik',
+          },
+        ]),
       });
     });
 
@@ -50,15 +50,15 @@ test.describe('Booking Flow UI/UX', () => {
             slot_time: '10:00:00',
             slot_end_time: '10:30:00',
             staff_id: 'staff-1',
-            staff_name: 'Dr. Martin Kováč'
+            staff_name: 'Dr. Martin Kováč',
           },
           {
             slot_time: '14:00:00',
             slot_end_time: '14:30:00',
             staff_id: 'staff-1',
-            staff_name: 'Dr. Martin Kováč'
-          }
-        ])
+            staff_name: 'Dr. Martin Kováč',
+          },
+        ]),
       });
     });
 
@@ -67,7 +67,7 @@ test.describe('Booking Flow UI/UX', () => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify('booking-uuid-123') // Returns the new booking ID
+        body: JSON.stringify('booking-uuid-123'), // Returns the new booking ID
       });
     });
 
@@ -86,46 +86,51 @@ test.describe('Booking Flow UI/UX', () => {
     console.log('Starting Happy Path test...');
     // Step 1: Service Selection
     // Wait for the heading to be visible (handles the initial isLoading state)
-    await expect(page.getByRole('heading', { name: /Vyberte( si)? službu/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('heading', { name: /Vyberte( si)? službu/i })).toBeVisible({
+      timeout: 10000,
+    });
     console.log('Step 1: Services visible');
     await page.getByText('Vstupná konzultácia').first().click();
     console.log('Step 2: Service clicked');
-    
+
     // Step 2: Date & Time Selection (Skipping Staff Selection as it's not in the flow)
     await expect(page.getByRole('heading', { name: /Vyberte termín/i })).toBeVisible();
     console.log('Step 3: Calendar visible');
     // Ensure date selection is visible
     await expect(page.getByText('Dátum', { exact: true })).toBeVisible();
-    
+
     // Select first available date button
     // The buttons contain formatted dates like "Po 2. mar."
     console.log('Step 3.5: Selecting a date');
-    const firstDateBtn = page.locator('button').filter({ has: page.locator('span') }).nth(1); // nth(0) might be the 'Back' button, let's be careful.
+    const firstDateBtn = page
+      .locator('button')
+      .filter({ has: page.locator('span') })
+      .nth(1); // nth(0) might be the 'Back' button, let's be careful.
     // Actually, let's find buttons inside the container.
     await page.locator('div.flex.gap-2.overflow-x-auto button').first().click();
-    
+
     // Click a time slot (mocked at 10:00)
     const slotBtn = page.getByRole('button', { name: '10:00' });
     await expect(slotBtn).toBeVisible();
     await slotBtn.click();
     console.log('Step 4: Slot clicked');
-    
+
     // Step 4: Client Details Form
     await expect(page.locator('h2')).toContainText('Vaše údaje');
     console.log('Step 4: Form visible');
     await page.locator('input[name="name"]').fill('Jozef Tester');
     await page.locator('input[name="email"]').fill('jozef@example.com');
     await page.locator('input[name="phone"]').fill('+421948123456');
-    
+
     // GDPR Consent
     await page.getByLabel(/Súhlasím so spracovaním osobných údajov/i).check();
-    
+
     // Submit
     const submitBtn = page.getByRole('button', { name: 'Potvrdiť rezerváciu' });
     await expect(submitBtn).toBeEnabled();
     await submitBtn.click();
     console.log('Step 5: Submitted');
-    
+
     // Step 5: Success State
     await expect(page.getByText('Rezervácia úspešná!')).toBeVisible({ timeout: 10000 });
     console.log('Test Complete: Success message seen');
@@ -136,20 +141,20 @@ test.describe('Booking Flow UI/UX', () => {
     // Fast forward to form
     // Choose service
     await page.getByText('Vstupná konzultácia').first().click();
-    
+
     // Select date first
     await page.locator('div.flex.gap-2.overflow-x-auto button').first().click();
-    
+
     // Click slot
     await page.getByRole('button', { name: '10:00' }).click();
-    
+
     // Try to submit without filling anything
     await page.getByRole('button', { name: 'Potvrdiť rezerváciu' }).click();
-    
+
     // HTML5 native validation or custom validation check
     // Assuming browser validation prevents submission, or we check for specific error UI
-    // In this specific component, the button might be disabled or simple no-op. 
+    // In this specific component, the button might be disabled or simple no-op.
     // Let's check if we remain on the same step (Form is still visible)
-    await expect(page.locator('input[name="name"]')).toBeVisible(); 
+    await expect(page.locator('input[name="name"]')).toBeVisible();
   });
 });

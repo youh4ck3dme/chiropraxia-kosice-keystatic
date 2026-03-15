@@ -24,15 +24,15 @@ Súbor `.env` je v `.gitignore` a necommitne sa do repozitára.
 
 Všetky príkazy sa spúšťajú z **rootu projektu** (priečinok, v ktorom je `package.json`).
 
-| Úloha | Príkaz |
-|--------|--------|
-| Pripraviť .env | `npm run setup` |
-| Kontrola typov a konfigurácie | `npx astro check` alebo `npm run check` |
-| Bezpečná kontrola (najprv setup) | `npm run check:safe` |
-| Dev server | `npm run dev` |
-| Dev server so setupom pred štartom | `npm run dev:safe` |
-| Build | `npm run build` |
-| Náhľad buildu lokálne | `npm run preview` (po `npm run build`) |
+| Úloha                              | Príkaz                                  |
+| ---------------------------------- | --------------------------------------- |
+| Pripraviť .env                     | `npm run setup`                         |
+| Kontrola typov a konfigurácie      | `npx astro check` alebo `npm run check` |
+| Bezpečná kontrola (najprv setup)   | `npm run check:safe`                    |
+| Dev server                         | `npm run dev`                           |
+| Dev server so setupom pred štartom | `npm run dev:safe`                      |
+| Build                              | `npm run build`                         |
+| Náhľad buildu lokálne              | `npm run preview` (po `npm run build`)  |
 
 ### Windows (PowerShell / CMD)
 

@@ -10,10 +10,10 @@ export const POST: APIRoute = async ({ request }) => {
     const { content } = await request.json();
 
     if (!content) {
-      return new Response(
-        JSON.stringify({ error: 'Content is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Content is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -34,27 +34,25 @@ Odpoveď (kľúčové slová, jedno na riadok):`;
 
     const result = await model.generateContent(prompt);
     const text = result.response.text().trim();
-    const keywords = text.split('\n')
-      .map(k => k.trim())
-      .filter(k => k && !k.match(/^\d+\./))
+    const keywords = text
+      .split('\n')
+      .map((k) => k.trim())
+      .filter((k) => k && !k.match(/^\d+\./))
       .slice(0, 8);
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
+      JSON.stringify({
+        success: true,
         keywords,
-        keywordsString: keywords.join(', ')
+        keywordsString: keywords.join(', '),
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-
   } catch (error) {
     console.error('Keyword extraction error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to extract keywords' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to extract keywords' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

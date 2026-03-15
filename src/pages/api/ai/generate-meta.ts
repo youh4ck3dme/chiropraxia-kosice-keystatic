@@ -8,19 +8,19 @@ const genAI = new GoogleGenerativeAI(import.meta.env.GOOGLE_GENERATIVE_AI_API_KE
 export const POST: APIRoute = async ({ request }) => {
   try {
     if (!import.meta.env.GOOGLE_GENERATIVE_AI_API_KEY) {
-      return new Response(
-        JSON.stringify({ error: 'AI API key is missing' }),
-        { status: 501, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'AI API key is missing' }), {
+        status: 501,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const { content, title } = await request.json();
 
     if (!content) {
-      return new Response(
-        JSON.stringify({ error: 'Content is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Content is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
@@ -48,18 +48,15 @@ Odpoveď (len meta description, nič iné):`;
       JSON.stringify({
         success: true,
         metaDescription,
-        length: metaDescription.length
+        length: metaDescription.length,
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-
   } catch (error) {
     console.error('AI Meta generation error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to generate meta description' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to generate meta description' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

@@ -9,10 +9,7 @@ async function verify() {
   console.log(`Checking schema compatibility on: ${supabaseUrl}\n`);
 
   // Check Services schema
-  const { data: services, error } = await supabase
-    .from('services')
-    .select('*')
-    .limit(1);
+  const { data: services, error } = await supabase.from('services').select('*').limit(1);
 
   if (error) {
     console.error('❌ Services fetch failed:', error.message);
@@ -24,16 +21,13 @@ async function verify() {
   }
 
   // Check Staff schema
-  const { data: staff, error: staffErr } = await supabase
-    .from('staff')
-    .select('*')
-    .limit(1);
-    
+  const { data: staff, error: staffErr } = await supabase.from('staff').select('*').limit(1);
+
   if (staffErr) {
     console.error('❌ Staff fetch failed:', staffErr.message);
   } else {
-     const cols = staff.length > 0 ? Object.keys(staff[0]) : ['(no data)'];
-     console.log(`✅ Staff table OK. Columns sample: ${cols.slice(0, 5).join(', ')}...`);
+    const cols = staff.length > 0 ? Object.keys(staff[0]) : ['(no data)'];
+    console.log(`✅ Staff table OK. Columns sample: ${cols.slice(0, 5).join(', ')}...`);
   }
 }
 

@@ -7,33 +7,33 @@ export default {
       // Liquid Chrome Color Palette
       colors: {
         // 🌑 VOID (Pozadie) - Tmavo modrá
-        'void': {
+        void: {
           DEFAULT: '#0a0a1a',
           light: '#0f0f2a',
         },
 
         // 💿 CHROME (Text) - Svetlá
-        'chrome': {
+        chrome: {
           DEFAULT: '#E2E8F0',
           white: '#F8FAFC',
           metal: '#94A3B8',
         },
 
         // 🌌 AURORA (Brand) - Modrá paleta
-        'aurora': {
+        aurora: {
           dim: '#2a4897',
           DEFAULT: '#006fb8',
           glow: '#00a7ed',
         },
 
         // 🔴 ERROR / STATUS
-        'signal': {
+        signal: {
           error: '#EF4444',
           success: '#22c55e',
         },
 
         // Glass utilities
-        'glass': {
+        glass: {
           subtle: 'rgba(255, 255, 255, 0.1)',
           medium: 'rgba(255, 255, 255, 0.15)',
           strong: 'rgba(255, 255, 255, 0.2)',
@@ -63,20 +63,20 @@ export default {
 
       // Border radius for cards
       borderRadius: {
-        'card': '1.5rem',
+        card: '1.5rem',
         'card-lg': '2rem',
       },
 
       // Custom shadows for depth
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
         'glass-lg': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-        'aurora': '0 0 60px -15px rgba(0, 111, 184, 0.3)',
+        aurora: '0 0 60px -15px rgba(0, 111, 184, 0.3)',
         'aurora-strong': '0 0 80px -10px rgba(0, 111, 184, 0.5)',
       },
 
       transitionTimingFunction: {
-        'liquid': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        liquid: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
 
       // Typography
@@ -93,7 +93,7 @@ export default {
         'fade-in': 'fadeIn 0.5s ease-out',
         'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
         'tilt-in': 'tiltIn 0.3s ease-out',
-        'sheen': 'sheen 3s infinite',
+        sheen: 'sheen 3s infinite',
       },
 
       keyframes: {
@@ -149,14 +149,12 @@ export default {
       backgroundImage: {
         'chrome-gradient': 'linear-gradient(to right, #F8FAFC, #94A3B8)',
         'aurora-gradient': 'linear-gradient(135deg, #0a0a1a 0%, #0f172a 50%, #1e293b 100%)',
-        'chrome-shine': 'linear-gradient(45deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%)',
+        'chrome-shine':
+          'linear-gradient(45deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%)',
         'deep-space': 'radial-gradient(ellipse at center, #0a0a0a 0%, #050505 100%)',
         'liquid-blue': 'radial-gradient(ellipse at center, #2a4897 0%, #0a0a1a 70%)',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('tailwindcss-animate'),
-  ],
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
 };

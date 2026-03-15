@@ -16,10 +16,10 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (!content) {
-      return new Response(
-        JSON.stringify({ error: 'Content is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Content is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const readability = calculateReadability(content);
@@ -33,14 +33,11 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-
   } catch (error) {
     console.error('Readability analysis error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to analyze readability' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to analyze readability' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

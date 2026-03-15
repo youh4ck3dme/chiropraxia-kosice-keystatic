@@ -97,10 +97,10 @@ git push origin main
 
 ## 8. Keď niečo nefunguje
 
-| Problém | Kde riešiť |
-|--------|------------|
-| Doména neotvára (timeout, „No Deployment“) | [DOMAIN_VERCEL.md](DOMAIN_VERCEL.md): doména vo Vercel, DNS, production deploy; prípadne `npx vercel --prod` alebo push na `main`. |
-| **404 DEPLOYMENT_NOT_FOUND** | [DOMAIN_VERCEL.md](DOMAIN_VERCEL.md) sekcia 6: skontrolovať Deployments (existencia Ready production deploy) a Domains (priradenie domény k správnemu projektu); push na `main` alebo Redeploy. |
-| Keystatic 401 / Redirect URI mismatch | Vercel env (sekcia 3) + GitHub App (sekcia 4) zhodné; po zmene **Redeploy**. |
-| Build zlyhá | `npm run build` lokálne; env premenné vo Vercel; Node 20.x. |
-| Obsah sa neukladá v Keystatic | V [keystatic.config.ts](../keystatic.config.ts) musí byť `repo: 'youh4ck3dme/chiropraxia-kosice-keystatic'`; KEYSTATIC_* env vo Vercel. |
+| Problém                                    | Kde riešiť                                                                                                                                                                                      |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Doména neotvára (timeout, „No Deployment“) | [DOMAIN_VERCEL.md](DOMAIN_VERCEL.md): doména vo Vercel, DNS, production deploy; prípadne `npx vercel --prod` alebo push na `main`.                                                              |
+| **404 DEPLOYMENT_NOT_FOUND**               | [DOMAIN_VERCEL.md](DOMAIN_VERCEL.md) sekcia 6: skontrolovať Deployments (existencia Ready production deploy) a Domains (priradenie domény k správnemu projektu); push na `main` alebo Redeploy. |
+| Keystatic 401 / Redirect URI mismatch      | Vercel env (sekcia 3) + GitHub App (sekcia 4) zhodné; po zmene **Redeploy**.                                                                                                                    |
+| Build zlyhá                                | `npm run build` lokálne; env premenné vo Vercel; Node 20.x.                                                                                                                                     |
+| Obsah sa neukladá v Keystatic              | V [keystatic.config.ts](../keystatic.config.ts) musí byť `repo: 'youh4ck3dme/chiropraxia-kosice-keystatic'`; KEYSTATIC\_\* env vo Vercel.                                                       |

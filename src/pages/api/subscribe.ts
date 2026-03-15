@@ -13,10 +13,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Validate email
     if (!data.email || !data.email.includes('@')) {
-      return new Response(
-        JSON.stringify({ error: 'Neplatná emailová adresa' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Neplatná emailová adresa' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Resend Configuration
@@ -24,10 +24,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!apiKey) {
       console.warn('RESEND_API_KEY missing - logging subscription (simulation):', data.email);
-      return new Response(
-        JSON.stringify({ success: true, message: 'Subscribed (Mock)' }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ success: true, message: 'Subscribed (Mock)' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const { Resend } = await import('resend');
@@ -57,18 +57,15 @@ export const POST: APIRoute = async ({ request }) => {
       ),
     });
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Newsletter subscribe error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Interná chyba servera' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Interná chyba servera' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

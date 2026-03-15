@@ -9,7 +9,7 @@ import {
   reactivateStaff,
   type Service,
   type Staff,
-  type StaffInput
+  type StaffInput,
 } from '../../lib/supabase';
 
 import {
@@ -23,7 +23,7 @@ import {
   type SmsConfig,
   type TabType,
   type Booking,
-  type AdminStats
+  type AdminStats,
 } from '../admin';
 import { Logo } from './Logo';
 
@@ -95,7 +95,7 @@ export function AdminDashboard() {
   const fetchMetadata = async () => {
     const [sData, stData] = await Promise.all([getServices(), getAllStaff()]);
     setServices(sData);
-    setStaffList(stData.filter(s => (s as any).is_active !== false));
+    setStaffList(stData.filter((s) => (s as any).is_active !== false));
   };
 
   const fetchAllStaff = async () => {
@@ -143,20 +143,22 @@ export function AdminDashboard() {
     setSettingsLoading(true);
 
     // Save Opening Hours
-    const { error: hoursError } = await supabase
-      .from('settings')
-      .upsert({
+    const { error: hoursError } = await supabase.from('settings').upsert(
+      {
         key: 'opening_hours',
-        value: openingHours
-      }, { onConflict: 'key' });
+        value: openingHours,
+      },
+      { onConflict: 'key' }
+    );
 
     // Save SMS Config
-    const { error: smsError } = await supabase
-      .from('settings')
-      .upsert({
+    const { error: smsError } = await supabase.from('settings').upsert(
+      {
         key: 'sms_config',
-        value: smsConfig
-      }, { onConflict: 'key' });
+        value: smsConfig,
+      },
+      { onConflict: 'key' }
+    );
 
     if (hoursError || smsError) {
       alert('Chyba pri ukladaní nastavení');
@@ -213,7 +215,12 @@ export function AdminDashboard() {
 
   // Booking Functions
   const updateStatus = async (booking: Booking, newStatus: 'confirmed' | 'cancelled') => {
-    if (!confirm(`Naozaj chcete zmeniť stav na: ${newStatus === 'confirmed' ? 'Potvrdená' : 'Zrušená'}?`)) return;
+    if (
+      !confirm(
+        `Naozaj chcete zmeniť stav na: ${newStatus === 'confirmed' ? 'Potvrdená' : 'Zrušená'}?`
+      )
+    )
+      return;
 
     setActionLoading(true);
     const { error } = await supabase
@@ -221,7 +228,7 @@ export function AdminDashboard() {
       .update({
         status: newStatus,
         confirmed_at: newStatus === 'confirmed' ? new Date().toISOString() : null,
-        cancelled_at: newStatus === 'cancelled' ? new Date().toISOString() : null
+        cancelled_at: newStatus === 'cancelled' ? new Date().toISOString() : null,
       })
       .eq('id', booking.id);
 
@@ -243,8 +250,8 @@ export function AdminDashboard() {
           },
           serviceName: booking.services?.name || 'Služba',
           staffName: booking.staff?.name || 'Terapeut',
-          status: newStatus
-        })
+          status: newStatus,
+        }),
       });
       fetchBookings();
     }
@@ -254,10 +261,7 @@ export function AdminDashboard() {
   const deleteBooking = async (id: string) => {
     if (!confirm('Naozaj chcete zmazať túto rezerváciu?')) return;
 
-    const { error } = await supabase
-      .from('bookings')
-      .delete()
-      .eq('id', id);
+    const { error } = await supabase.from('bookings').delete().eq('id', id);
 
     if (error) alert(error.message);
     else fetchBookings();
@@ -272,7 +276,7 @@ export function AdminDashboard() {
         start_time: booking.start_time,
         service_id: booking.service_id,
         staff_id: booking.staff_id,
-        notes: booking.notes
+        notes: booking.notes,
       })
       .eq('id', booking.id);
 
@@ -290,10 +294,10 @@ export function AdminDashboard() {
             bookingDate: booking.booking_date,
             startTime: booking.start_time,
           },
-          serviceName: services.find(s => s.id === booking.service_id)?.name || 'Služba',
-          staffName: staffList.find(s => s.id === booking.staff_id)?.name || 'Terapeut',
-          status: 'updated'
-        })
+          serviceName: services.find((s) => s.id === booking.service_id)?.name || 'Služba',
+          staffName: staffList.find((s) => s.id === booking.staff_id)?.name || 'Terapeut',
+          status: 'updated',
+        }),
       });
       fetchBookings();
     }
@@ -303,29 +307,31 @@ export function AdminDashboard() {
   // Stats
   const stats: AdminStats = {
     total: bookings.length,
-    pending: bookings.filter(b => b.status === 'pending').length,
-    confirmed: bookings.filter(b => b.status === 'confirmed').length,
-    cancelled: bookings.filter(b => b.status === 'cancelled').length,
+    pending: bookings.filter((b) => b.status === 'pending').length,
+    confirmed: bookings.filter((b) => b.status === 'confirmed').length,
+    cancelled: bookings.filter((b) => b.status === 'cancelled').length,
   };
 
   // Login Screen (when Supabase suspended, session is always null)
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="flex min-h-screen items-center justify-center p-4">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <Logo className="w-64 h-auto mx-auto text-white" />
+          <div className="mb-8 text-center">
+            <Logo className="mx-auto h-auto w-64 text-white" />
           </div>
 
-          <div className="glass-card shadow-3d p-6 sm:p-8 mb-6 text-center">
+          <div className="glass-card shadow-3d mb-6 p-6 text-center sm:p-8">
             <p className="text-chrome mb-2">Admin je dočasne nedostupný.</p>
-            <p className="text-chrome-gray text-sm">Rezervácie, personál a nastavenia z databázy nie sú aktívne.</p>
+            <p className="text-chrome-gray text-sm">
+              Rezervácie, personál a nastavenia z databázy nie sú aktívne.
+            </p>
           </div>
 
           <div className="glass-card shadow-3d p-6 sm:p-8">
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">Email</label>
+                <label className="text-chrome-gray mb-2 block text-sm font-medium">Email</label>
                 <input
                   type="email"
                   value={email}
@@ -335,18 +341,18 @@ export function AdminDashboard() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">Heslo</label>
+                <label className="text-chrome-gray mb-2 block text-sm font-medium">Heslo</label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input-glass w-full text-base py-3"
+                  className="input-glass w-full py-3 text-base"
                   placeholder="••••••••"
                   required
                 />
               </div>
               {error && (
-                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
                   {error}
                 </div>
               )}
@@ -368,59 +374,67 @@ export function AdminDashboard() {
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <Logo className="w-48 sm:w-64 h-auto" />
+          <Logo className="h-auto w-48 sm:w-64" />
         </div>
-        <button onClick={handleLogout} className="btn-glass text-sm text-red-400 hover:bg-red-500/10">
+        <button
+          onClick={handleLogout}
+          className="btn-glass text-sm text-red-400 hover:bg-red-500/10"
+        >
           Odhlásiť
         </button>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+      <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
         <button
           onClick={() => setActiveTab('bookings')}
-          className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeTab === 'bookings'
-            ? 'bg-aurora text-black font-bold'
-            : 'bg-white/40 text-chrome-gray hover:bg-white/60'
-            }`}
+          className={`rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
+            activeTab === 'bookings'
+              ? 'bg-aurora font-bold text-black'
+              : 'text-chrome-gray bg-white/40 hover:bg-white/60'
+          }`}
         >
           📋 Rezervácie
         </button>
         <button
           onClick={() => setActiveTab('staff')}
-          className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeTab === 'staff'
-            ? 'bg-aurora text-black font-bold'
-            : 'bg-white/40 text-chrome-gray hover:bg-white/60'
-            }`}
+          className={`rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
+            activeTab === 'staff'
+              ? 'bg-aurora font-bold text-black'
+              : 'text-chrome-gray bg-white/40 hover:bg-white/60'
+          }`}
         >
           👥 Zamestnanci
         </button>
         <button
           onClick={() => setActiveTab('settings')}
-          className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeTab === 'settings'
-            ? 'bg-aurora text-black font-bold'
-            : 'bg-white/40 text-chrome-gray hover:bg-white/60'
-            }`}
+          className={`rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
+            activeTab === 'settings'
+              ? 'bg-aurora font-bold text-black'
+              : 'text-chrome-gray bg-white/40 hover:bg-white/60'
+          }`}
         >
           ⚙️ Nastavenia
         </button>
         <button
           onClick={() => setActiveTab('links')}
-          className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeTab === 'links'
-            ? 'bg-aurora text-black font-bold'
-            : 'bg-white/5 text-chrome-gray hover:bg-white/10'
-            }`}
+          className={`rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
+            activeTab === 'links'
+              ? 'bg-aurora font-bold text-black'
+              : 'text-chrome-gray bg-white/5 hover:bg-white/10'
+          }`}
         >
           🔗 Odkazy
         </button>
         <button
           onClick={() => setActiveTab('clients')}
-          className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeTab === 'clients'
-            ? 'bg-aurora text-black font-bold'
-            : 'bg-white/5 text-chrome-gray hover:bg-white/10'
-            }`}
+          className={`rounded-xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
+            activeTab === 'clients'
+              ? 'bg-aurora font-bold text-black'
+              : 'text-chrome-gray bg-white/5 hover:bg-white/10'
+          }`}
         >
           📂 Klienti
         </button>
@@ -442,9 +456,7 @@ export function AdminDashboard() {
         />
       )}
 
-      {activeTab === 'clients' && (
-        <ClientsManager bookings={bookings} />
-      )}
+      {activeTab === 'clients' && <ClientsManager bookings={bookings} />}
 
       {activeTab === 'staff' && (
         <StaffManager
@@ -467,12 +479,7 @@ export function AdminDashboard() {
         />
       )}
 
-      {activeTab === 'links' && (
-        <LinksManager />
-      )}
+      {activeTab === 'links' && <LinksManager />}
     </div>
   );
 }
-
-
-

@@ -6,16 +6,19 @@ test.describe('Admin & Keystatic smoke', () => {
     const res = await page.goto('/keystatic', { waitUntil: 'domcontentloaded' });
     expect(res).not.toBeNull();
     expect(res!.status()).toBeLessThan(500);
-    const hasLogin = await page.getByRole('button', { name: /GitHub/i }).count() > 0
-      || await page.getByRole('link', { name: /GitHub/i }).count() > 0;
-    const hasNav = await page.getByText(/Blog|Články|Recenzie|Dashboard/i).count() > 0;
+    const hasLogin =
+      (await page.getByRole('button', { name: /GitHub/i }).count()) > 0 ||
+      (await page.getByRole('link', { name: /GitHub/i }).count()) > 0;
+    const hasNav = (await page.getByText(/Blog|Články|Recenzie|Dashboard/i).count()) > 0;
     expect(hasLogin || hasNav).toBe(true);
   });
 
   test('main Keystatic sections are reachable (Blog, Recenzie)', async ({ page }) => {
     await page.goto('/keystatic', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(2000);
-    const blogLink = page.locator('a[href*="blog"], a:has-text("Blog"), a:has-text("Články")').first();
+    const blogLink = page
+      .locator('a[href*="blog"], a:has-text("Blog"), a:has-text("Články")')
+      .first();
     const recenzieLink = page.locator('a[href*="recenzie"], a:has-text("Recenzie")').first();
     const hasAny = (await blogLink.count()) > 0 || (await recenzieLink.count()) > 0;
     if (!hasAny) {
@@ -36,9 +39,10 @@ test.describe('Admin & Keystatic smoke', () => {
     expect(res).not.toBeNull();
     expect(res!.status()).toBeLessThan(500);
     await page.waitForTimeout(3000);
-    const hasForm = await page.getByPlaceholder(/@|email|e-mail/i).count() > 0
-      || await page.getByPlaceholder(/••••••••/).count() > 0;
-    const hasDashboard = await page.getByText(/Rezervácie|Bookings|Dashboard|Tab/i).count() > 0;
+    const hasForm =
+      (await page.getByPlaceholder(/@|email|e-mail/i).count()) > 0 ||
+      (await page.getByPlaceholder(/••••••••/).count()) > 0;
+    const hasDashboard = (await page.getByText(/Rezervácie|Bookings|Dashboard|Tab/i).count()) > 0;
     expect(hasForm || hasDashboard).toBe(true);
   });
 

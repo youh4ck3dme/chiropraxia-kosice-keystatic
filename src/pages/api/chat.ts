@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Rate limit check
     const clientId = getClientId(request);
     const { allowed, remaining, resetIn } = rateLimit(clientId, rateLimitConfigs.chat);
-    
+
     if (!allowed) {
       return rateLimitResponse(resetIn);
     }
@@ -21,21 +21,22 @@ export const POST: APIRoute = async ({ request }) => {
     if (!messages) {
       return new Response(JSON.stringify({ error: 'Chýbajú správy v požiadavke' }), {
         status: 400,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'X-RateLimit-Remaining': String(remaining),
-        }
+        },
       });
     }
 
     // Check for API Key (Try import.meta.env and process.env fallback)
-    const apiKey = import.meta.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const apiKey =
+      import.meta.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
     if (!apiKey) {
       console.error('Missing GOOGLE_GENERATIVE_AI_API_KEY');
       return new Response(JSON.stringify({ error: 'Systémová chyba: Chýba AI kľúč' }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
     }
 
@@ -54,9 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
     console.error('AI Chat Error:', error);
     return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };
-
-

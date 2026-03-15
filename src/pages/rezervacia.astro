@@ -3,19 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import { NewBookingFlow } from '../components/NewBookingFlow';
 ---
 
-<Layout 
+<Layout
   title="Online rezervácia | Chiropraxia Košice"
   description="Objednajte sa online na chiropraktické ošetrenie v Košiciach. Vyberte si termín a službu, ktorá vám vyhovuje."
 >
-  <section class="py-12 px-6">
-    <div class="max-w-4xl mx-auto">
+  <section class="px-6 py-12">
+    <div class="mx-auto max-w-4xl">
       <!-- Page Header -->
-      <div class="text-center mb-12">
-        <h1 class="text-3xl md:text-5xl font-bold mb-4">
+      <div class="mb-12 text-center">
+        <h1 class="mb-4 text-3xl font-bold md:text-5xl">
           <span class="text-chrome">Online</span>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurora to-aurora-glow"> rezervácia</span>
+          <span class="from-aurora to-aurora-glow bg-gradient-to-r bg-clip-text text-transparent">
+            rezervácia</span
+          >
         </h1>
-        <p class="text-chrome-gray text-lg max-w-xl mx-auto">
+        <p class="text-chrome-gray mx-auto max-w-xl text-lg">
           Vyberte si službu, dátum a čas. Potvrdenie dostanete okamžite na email.
         </p>
       </div>
@@ -24,46 +26,161 @@ import { NewBookingFlow } from '../components/NewBookingFlow';
       <NewBookingFlow client:load />
 
       <!-- Additional Info -->
-      <div class="mt-16 grid md:grid-cols-3 gap-6">
+      <div class="mt-16 grid gap-6 md:grid-cols-3">
         <div class="glass-card p-6 text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" class="w-12 h-12 mx-auto mb-3">
-            <rect x="64" y="96" width="320" height="288" rx="32" stroke="currentColor" stroke-width="24" class="text-chrome"/>
-            <line x1="64" y1="160" x2="384" y2="160" stroke="currentColor" stroke-width="24" class="text-chrome"/>
-            <line x1="144" y1="64" x2="144" y2="128" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="text-chrome"/>
-            <line x1="304" y1="64" x2="304" y2="128" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="text-chrome"/>
-            <circle cx="352" cy="336" r="80" stroke="theme('colors.aurora.DEFAULT')" stroke-width="24"/>
-            <line x1="352" y1="336" x2="352" y2="300" stroke="theme('colors.aurora.DEFAULT')" stroke-width="24" stroke-linecap="round"/>
-            <line x1="352" y1="336" x2="382" y2="356" stroke="theme('colors.aurora.DEFAULT')" stroke-width="24" stroke-linecap="round"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="none"
+            class="mx-auto mb-3 h-12 w-12"
+          >
+            <rect
+              x="64"
+              y="96"
+              width="320"
+              height="288"
+              rx="32"
+              stroke="currentColor"
+              stroke-width="24"
+              class="text-chrome"></rect>
+            <line
+              x1="64"
+              y1="160"
+              x2="384"
+              y2="160"
+              stroke="currentColor"
+              stroke-width="24"
+              class="text-chrome"></line>
+            <line
+              x1="144"
+              y1="64"
+              x2="144"
+              y2="128"
+              stroke="currentColor"
+              stroke-width="24"
+              stroke-linecap="round"
+              class="text-chrome"></line>
+            <line
+              x1="304"
+              y1="64"
+              x2="304"
+              y2="128"
+              stroke="currentColor"
+              stroke-width="24"
+              stroke-linecap="round"
+              class="text-chrome"></line>
+            <circle
+              cx="352"
+              cy="336"
+              r="80"
+              stroke="theme('colors.aurora.DEFAULT')"
+              stroke-width="24"></circle>
+            <line
+              x1="352"
+              y1="336"
+              x2="352"
+              y2="300"
+              stroke="theme('colors.aurora.DEFAULT')"
+              stroke-width="24"
+              stroke-linecap="round"></line>
+            <line
+              x1="352"
+              y1="336"
+              x2="382"
+              y2="356"
+              stroke="theme('colors.aurora.DEFAULT')"
+              stroke-width="24"
+              stroke-linecap="round"></line>
           </svg>
-          <h3 class="text-chrome font-semibold mb-2">Flexibilné termíny</h3>
+          <h3 class="text-chrome mb-2 font-semibold">Flexibilné termíny</h3>
           <p class="text-chrome-gray text-sm">Pondelok až nedeľa, 8:00 - 18:00</p>
         </div>
-        
+
         <div class="glass-card p-6 text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" class="w-12 h-12 mx-auto mb-3">
-            <rect x="64" y="160" width="384" height="224" rx="32" stroke="currentColor" stroke-width="24" class="text-chrome"/>
-            <line x1="64" y1="224" x2="448" y2="224" stroke="currentColor" stroke-width="24" class="text-chrome"/>
-            <rect x="112" y="272" width="80" height="40" rx="12" stroke="currentColor" stroke-width="24" class="text-chrome"/>
-            <path d="M352 208c24 24 24 64 0 88" stroke="theme('colors.aurora.glow')" stroke-width="24" stroke-linecap="round"/>
-            <path d="M384 192c40 40 40 104 0 144" stroke="theme('colors.aurora.glow')" stroke-width="24" stroke-linecap="round"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="none"
+            class="mx-auto mb-3 h-12 w-12"
+          >
+            <rect
+              x="64"
+              y="160"
+              width="384"
+              height="224"
+              rx="32"
+              stroke="currentColor"
+              stroke-width="24"
+              class="text-chrome"></rect>
+            <line
+              x1="64"
+              y1="224"
+              x2="448"
+              y2="224"
+              stroke="currentColor"
+              stroke-width="24"
+              class="text-chrome"></line>
+            <rect
+              x="112"
+              y="272"
+              width="80"
+              height="40"
+              rx="12"
+              stroke="currentColor"
+              stroke-width="24"
+              class="text-chrome"></rect>
+            <path
+              d="M352 208c24 24 24 64 0 88"
+              stroke="theme('colors.aurora.glow')"
+              stroke-width="24"
+              stroke-linecap="round"></path>
+            <path
+              d="M384 192c40 40 40 104 0 144"
+              stroke="theme('colors.aurora.glow')"
+              stroke-width="24"
+              stroke-linecap="round"></path>
           </svg>
-          <h3 class="text-chrome font-semibold mb-2">Platba na mieste</h3>
+          <h3 class="text-chrome mb-2 font-semibold">Platba na mieste</h3>
           <p class="text-chrome-gray text-sm">Hotovosť alebo kartou</p>
         </div>
-        
+
         <div class="glass-card p-6 text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" class="w-12 h-12 mx-auto mb-3">
-            <path d="M256 96 A160 160 0 1 1 144 144" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="text-chrome"/>
-            <polyline points="112 144 144 144 144 112" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" class="text-chrome"/>
-            <circle cx="256" cy="256" r="96" stroke="theme('colors.aurora.DEFAULT')" stroke-width="24"/>
-            <polyline points="216 256 248 288 304 224" stroke="theme('colors.aurora.DEFAULT')" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="none"
+            class="mx-auto mb-3 h-12 w-12"
+          >
+            <path
+              d="M256 96 A160 160 0 1 1 144 144"
+              stroke="currentColor"
+              stroke-width="24"
+              stroke-linecap="round"
+              class="text-chrome"></path>
+            <polyline
+              points="112 144 144 144 144 112"
+              stroke="currentColor"
+              stroke-width="24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-chrome"></polyline>
+            <circle
+              cx="256"
+              cy="256"
+              r="96"
+              stroke="theme('colors.aurora.DEFAULT')"
+              stroke-width="24"></circle>
+            <polyline
+              points="216 256 248 288 304 224"
+              stroke="theme('colors.aurora.DEFAULT')"
+              stroke-width="24"
+              stroke-linecap="round"
+              stroke-linejoin="round"></polyline>
           </svg>
-          <h3 class="text-chrome font-semibold mb-2">Bezplatné zrušenie</h3>
+          <h3 class="text-chrome mb-2 font-semibold">Bezplatné zrušenie</h3>
           <p class="text-chrome-gray text-sm">Do 24 hodín pred termínom</p>
         </div>
       </div>
     </div>
   </section>
 </Layout>
-
-

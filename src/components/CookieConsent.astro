@@ -1,21 +1,32 @@
 ---
+
 ---
 
-<div id="cookie-banner" class="fixed bottom-6 left-6 z-50 transform translate-y-[200%] transition-all duration-700 ease-in-out opacity-0 pointer-events-none">
-  <div class="glass-card max-w-[320px] p-4 flex flex-col gap-4 shadow-2xl border-white/10">
+<div
+  id="cookie-banner"
+  class="pointer-events-none fixed bottom-6 left-6 z-50 translate-y-[200%] transform opacity-0 transition-all duration-700 ease-in-out"
+>
+  <div class="glass-card flex max-w-[320px] flex-col gap-4 border-white/10 p-4 shadow-2xl">
     <div class="flex-1">
-      <h3 class="text-white text-sm font-bold flex items-center gap-2 mb-1">
+      <h3 class="mb-1 flex items-center gap-2 text-sm font-bold text-white">
         <span class="text-lg">🍪</span> Sušienky? (Cookies)
       </h3>
-      <p class="text-[11px] text-chrome-gray leading-tight">
-        Používame ich na analýzu návštevnosti, aby sme vedeli, či naše SEO funguje. Žiadne špehovanie, len dáta o tom, koľko ľudí bolí chrbát.
+      <p class="text-chrome-gray text-[11px] leading-tight">
+        Používame ich na analýzu návštevnosti, aby sme vedeli, či naše SEO funguje. Žiadne
+        špehovanie, len dáta o tom, koľko ľudí bolí chrbát.
       </p>
     </div>
     <div class="flex items-center gap-2">
-      <button id="cookie-reject" class="flex-1 px-3 py-1.5 text-[10px] text-chrome-gray hover:text-white transition-colors border border-white/5 rounded-lg">
+      <button
+        id="cookie-reject"
+        class="text-chrome-gray flex-1 rounded-lg border border-white/5 px-3 py-1.5 text-[10px] transition-colors hover:text-white"
+      >
         Odmietnuť
       </button>
-      <button id="cookie-accept" class="flex-1 px-3 py-1.5 bg-aurora !text-black text-[10px] font-bold rounded-lg shadow-lg shadow-aurora/20 transition-all hover:brightness-110 active:scale-95">
+      <button
+        id="cookie-accept"
+        class="bg-aurora shadow-aurora/20 flex-1 rounded-lg px-3 py-1.5 text-[10px] font-bold !text-black shadow-lg transition-all hover:brightness-110 active:scale-95"
+      >
         Súhlasím
       </button>
     </div>
@@ -67,12 +78,10 @@
     // Real GA initialization happens in Layout.astro based on this or immediately if configured
     console.log('Analytics consent granted');
     if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('consent', 'update', {
-            'ad_storage': 'granted',
-            'analytics_storage': 'granted'
-        });
+      (window as any).gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+      });
     }
   }
 </script>
-
-

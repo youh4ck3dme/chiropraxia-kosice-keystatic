@@ -9,7 +9,9 @@ const { url, title = 'Video' } = Astro.props;
 // Extract video ID and platform
 function getVideoData(url: string) {
   // YouTube
-  const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const ytMatch = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
   if (ytMatch) {
     return {
       platform: 'youtube',
@@ -18,7 +20,7 @@ function getVideoData(url: string) {
       thumbnail: `https://img.youtube.com/vi/${ytMatch[1]}/maxresdefault.jpg`,
     };
   }
-  
+
   // Vimeo
   const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
   if (vimeoMatch) {
@@ -29,58 +31,56 @@ function getVideoData(url: string) {
       thumbnail: null, // Vimeo thumbnails require API call
     };
   }
-  
+
   return null;
 }
 
 const video = getVideoData(url);
 ---
 
-{video && (
-  <div class="video-embed my-8 rounded-xl overflow-hidden border border-white/10 bg-chrome-dark">
-    <div class="relative aspect-video group">
-      <!-- Lazy Load: Show thumbnail first, load iframe on click -->
-      <div 
-        class="video-placeholder absolute inset-0 cursor-pointer"
-        data-embed-url={video.embedUrl}
-      >
-        {video.thumbnail && (
-          <img 
-            src={video.thumbnail} 
-            alt={title}
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
-        )}
-        
-        <!-- Play Button Overlay -->
-        <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/30 transition-colors">
-          <div class="w-16 h-16 rounded-full bg-aurora text-black flex items-center justify-center shadow-lg shadow-aurora/30 group-hover:scale-110 transition-transform">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
+{
+  video && (
+    <div class="video-embed bg-chrome-dark my-8 overflow-hidden rounded-xl border border-white/10">
+      <div class="group relative aspect-video">
+        {/* Lazy Load: Show thumbnail first, load iframe on click */}
+        <div
+          class="video-placeholder absolute inset-0 cursor-pointer"
+          data-embed-url={video.embedUrl}
+        >
+          {video.thumbnail && (
+            <img
+              src={video.thumbnail}
+              alt={title}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          )}
+
+          {/* Play Button Overlay */}
+          <div class="absolute inset-0 flex items-center justify-center bg-black/40 transition-colors group-hover:bg-black/30">
+            <div class="bg-aurora shadow-aurora/30 flex h-16 w-16 items-center justify-center rounded-full text-black shadow-lg transition-transform group-hover:scale-110">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
           </div>
         </div>
+
+        {/* Iframe container (hidden until clicked) */}
+        <div class="video-iframe absolute inset-0 hidden" />
       </div>
-      
-      <!-- Iframe container (hidden until clicked) -->
-      <div class="video-iframe hidden absolute inset-0"></div>
+
+      {title && <div class="border-t border-white/5 p-3 text-sm text-gray-400">📹 {title}</div>}
     </div>
-    
-    {title && (
-      <div class="p-3 text-sm text-gray-400 border-t border-white/5">
-        📹 {title}
-      </div>
-    )}
-  </div>
-)}
+  )
+}
 
 <script>
   document.querySelectorAll('.video-placeholder').forEach((placeholder) => {
     placeholder.addEventListener('click', () => {
       const embedUrl = placeholder.getAttribute('data-embed-url');
       const iframeContainer = placeholder.nextElementSibling;
-      
+
       if (embedUrl && iframeContainer) {
         iframeContainer.innerHTML = `
           <iframe 
@@ -98,5 +98,3 @@ const video = getVideoData(url);
     });
   });
 </script>
-
-

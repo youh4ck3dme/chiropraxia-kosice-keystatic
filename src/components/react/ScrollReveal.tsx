@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
-import { motion, useInView, useAnimation, Variants } from 'framer-motion';
+import React, { useEffect, useRef, type ReactNode } from 'react';
+import { motion, useInView, useAnimation, type Variants } from 'framer-motion';
 
 interface RevealOnScrollProps {
   children: ReactNode;
@@ -172,5 +172,3 @@ export function TextReveal({ text, className = '', delay = 0 }: TextRevealProps)
     </motion.span>
   );
 }
-
-

@@ -3,31 +3,32 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="404 - Stránka nenájdená | Chiropraxia Košice">
-  <main class="min-h-[80vh] flex items-center justify-center px-6 relative overflow-hidden">
-    <div class="relative z-10 max-w-2xl mx-auto text-center">
-      <div class="relative inline-block mb-8">
-        <h1 class="text-[120px] md:text-[180px] font-black text-white/5 leading-none select-none">
+  <main class="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-6">
+    <div class="relative z-10 mx-auto max-w-2xl text-center">
+      <div class="relative mb-8 inline-block">
+        <h1 class="text-[120px] leading-none font-black text-white/5 select-none md:text-[180px]">
           404
         </h1>
         <div class="absolute inset-0 flex items-center justify-center">
-          <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-aurora/20 blur-3xl animate-pulse"></div>
+          <div class="bg-aurora/20 h-32 w-32 animate-pulse rounded-full blur-3xl md:h-48 md:w-48">
+          </div>
         </div>
       </div>
-      
-      <div class="space-y-6 -mt-12 md:-mt-20">
-        <h2 class="text-3xl md:text-5xl font-bold text-chrome tracking-tight">
+
+      <div class="-mt-12 space-y-6 md:-mt-20">
+        <h2 class="text-chrome text-3xl font-bold tracking-tight md:text-5xl">
           Ups! Táto stránka bola <span class="text-aurora-glow">napravená</span> až príliš.
         </h2>
-        
-        <p class="text-lg md:text-xl text-chrome-gray max-w-xl mx-auto leading-relaxed">
-          Zrejme sme ju "pukli" tak silno, že zmizla z existencie. <br class="hidden md:block"/>
+
+        <p class="text-chrome-gray mx-auto max-w-xl text-lg leading-relaxed md:text-xl">
+          Zrejme sme ju "pukli" tak silno, že zmizla z existencie. <br class="hidden md:block" />
           Vráťme vašu chrbticu (a vás) späť do rovnováhy.
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 animate-slide-up">
-          <a href="/" class="btn-glass px-10">
-            Späť na domov
-          </a>
+        <div
+          class="animate-slide-up mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <a href="/" class="btn-glass px-10"> Späť na domov </a>
           <a href="/rezervacia" class="btn-aurora px-10">
             <span>Objednať sa online</span>
           </a>
@@ -36,5 +37,3 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </main>
 </Layout>
-
-

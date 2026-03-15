@@ -8,5 +8,3 @@ export { BookingManager } from './BookingManager';
 export { ClientsManager } from './ClientsManager';
 export { BookingCalendar } from './BookingCalendar';
 export * from './Skeletons';
-
-

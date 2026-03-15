@@ -18,6 +18,11 @@
     "astro": "astro",
     "check": "astro check",
     "check:safe": "node scripts/setup-dev.js && astro check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
     "test": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -25,6 +30,13 @@
     "vercel:env-push": "node scripts/vercel-env-push.js",
     "vercel:env-production-public": "node scripts/vercel-env-production-public.js",
     "deploy": "vercel deploy --prod --yes"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md,yaml,yml}": "prettier --write"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.2",
@@ -66,8 +78,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
     "@axe-core/playwright": "^4.11.0",
+    "@eslint/js": "^9.39.4",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/dom": "^10.4.1",
@@ -75,11 +87,24 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
+    "@types/node": "^22.10.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vite-pwa/astro": "^1.2.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.6.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
     "jsdom": "^27.4.0",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.16"
   }
 }
