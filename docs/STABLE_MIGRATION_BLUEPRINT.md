@@ -26,7 +26,7 @@ Záver: ako základ hlavného repozitára je vhodné použiť práve **`chiropra
 ## 2) Cieľová architektúra (jeden hlavný repo)
 
 ### Hlavný repo (ponechať)
-- `youh4ck3dme/chiropraxia-kosice-keystatic` → premenovať v GitHub UI podľa potreby na finálny názov.
+- `youh4ck3dme/chiropraxia-kosice-keystatic` → používať ako finálny produkčný repozitár (**nezakladať nový repo**).
 
 ### Zrušiť závislosť na druhom repo
 - `youh4ck3dme/chiropraxia-kosice` ponechať iba dočasne ako zdroj na porovnanie a export obsahu.
@@ -143,8 +143,8 @@ Na zdieľanie používaj trvalý GitHub `user-attachments` link (nie expirovaný
 
 Ak chceš z 2 projektov konečne **1 funkčný**, choď presne v tomto poradí:
 
-1. **Zvoľ jeden hlavný repo**  
-   Používaj iba `chiropraxia-kosice-keystatic` ako produkčný zdroj.
+1. **Zvoľ jeden hlavný repo (bez nového repa)**  
+   Pokračuj iba v `chiropraxia-kosice-keystatic` ako produkčnom zdroji.
 2. **Zlúč najnovší blog obsah**  
    Prenes chýbajúce `.mdx` články + obrázky z druhého repa do tohto repa.
 3. **Odstráň Supabase env z Vercelu**  
