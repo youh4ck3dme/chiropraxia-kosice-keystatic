@@ -48,12 +48,10 @@ export interface StaffInput {
   photo_url?: string;
 }
 
-const emptyResult = { data: [] as unknown[], error: null };
 const emptySingle = { data: null, error: null };
-const noopChain: Record<string, (...args: unknown[]) => unknown> & {
-  single: () => Promise<typeof emptySingle>;
-  then: (resolve: (v: typeof emptyResult) => void) => void;
-} = {
+const emptyResult = { data: [] as unknown[], error: null as { message: string } | null };
+
+const noopChain = {
   select: (..._args: unknown[]) => noopChain,
   insert: (..._args: unknown[]) => noopChain,
   update: (..._args: unknown[]) => noopChain,
@@ -62,7 +60,7 @@ const noopChain: Record<string, (...args: unknown[]) => unknown> & {
   eq: (..._args: unknown[]) => noopChain,
   order: (..._args: unknown[]) => noopChain,
   single: () => Promise.resolve(emptySingle),
-  then: (resolve: (v: typeof emptyResult) => void) => resolve(emptyResult),
+  then: <T>(resolve: (v: typeof emptyResult) => T) => Promise.resolve(resolve(emptyResult)),
 };
 
 const authStub = {
@@ -78,7 +76,8 @@ const authStub = {
 
 export const supabase = {
   auth: authStub,
-  from: (_table: string) => noopChain,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  from: (_table: string): any => noopChain,
   rpc: (_fn: string, _params?: Record<string, unknown>) => Promise.resolve(null),
 };
 
