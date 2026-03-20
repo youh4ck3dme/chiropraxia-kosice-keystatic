@@ -128,3 +128,11 @@ Projekt je „stable“, ak platí:
 4. Doména switch na hlavný projekt
 5. Monitorovať 24–48 hodín (booking, 404, Keystatic auth)
 6. Až potom archivovať druhý repo
+
+---
+
+## 6) Referenčný screenshot
+
+Na zdieľanie používaj trvalý GitHub `user-attachments` link (nie expirovaný podpísaný S3 URL).
+
+![Stable migration blueprint](https://github.com/user-attachments/assets/1ffbe20b-c12a-4096-8cf6-54e23955b354)
