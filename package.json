@@ -34,7 +34,6 @@
     "@nanostores/react": "^1.0.0",
     "@sentry/astro": "^10.32.1",
     "@spotlightjs/astro": "^3.2.6",
-    "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/lodash": "^4.17.21",
     "@types/lodash-es": "^4.17.12",

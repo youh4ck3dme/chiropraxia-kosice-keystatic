@@ -37,9 +37,6 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     
-    <!-- Preconnect for Supabase and Analytics -->
-    <link rel="preconnect" href="https://supabase.co" />
-    
     <!-- Fonts are now self-hosted via @fontsource (see global.css) -->
     
     <meta name="google-site-verification" content="nBWrTuI-LpuQxt8PL73Gj7fflQdKgInjZiWcGnltH-4" />
@@ -186,14 +183,9 @@ const {
         header.style.filter = `drop-shadow(-10px 10px 20px rgba(137, 207, 240, 0.3))`;
       }
     });
-
-    // Clean up any existing listeners if we were replacing them (not strictly necessary for a fresh page load but good practice if logic changed)
-    // In this case, we just don't add the mousemove listener.
   };
 
   // Initialize on page load and after transitions
   initParallax();
   document.addEventListener('astro:after-swap', initParallax);
 </script>
-
-
