@@ -1,30 +1,21 @@
 {
   "name": "chiropraxia-kosice",
-  "type": "module",
   "version": "1.0.0",
   "engines": {
     "node": "20.x"
   },
-  "description": "Chiropraxia Košice - Premium PWA with Headless Booking System",
   "scripts": {
-    "setup": "node scripts/setup-dev.js",
-    "diagnose": "node scripts/diagnose.js",
-    "verify:keystatic": "node scripts/verify-keystatic-github.js",
     "dev": "astro dev",
-    "dev:safe": "node scripts/setup-dev.js && astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check",
-    "check:safe": "node scripts/setup-dev.js && astro check",
-    "test": "vitest",
+    "lint": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "vercel:link": "vercel link --yes",
-    "vercel:env-push": "node scripts/vercel-env-push.js",
-    "vercel:env-production-public": "node scripts/vercel-env-production-public.js",
-    "deploy": "vercel deploy --prod --yes"
+    "vercel:link": "vercel link",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.2",
@@ -43,6 +34,7 @@
     "@nanostores/react": "^1.0.0",
     "@sentry/astro": "^10.32.1",
     "@spotlightjs/astro": "^3.2.6",
+    "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/lodash": "^4.17.21",
     "@types/lodash-es": "^4.17.12",
@@ -66,7 +58,6 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
@@ -75,6 +66,7 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
+    "@types/node": "^22.10.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vite-pwa/astro": "^1.2.0",
