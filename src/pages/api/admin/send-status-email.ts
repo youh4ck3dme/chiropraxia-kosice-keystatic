@@ -7,16 +7,23 @@ export const POST: APIRoute = async ({ request }) => {
     const { bookingId, details, serviceName, staffName, status } = body;
 
     if (!bookingId || !details || !status) {
-      return new Response(JSON.stringify({ error: 'Chýbajú povinné údaje' }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'Chýbajú povinné údaje' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     await sendBookingEmail(bookingId, details, serviceName, staffName, status);
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (err: any) {
     console.error('Admin Email API Error:', err);
     return new Response(JSON.stringify({ error: err.message || 'Chyba pri odosielaní emailu' }), {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };

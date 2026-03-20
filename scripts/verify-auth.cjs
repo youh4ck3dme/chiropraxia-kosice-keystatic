@@ -7,8 +7,14 @@ const supabase = createClient(
 );
 
 async function verifyAuth() {
-  const email = 'info@chiropraxiakosice.eu';
-  const password = 'admin123';
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    console.error('❌ Missing required environment variables: ADMIN_EMAIL and ADMIN_PASSWORD');
+    console.log('   Set them in your .env file or export them before running this script.');
+    process.exit(1);
+  }
 
   console.log(`🔐 Verifying login for: ${email}`);
 
