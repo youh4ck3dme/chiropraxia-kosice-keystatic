@@ -135,4 +135,30 @@ Projekt je „stable“, ak platí:
 
 Na zdieľanie používaj trvalý GitHub `user-attachments` link (nie expirovaný podpísaný S3 URL).
 
-![Stable migration blueprint](https://github.com/user-attachments/assets/1ffbe20b-c12a-4096-8cf6-54e23955b354)
+![Stable migration blueprint](https://github.com/user-attachments/assets/ee3d6d36-b9ae-4c71-aa3a-8ec1693df8d0)
+
+---
+
+## 7) Čo spraviť ďalej (praktický checklist)
+
+Ak chceš z 2 projektov konečne **1 funkčný**, choď presne v tomto poradí:
+
+1. **Zvoľ jeden hlavný repo**  
+   Používaj iba `chiropraxia-kosice-keystatic` ako produkčný zdroj.
+2. **Zlúč najnovší blog obsah**  
+   Prenes chýbajúce `.mdx` články + obrázky z druhého repa do tohto repa.
+3. **Odstráň Supabase env z Vercelu**  
+   Zmaž `PUBLIC_SUPABASE_URL` a `PUBLIC_SUPABASE_ANON_KEY`, aby sa starý flow nepoužíval.
+4. **Nastav produkčné env pre booking**  
+   Nastav `RESEND_API_KEY` a `BOOKING_EMAIL=booking@fyzioafit.sk`.
+5. **Over lokálne kvalitu**  
+   Spusť:
+   - `npm run lint`
+   - `npm run test`
+   - `npm run build`
+6. **Urob preview deploy a smoke test**  
+   Preklikaj `/`, `/blog`, `/keystatic` a odošli test booking formulár.
+7. **Prepni doménu na tento jeden projekt**  
+   Až keď preview prejde, presmeruj produkčnú doménu na tento repo vo Verceli.
+8. **Archivuj starý repo**  
+   Druhý repo označ ako archived/deprecated, aby sa už nepoužíval na deploy.
