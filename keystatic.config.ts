@@ -293,7 +293,6 @@ export default config({
       schema: {
         slug: fields.slug({
           name: { label: 'Identifikátor (URL)' },
-          description: 'Automaticky generovaný z názvu. Nemeň bez nutnosti.',
         }),
         name: fields.text({
           label: 'Názov služby',
