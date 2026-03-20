@@ -48,21 +48,21 @@ export interface StaffInput {
   photo_url?: string;
 }
 
-const emptyPromise = <T>(value: T): Promise<{ data: T; error: null }> =>
-  Promise.resolve({ data: value, error: null });
-
-const emptyResult = { data: [], error: null };
+const emptyResult = { data: [] as unknown[], error: null };
 const emptySingle = { data: null, error: null };
-const noopChain = {
-  select: () => noopChain,
-  insert: () => noopChain,
-  update: () => noopChain,
-  upsert: () => noopChain,
-  delete: () => noopChain,
-  eq: () => noopChain,
-  order: () => noopChain,
+const noopChain: Record<string, (...args: unknown[]) => unknown> & {
+  single: () => Promise<typeof emptySingle>;
+  then: (resolve: (v: typeof emptyResult) => void) => void;
+} = {
+  select: (..._args: unknown[]) => noopChain,
+  insert: (..._args: unknown[]) => noopChain,
+  update: (..._args: unknown[]) => noopChain,
+  upsert: (..._args: unknown[]) => noopChain,
+  delete: (..._args: unknown[]) => noopChain,
+  eq: (..._args: unknown[]) => noopChain,
+  order: (..._args: unknown[]) => noopChain,
   single: () => Promise.resolve(emptySingle),
-  then: (resolve: (v: { data: never[]; error: null }) => void) => resolve(emptyResult),
+  then: (resolve: (v: typeof emptyResult) => void) => resolve(emptyResult),
 };
 
 const authStub = {
