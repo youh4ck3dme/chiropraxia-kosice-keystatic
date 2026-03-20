@@ -39,9 +39,6 @@ describe('BookingWidget', () => {
         sort_order: 1
       }
     ]);
-    vi.mocked(supabase.getStaff).mockResolvedValue([
-      { id: '1', name: 'Dr. Test', role: 'Chiropractor', bio: '', photo_url: '' }
-    ]);
     vi.mocked(supabase.getAvailableSlots).mockResolvedValue([
       { slot_time: '10:00:00', slot_end_time: '10:30:00', staff_id: '1', staff_name: 'Dr. Test' }
     ]);
@@ -121,5 +118,3 @@ describe('BookingWidget', () => {
     await waitFor(() => expect(screen.getByText('Rezervácia úspešná!')).toBeDefined());
   });
 });
-
-
