@@ -1,11 +1,11 @@
-import React from 'react';
+import type { FC } from 'react';
 
 interface LogoProps {
   className?: string;
   subtitle?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({
+export const Logo: FC<LogoProps> = ({
   className = "",
   subtitle = "BLOG PORTAL"
 }) => {

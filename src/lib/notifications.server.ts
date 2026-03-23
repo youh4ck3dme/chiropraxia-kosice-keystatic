@@ -23,7 +23,7 @@ export async function sendBookingNotificationEmail(details: {
     const apiKey = import.meta.env.RESEND_API_KEY;
     if (!apiKey) return;
 
-    const bookingEmail = import.meta.env.BOOKING_EMAIL || 'booking@fyzioafit.sk';
+    const bookingEmail = import.meta.env.BOOKING_EMAIL || 'booking@chiropraxiakosice.eu';
     const resend = new Resend(apiKey);
     const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
     const time = details.startTime.slice(0, 5);

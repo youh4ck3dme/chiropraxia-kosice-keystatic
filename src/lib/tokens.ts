@@ -1,6 +1,9 @@
 import { createHmac } from 'node:crypto';
 
-const SECRET = import.meta.env.JWT_SECRET || 'fallback-secret-for-dev-only-12345';
+const SECRET = import.meta.env.JWT_SECRET;
+if (!SECRET) {
+    throw new Error('JWT_SECRET environment variable is not set. Please configure it before using token functions.');
+}
 
 export function generateCancellationToken(bookingId: string): string {
     const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days
