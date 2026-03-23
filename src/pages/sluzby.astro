@@ -13,6 +13,7 @@ const services = rawServices
     description: s.data.description,
     duration_min: s.data.duration_min,
     price: s.data.price,
+    isExpress: s.data.isExpress ?? false,
   }));
 
 const faqs = [
@@ -99,6 +100,7 @@ const rating = { value: 4.9, count: 520 };
             description={service.description}
             duration={service.duration_min}
             price={service.price}
+            isExpress={service.isExpress}
           />
         ))}
       </div>
