@@ -98,6 +98,7 @@ const servicesCollection = defineCollection({
     price: z.number().nonnegative(),
     sort_order: z.number().int().default(0),
     isActive: z.boolean().default(true),
+    isExpress: z.boolean().optional().default(false),
   }),
 });
 
