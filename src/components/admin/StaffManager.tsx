@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import type { Staff, StaffInput } from './types';
 
 interface StaffManagerProps {
-  allStaff: (Staff & { is_active?: boolean })[];
-  onAddStaff: (staff: StaffInput) => Promise<void>;
-  onUpdateStaff: (id: string, staff: Partial<StaffInput>) => Promise<void>;
-  onToggleActive: (staff: Staff & { is_active?: boolean }) => Promise<void>;
-  loading: boolean;
+  readonly allStaff: (Staff & { is_active?: boolean })[];
+  readonly onAddStaff: (staff: StaffInput) => Promise<void>;
+  readonly onUpdateStaff: (id: string, staff: Partial<StaffInput>) => Promise<void>;
+  readonly onToggleActive: (staff: Staff & { is_active?: boolean }) => Promise<void>;
+  readonly loading: boolean;
 }
 
 export function StaffManager({
@@ -56,7 +56,7 @@ export function StaffManager({
         {allStaff.map((staff) => (
           <div key={staff.id} className={`glass-card p-4 ${staff.is_active === false ? 'opacity-50' : ''}`}>
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-aurora to-aurora-glow flex items-center justify-center text-2xl flex-shrink-0">
+              <div className="w-14 h-14 rounded-full bg-linear-to-br from-aurora to-aurora-glow flex items-center justify-center text-2xl shrink-0">
                 {staff.photo_url ? (
                   <img src={staff.photo_url} alt={staff.name} className="w-full h-full rounded-full object-cover" />
                 ) : (
@@ -110,8 +110,9 @@ export function StaffManager({
             </div>
             <form onSubmit={handleAdd} className="space-y-4">
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Meno *</label>
+                <label htmlFor="add-name" className="block text-sm text-chrome-gray mb-2">Meno *</label>
                 <input
+                  id="add-name"
                   value={newStaff.name}
                   onChange={e => setNewStaff({ ...newStaff, name: e.target.value })}
                   className="input-glass w-full"
@@ -119,8 +120,9 @@ export function StaffManager({
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
+                <label htmlFor="add-role" className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
                 <input
+                  id="add-role"
                   value={newStaff.role}
                   onChange={e => setNewStaff({ ...newStaff, role: e.target.value })}
                   className="input-glass w-full"
@@ -129,17 +131,19 @@ export function StaffManager({
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Bio</label>
+                <label htmlFor="add-bio" className="block text-sm text-chrome-gray mb-2">Bio</label>
                 <textarea
+                  id="add-bio"
                   value={newStaff.bio || ''}
                   onChange={e => setNewStaff({ ...newStaff, bio: e.target.value })}
-                  className="input-glass w-full min-h-[80px]"
+                  className="input-glass w-full min-h-20"
                   placeholder="Krátky popis..."
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">URL fotky</label>
+                <label htmlFor="add-photo" className="block text-sm text-chrome-gray mb-2">URL fotky</label>
                 <input
+                  id="add-photo"
                   value={newStaff.photo_url || ''}
                   onChange={e => setNewStaff({ ...newStaff, photo_url: e.target.value })}
                   className="input-glass w-full"
@@ -167,8 +171,9 @@ export function StaffManager({
             </div>
             <form onSubmit={handleUpdate} className="space-y-4">
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Meno *</label>
+                <label htmlFor="edit-name" className="block text-sm text-chrome-gray mb-2">Meno *</label>
                 <input
+                  id="edit-name"
                   value={editingStaff.name}
                   onChange={e => setEditingStaff({ ...editingStaff, name: e.target.value })}
                   className="input-glass w-full"
@@ -176,8 +181,9 @@ export function StaffManager({
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
+                <label htmlFor="edit-role" className="block text-sm text-chrome-gray mb-2">Pozícia *</label>
                 <input
+                  id="edit-role"
                   value={editingStaff.role}
                   onChange={e => setEditingStaff({ ...editingStaff, role: e.target.value })}
                   className="input-glass w-full"
@@ -185,16 +191,18 @@ export function StaffManager({
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">Bio</label>
+                <label htmlFor="edit-bio" className="block text-sm text-chrome-gray mb-2">Bio</label>
                 <textarea
+                  id="edit-bio"
                   value={editingStaff.bio || ''}
                   onChange={e => setEditingStaff({ ...editingStaff, bio: e.target.value })}
-                  className="input-glass w-full min-h-[80px]"
+                  className="input-glass w-full min-h-20"
                 />
               </div>
               <div>
-                <label className="block text-sm text-chrome-gray mb-2">URL fotky</label>
+                <label htmlFor="edit-photo" className="block text-sm text-chrome-gray mb-2">URL fotky</label>
                 <input
+                  id="edit-photo"
                   value={editingStaff.photo_url || ''}
                   onChange={e => setEditingStaff({ ...editingStaff, photo_url: e.target.value })}
                   className="input-glass w-full"
