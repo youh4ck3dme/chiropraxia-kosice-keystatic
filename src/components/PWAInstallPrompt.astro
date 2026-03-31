@@ -4,7 +4,7 @@
 <div id="pwa-install-toast" class="fixed bottom-4 left-4 z-9999 translate-y-[200%] transition-transform duration-500 will-change-transform">
   <div class="pwa-liquid-glass p-4 rounded-2xl flex items-center gap-4 max-w-sm">
     <!-- Shimmer top border -->
-    <div class="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-linear-to-r from-transparent via-white/60 to-transparent"></div>
+    <div class="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-linear-to-r from-transparent via-white/40 to-transparent"></div>
 
     <!-- App Icon -->
     <div class="relative shrink-0">
@@ -13,12 +13,12 @@
     </div>
 
     <div class="flex-1 min-w-0">
-      <h3 class="font-bold text-white text-sm leading-tight drop-shadow-sm">Nainštalovať aplikáciu</h3>
-      <p class="text-xs text-white/60 mt-0.5 truncate">Pre rýchlejší prístup a offline režim.</p>
+      <h3 class="font-bold text-white text-sm leading-tight">Nainštalovať aplikáciu</h3>
+      <p class="text-xs text-white/75 mt-0.5 truncate">Pre rýchlejší prístup a offline režim.</p>
     </div>
 
     <div class="flex items-center gap-2">
-      <button id="pwa-close" class="p-2 text-white/50 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Zatvoriť">
+      <button id="pwa-close" class="p-2 text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Zatvoriť">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
       </button>
       <button id="pwa-install-btn" class="btn-aurora px-3 py-1.5 text-xs font-bold rounded-lg">
@@ -32,15 +32,15 @@
   .pwa-liquid-glass {
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(10, 10, 26, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(32px) saturate(180%);
     -webkit-backdrop-filter: blur(32px) saturate(180%);
     box-shadow:
-      0 8px 32px rgba(0, 111, 184, 0.25),
-      0 2px 8px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.50),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+      0 8px 32px rgba(0, 111, 184, 0.30),
+      0 2px 12px rgba(0, 0, 0, 0.60),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04);
   }
 </style>
 
