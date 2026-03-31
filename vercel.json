@@ -6,6 +6,31 @@
   },
   "redirects": [
     {
+      "source": "/rezervacia/:path*",
+      "destination": "https://booking.fyzioafit.sk",
+      "permanent": true
+    },
+    {
+      "source": "/rezerv%C3%A1cia/:path*",
+      "destination": "https://booking.fyzioafit.sk",
+      "permanent": true
+    },
+    {
+      "source": "/rezervovat/:path*",
+      "destination": "https://booking.fyzioafit.sk",
+      "permanent": true
+    },
+    {
+      "source": "/rezervova%C5%A5/:path*",
+      "destination": "https://booking.fyzioafit.sk",
+      "permanent": true
+    },
+    {
+      "source": "/booking/:path*",
+      "destination": "https://booking.fyzioafit.sk",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.chiropraxiakosice.eu" }],
       "destination": "https://chiropraxiakosice.eu/$1",
