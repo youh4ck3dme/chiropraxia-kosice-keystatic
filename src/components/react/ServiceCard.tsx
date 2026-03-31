@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-
 interface ServiceCardProps {
   id: string;
   name: string;
@@ -25,25 +23,34 @@ export function ServiceCard({
   isExpress = false,
   onSelect,
   isSelected = false,
-}: ServiceCardProps): React.ReactElement {
-  const cardRef = useRef<HTMLButtonElement>(null);
+}: Readonly<ServiceCardProps>): JSX.Element {
+  const buttonClass = (() => {
+    if (isExpress) {
+      return isSelected
+        ? 'ring-2 ring-amber-400 shadow-[0_0_80px_-10px_rgba(251,191,36,0.5)] bg-amber-50/60 border-[1.5px] border-amber-400 scale-[1.02]'
+        : 'hover:shadow-[0_0_60px_-15px_rgba(251,191,36,0.4)] bg-amber-50/40 border border-amber-300/60 scale-100';
+    }
+    return isSelected
+      ? 'ring-2 ring-aurora shadow-aurora-strong bg-white/60 border-[1.5px] border-[#006fb8] scale-[1.02]'
+      : 'hover:shadow-aurora bg-white/30 border border-white/50 scale-100';
+  })();
+
+  const gradientClass = (() => {
+    if (isExpress) {
+      return isSelected
+        ? 'bg-linear-to-br from-amber-300 to-amber-400'
+        : 'bg-linear-to-br from-amber-200/40 to-amber-100/20';
+    }
+    return isSelected
+      ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
+      : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5';
+  })();
 
   return (
     <button
-      ref={cardRef}
       type="button"
       onClick={() => onSelect?.(id)}
-      className={`
-        w-full text-left relative overflow-hidden cursor-pointer px-5 py-4 transition-all duration-300 ease-out rounded-3xl backdrop-blur-2xl
-        ${isExpress
-          ? isSelected
-            ? 'ring-2 ring-amber-400 shadow-[0_0_80px_-10px_rgba(251,191,36,0.5)] bg-amber-50/60 border-[1.5px] border-amber-400 scale-[1.02]'
-            : 'hover:shadow-[0_0_60px_-15px_rgba(251,191,36,0.4)] bg-amber-50/40 border border-amber-300/60 scale-100'
-          : isSelected
-            ? 'ring-2 ring-aurora shadow-aurora-strong bg-white/60 border-[1.5px] border-[#006fb8] scale-[1.02]'
-            : 'hover:shadow-aurora bg-white/30 border border-white/50 scale-100'
-        }
-      `}
+      className={`w-full text-left relative overflow-hidden cursor-pointer px-5 py-4 transition-all duration-300 ease-out rounded-3xl backdrop-blur-2xl ${buttonClass}`}
     >
 
       {/* Content */}
@@ -93,15 +100,7 @@ export function ServiceCard({
 
       {/* Gradient border overlay */}
       <div
-        className={`absolute inset-0 pointer-events-none rounded-[inherit] p-px [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] mask-exclude [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] ${
-          isExpress
-            ? isSelected
-              ? 'bg-linear-to-br from-amber-300 to-amber-400'
-              : 'bg-linear-to-br from-amber-200/40 to-amber-100/20'
-            : isSelected
-              ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
-              : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5'
-        }`}
+        className={`absolute inset-0 pointer-events-none rounded-[inherit] p-px [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] mask-exclude [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] ${gradientClass}`}
       />
     </button>
   );
