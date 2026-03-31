@@ -60,7 +60,7 @@ export const Logo: React.FC<LogoProps> = ({
         </text>
 
         {/* Podnadpis (Inter) */}
-        <text y="38" className="font-sans" fontSize="9" fill="#000000" letterSpacing="0.2em" style={{ textTransform: 'uppercase' }}>
+        <text y="38" className="font-sans text-uppercase" fontSize="9" fill="#000000" letterSpacing="0.2em">
           {subtitle}
         </text>
       </g>

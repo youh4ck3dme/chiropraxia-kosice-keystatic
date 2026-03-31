@@ -115,7 +115,7 @@
   /* Selection */
   ::selection {
     background: rgba(0, 111, 184, 0.4);
-    color: #0a0a1a;
+    color: #ffffff;
   }
 
   /* Scrollbar */
@@ -219,11 +219,6 @@
     content: '';
     @apply absolute top-0 -left-full w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent;
     animation: sheen 4s infinite linear;
-  }
-
-  /* Hover effect removed per user request - static blue */
-  .btn-aurora:hover {
-    /* No change on hover */
   }
 
   .btn-aurora:active {

@@ -5,7 +5,6 @@ import {
   type Service,
   type AvailableSlot,
 } from '../../lib/supabase';
-import { ServiceCard } from './ServiceCard';
 import { BookingSkeleton } from './Skeleton';
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -16,7 +15,7 @@ type BookingStep = 'service' | 'datetime' | 'details' | 'confirm' | 'success';
  * Full booking flow with glassmorphism design and 3D tilt effects.
  * Handles service selection, date picking, and booking submission via secure API.
  */
-export function BookingWidget({ initialServices }: { initialServices?: Service[] }): React.ReactElement {
+export function BookingWidget({ initialServices }: { readonly initialServices?: Service[] }): React.ReactElement {
   return (
     <ErrorBoundary componentName="BookingWidget">
       <BookingWidgetContent initialServices={initialServices} />
@@ -24,12 +23,11 @@ export function BookingWidget({ initialServices }: { initialServices?: Service[]
   );
 }
 
-function BookingWidgetContent({ initialServices }: { initialServices?: Service[] }): React.ReactElement {
+function BookingWidgetContent({ initialServices }: { readonly initialServices?: Service[] }): React.ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // State
   const [step, setStep] = useState<BookingStep>('service');
-  const [services, setServices] = useState<Service[]>(initialServices ?? []);
   const [slots, setSlots] = useState<AvailableSlot[]>([]);
   const [isLoading, setIsLoading] = useState(!initialServices);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,7 +40,7 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
 
   // Form state
   const [formData, setFormData] = useState(() => {
-    if (typeof window !== 'undefined') {
+    if (globalThis.window !== undefined) {
       const saved = localStorage.getItem('bookingFormData');
       if (saved) {
         try {
@@ -75,9 +73,9 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
         return;
       }
       try {
-        const servicesData = await getServices();
-        setServices(servicesData);
+        await getServices();
       } catch (err) {
+        console.error('Failed to load services', err);
         setError('Nepodarilo sa načítať služby');
       } finally {
         setIsLoading(false);
@@ -93,8 +91,8 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
       }
     };
 
-    window.addEventListener('open-booking-modal', handleOpenBooking);
-    return () => window.removeEventListener('open-booking-modal', handleOpenBooking);
+    globalThis.addEventListener('open-booking-modal', handleOpenBooking);
+    return () => globalThis.removeEventListener('open-booking-modal', handleOpenBooking);
   }, []);
 
   useEffect(() => {
@@ -106,6 +104,7 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
         const slotsData = await getAvailableSlots(selectedDate, selectedService!.id);
         setSlots(slotsData);
       } catch (err) {
+        console.error('Failed to load slots', err);
         setError('Nepodarilo sa načítať voľné termíny');
       } finally {
         setIsLoading(false);
@@ -200,37 +199,44 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
             </div>
           </div>
         );
-        return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-chrome-white mb-2">Vyberte službu</h2>
-              <p className="text-chrome-gray">Aké ošetrenie potrebujete?</p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {services.map((service) => (
-                <ServiceCard
-                  key={service.id}
-                  id={service.id}
-                  name={service.name}
-                  description={service.description}
-                  duration={service.duration_min}
-                  price={service.price}
-                  isSelected={selectedService?.id === service.id}
-                  onSelect={() => {
-                    setSelectedService(service);
-                    setStep('datetime');
+
+      case 'datetime': {
+        let slotsContent;
+        if (isLoading) {
+          slotsContent = <BookingSkeleton />;
+        } else if (slots.length === 0) {
+          slotsContent = <p className="text-center text-chrome-gray py-8">Žiadne voľné termíny pre tento deň</p>;
+        } else {
+          slotsContent = (
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+              {slots.map((slot) => (
+                <button
+                  type="button"
+                  key={slot.slot_time}
+                  onClick={() => {
+                    setSelectedSlot(slot);
+                    setStep('details');
                     containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                />
+                  className={`
+                    px-3 py-2 rounded-lg border transition-all duration-300
+                    ${selectedSlot === slot
+                      ? 'bg-aurora-dim text-white shadow-lg scale-105'
+                      : 'bg-glass-medium border-glass-subtle text-chrome-gray hover:border-glass-strong'
+                    }
+                  `}
+                >
+                  <span className="text-sm font-medium">{formatTime(slot.slot_time)}</span>
+                </button>
               ))}
             </div>
-          </div>
-        );
+          );
+        }
 
-      case 'datetime':
         return (
           <div className="space-y-6">
             <button
+              type="button"
               onClick={() => setStep('service')}
               className="flex items-center gap-2 text-chrome-gray hover:text-chrome-white transition-colors"
             >
@@ -246,10 +252,11 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-medium text-chrome-gray mb-3">Dátum</label>
+              <p className="block text-sm font-medium text-chrome-gray mb-3">Dátum</p>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                 {getAvailableDates().map((date) => (
                   <button
+                    type="button"
                     key={date}
                     onClick={() => setSelectedDate(date)}
                     className={`
@@ -268,40 +275,13 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
 
             {selectedDate && (
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-3">Čas</label>
-                {isLoading ? (
-                  <BookingSkeleton />
-                ) : slots.length === 0 ? (
-                  <p className="text-center text-chrome-gray py-8">
-                    Žiadne voľné termíny pre tento deň
-                  </p>
-                ) : (
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                    {slots.map((slot, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setSelectedSlot(slot);
-                          setStep('details');
-                          containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
-                        className={`
-                          px-3 py-2 rounded-lg border transition-all duration-300
-                          ${selectedSlot === slot
-                            ? 'bg-aurora-dim text-white shadow-lg scale-105'
-                            : 'bg-glass-medium border-glass-subtle text-chrome-gray hover:border-glass-strong'
-                          }
-                        `}
-                      >
-                        <span className="text-sm font-medium">{formatTime(slot.slot_time)}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <p className="block text-sm font-medium text-chrome-gray mb-3">Čas</p>
+                {slotsContent}
               </div>
             )}
           </div>
         );
+      }
 
       case 'details':
         return (
@@ -329,10 +309,11 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
               containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">
+                <label htmlFor="clientName" className="block text-sm font-medium text-chrome-gray mb-2">
                   Meno a priezvisko *
                 </label>
                 <input
+                  id="clientName"
                   type="text"
                   required
                   value={formData.clientName}
@@ -343,10 +324,11 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">
+                <label htmlFor="clientEmail" className="block text-sm font-medium text-chrome-gray mb-2">
                   Email *
                 </label>
                 <input
+                  id="clientEmail"
                   type="email"
                   required
                   value={formData.clientEmail}
@@ -357,10 +339,11 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">
+                <label htmlFor="clientPhone" className="block text-sm font-medium text-chrome-gray mb-2">
                   Telefón
                 </label>
                 <input
+                  id="clientPhone"
                   type="tel"
                   value={formData.clientPhone}
                   onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
@@ -370,10 +353,11 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-chrome-gray mb-2">
+                <label htmlFor="clientNotes" className="block text-sm font-medium text-chrome-gray mb-2">
                   Poznámka
                 </label>
                 <textarea
+                  id="clientNotes"
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   className="input-glass min-h-25 resize-none"
@@ -391,8 +375,8 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
                   className="mt-1 w-4 h-4 rounded border-glass-subtle bg-glass-dark text-aurora focus:ring-aurora/50"
                 />
                 <label htmlFor="gdpr" className="text-sm text-chrome-gray leading-tight">
-                  Súhlasím so spracovaním osobných údajov pre účely rezervácie termínu.
-                  <a href="/ochrana-udajov" target="_blank" className="text-aurora hover:underline ml-1">
+                  Súhlasím so spracovaním osobných údajov pre účely rezervácie termínu.{' '}
+                  <a href="/ochrana-udajov" target="_blank" className="text-aurora hover:underline">
                     Viac info
                   </a>
                 </label>
