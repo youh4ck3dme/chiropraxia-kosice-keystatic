@@ -39,7 +39,7 @@ test.describe('Production Debug Suite', () => {
     console.log('Testing Admin URL...');
     await page.goto(`${BASE_URL}/admin`);
     
-    // Check for email/password inputs (AdminDashboard uses info@chiropraxiakosice.eu + ••••••••)
+    // Check for email/password inputs (AdminDashboard uses booking@fyzioafit.sk + ••••••••)
     await expect(page.getByPlaceholder(/@.*\.(eu|com|sk)/i).or(page.getByRole('textbox', { name: /e-mail|email/i }))).toBeVisible({ timeout: 15000 });
     await expect(page.getByPlaceholder(/••••••••/i)).toBeVisible({ timeout: 5000 });
     console.log('✅ Admin login form is visible.');

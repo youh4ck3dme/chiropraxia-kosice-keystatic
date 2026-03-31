@@ -20,7 +20,7 @@ export default config({
         companyInfo: fields.object({
           name: fields.text({ label: 'N\u00e1zov firmy', defaultValue: 'Chiropraxia Ko\u0161ice' }),
           phone: fields.text({ label: 'Telef\u00f3nne \u010d\u00edslo', defaultValue: '+421 905 307 198' }),
-          email: fields.text({ label: 'Email', defaultValue: 'info@chiropraxiakosice.eu' }),
+          email: fields.text({ label: 'Email', defaultValue: 'booking@fyzioafit.sk' }),
           address: fields.text({ label: 'Adresa', defaultValue: 'Krmanova 854/6, 040 01 Ko\u0161ice' }),
           instagramUrl: fields.text({ label: 'Instagram URL' }),
           facebookUrl: fields.text({ label: 'Facebook URL' }),

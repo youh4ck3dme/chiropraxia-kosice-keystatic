@@ -13,7 +13,7 @@ const supabase = createClient(
 );
 
 async function createAdminUser() {
-  const email = 'info@chiropraxiakosice.eu';
+  const email = 'booking@fyzioafit.sk';
   const password = 'admin123';
   
   console.log(`🔐 Checking if user exists: ${email}`);

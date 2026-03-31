@@ -16,7 +16,7 @@ test.describe('Admin Advanced & Security', () => {
                     id: 'test-admin-id',
                     aud: 'authenticated',
                     role: 'authenticated',
-                    email: 'info@chiropraxiakosice.eu',
+                    email: 'booking@fyzioafit.sk',
                     app_metadata: { provider: 'email' },
                     user_metadata: {},
                     created_at: new Date().toISOString()
@@ -39,7 +39,7 @@ test.describe('Admin Advanced & Security', () => {
     test.describe('Settings Validation', () => {
         test.beforeEach(async ({ page }) => {
             await page.goto('/admin');
-            await page.fill('input[type="email"]', 'info@chiropraxiakosice.eu');
+            await page.fill('input[type="email"]', 'booking@fyzioafit.sk');
             await page.fill('input[type="password"]', 'admin123');
             await page.click('button[type="submit"]');
             await page.click('text=⚙️ Nastavenia');
@@ -65,7 +65,7 @@ test.describe('Admin Advanced & Security', () => {
     test.describe('Staff Management Edge Cases', () => {
         test.beforeEach(async ({ page }) => {
             await page.goto('/admin');
-            await page.fill('input[type="email"]', 'info@chiropraxiakosice.eu');
+            await page.fill('input[type="email"]', 'booking@fyzioafit.sk');
             await page.fill('input[type="password"]', 'admin123');
             await page.click('button[type="submit"]');
             await page.click('text=👥 Zamestnanci');

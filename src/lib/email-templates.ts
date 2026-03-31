@@ -111,7 +111,7 @@ export function wrapEmailLayout(title: string, contentHtml: string): string {
               <p style="margin: 5px 0;">
                 <a href="https://chiropraxiakosice.eu" style="color: ${THEME.accent}; text-decoration: none;">www.chiropraxiakosice.eu</a>
                 |
-                <a href="mailto:info@chiropraxiakosice.eu" style="color: ${THEME.accent}; text-decoration: none;">info@chiropraxiakosice.eu</a>
+                <a href="mailto:booking@fyzioafit.sk" style="color: ${THEME.accent}; text-decoration: none;">booking@fyzioafit.sk</a>
               </p>
             </td>
           </tr>

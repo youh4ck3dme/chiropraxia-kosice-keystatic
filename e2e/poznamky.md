@@ -86,13 +86,38 @@ Pridaj nové blogové články z blogclanky.zip do existujúceho Astro + Keystat
 Keep existing articles, only add new ones. Report any conflicts or issues.
 ```
 
-## Kľúčové body pre AI
+## Reloading Current Data
 
-- Neprepisovať existujúce súbory - iba pridávať nové
-- Overiť unikátnosť slugov - dôležité pre URL
-- Skontrolovať obrázkové cesty - relatívne cesty musia byť správne
-- Overiť frontmatter - všetky povinné polia musia byť vyplnené
-- Testovať funkčnosť - development server a prehliadanie článkov
-- Overiť Keystatic integráciu - články by mali byť viditeľné v CMS
+Ak chcete pred testovaním "načítať znova aktuálne dáta" (zabezpečiť čistý stav bez lokálnych konfliktov), vykonajte v koreňovom priečinku projektu:
 
-<!-- cspell:enable -->
+```powershell
+# 1. Resetujte všetky lokálne zmeny v obsahu (POZOR: stratia sa neuložené koncepty)
+git checkout src/content/
+git clean -fd src/content/
+
+# 2. Stiahnite si najnovšie dáta z GitHubu
+git pull origin main
+
+# 3. Synchronizujte závislosti a spustite setup skript
+npm install
+node scripts/setup-dev.js
+```
+
+## Keystatic GitHub Auth Check
+
+Pre správne fungovanie GitHub autentifikácie v produkcii (a lokálne v GitHub móde) skontrolujte `.env`:
+
+- `KEYSTATIC_STORAGE=github`
+- `KEYSTATIC_GITHUB_CLIENT_ID` (musí byť z GitHub OAuth aplikácie)
+- `KEYSTATIC_GITHUB_CLIENT_SECRET` (musí byť z GitHub OAuth aplikácie)
+- `KEYSTATIC_SECRET` (náhodný reťazec min. 32 znakov)
+
+Spustite overovací skript pre kontrolu konfigurácie:
+```bash
+node scripts/verify-keystatic-github.js
+```
+
+## Email Notifications (Resend API)
+
+Emailové notifikácie sú nastavené na odosielanie správ z formulára na adresu definovanú v `BOOKING_EMAIL` (aktuálne: `booking@fyzioafit.sk`). Pre funkčnosť je potrebný reálny `RESEND_API_KEY`.
+

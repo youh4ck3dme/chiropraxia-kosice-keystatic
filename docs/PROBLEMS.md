@@ -106,7 +106,7 @@ SMTP_SECURE=true
 SMTP_USER=<email>
 SMTP_PASSWORD=<heslo>
 SMTP_FROM=<email>
-SMTP_CLINIC_EMAIL=info@chiropraxiakosice.eu
+SMTP_CLINIC_EMAIL=booking@fyzioafit.sk
 ```
 
 ---

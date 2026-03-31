@@ -35,8 +35,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Notify Admin
     await resend.emails.send({
-      from: 'Newsletter Bot <info@chiropraxiakosice.eu>',
-      to: ['info@chiropraxiakosice.eu'],
+      from: 'Newsletter Bot <booking@fyzioafit.sk>',
+      to: ['booking@fyzioafit.sk'],
       subject: `🔔 Nový odberateľ newslettera: ${data.email}`,
       html: wrapEmailLayout(
         'Nový záujemca o newsletter',

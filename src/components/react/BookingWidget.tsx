@@ -194,7 +194,7 @@ function BookingWidgetContent({ initialServices }: { initialServices?: Service[]
               <a href="tel:+421905307198" className="btn-aurora text-sm">
                 <span>Zavolať: +421 905 307 198</span>
               </a>
-              <a href="mailto:info@chiropraxiakosice.eu" className="btn-glass text-sm">
+              <a href="mailto:booking@fyzioafit.sk" className="btn-glass text-sm">
                 <span>Napísať e-mail</span>
               </a>
             </div>
