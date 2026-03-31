@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"gh pr create --title ''Finalize: cleanup, diagnostic fixes, docs rewrite'' --base main --body ''Opravene vsetky diagnostiky, odstraneny dead code \\(NewBookingFlow, BookingForm, TODO.md, wallpaper\\), vycistene console.log, prepisany README pre Astro 5 / React 19 / Tailwind 4.''\")",
+      "Bash(find /c/Users/42195/Desktop/chiropraxia-kosice-keystatic -type f -name *.tsx -o -name *.ts -o -name *.json -o -name *.webmanifest)",
+      "Bash(find /c/Users/42195/Desktop/chiropraxia-kosice-keystatic/src -type f -name *.astro -o -name *.tsx -o -name *.ts)",
+      "Bash(find /c/Users/42195/Desktop/chiropraxia-kosice-keystatic -name *service* -o -name *sw.ts -o -name *sw.js)",
+      "Bash(grep -r \"vite-pwa\\\\|VitePWA\" /c/Users/42195/Desktop/chiropraxia-kosice-keystatic --include=*.ts --include=*.js --include=*.mjs --include=*.json)",
+      "Bash(grep -r \"beforeinstallprompt\\\\|appinstalled\" /c/Users/42195/Desktop/chiropraxia-kosice-keystatic --include=*.astro --include=*.tsx --include=*.ts)"
+    ]
+  }
+}
