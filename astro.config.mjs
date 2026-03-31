@@ -7,7 +7,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 import sentry from '@sentry/astro';
-import spotlightjs from '@spotlightjs/astro';
 
 const keystaticEnvKeys = [
   'KEYSTATIC_GITHUB_CLIENT_ID',
@@ -37,7 +36,6 @@ export default defineConfig({
     ...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
     sitemap(),
     sentry(),
-    spotlightjs(),
   ],
 
   server: {

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
 import FyzioFitBanner from '../components/FyzioFitBanner.astro';
 
 const faqs = [
@@ -27,13 +28,19 @@ const rating = { value: 4.9, count: 520 };
   rating={rating}
 >
   <!-- Hero Section -->
-  <section class="relative min-h-[80vh] flex items-center justify-center px-6">
-    <div class="max-w-4xl mx-auto text-center">
+  <section class="relative min-h-[85vh] flex items-center justify-center px-4 md:px-6 overflow-hidden">
+    <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
+      <div class="flex flex-col items-center justify-center mb-10 animate-fade-in group">
+        <div class="parallax-3d mb-8">
+          <Logo className="h-64 w-64 md:h-96 md:w-96 animate-float" />
+        </div>
+      </div>
+
       <div class="parallax-3d">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in text-balance">
+        <h1 class="text-[clamp(2.25rem,7vw,4.5rem)] font-extrabold mb-6 animate-fade-in text-balance leading-[1.1]">
           <span class="text-chrome">Zbavte sa</span>
           <br />
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-[#00a7ed] to-[#006fb8]">
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-[#003B73] via-[#00a7ed] to-[#003B73] bg-[length:200%_auto] animate-shimmer drop-shadow-[0_2px_10px_rgba(0,111,184,0.15)]">
             bolesti chrbta v Košiciach
           </span>
         </h1>

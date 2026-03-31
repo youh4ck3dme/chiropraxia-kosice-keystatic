@@ -321,10 +321,16 @@
   20%, 100% { left: 200%; }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
 .animate-float { animation: float 8s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
 .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .animate-slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-shimmer { animation: shimmer 8s linear infinite; }
 
 /* Stagger Animation for Lists */
 .stagger-item {

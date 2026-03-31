@@ -23,7 +23,7 @@ export function ServiceCard({
   isExpress = false,
   onSelect,
   isSelected = false,
-}: Readonly<ServiceCardProps>): JSX.Element {
+}: Readonly<ServiceCardProps>) {
   const buttonClass = (() => {
     if (isExpress) {
       return isSelected

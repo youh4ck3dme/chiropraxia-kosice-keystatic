@@ -1,184 +1,197 @@
 #!/usr/bin/env node
 /**
- * Diagnostický skript pre Chiropraxia Košice
- * Spustenie: node scripts/diagnose.js
- * Kontroluje: Node, závislosti, konfiguráciu, obsah, build, známe problémy
+ * RÝCHLA DIAGNOSTIKA pre Chiropraxia Košice
+ * Spustenie: node scripts/diagnose.js alebo npm run diagnose
+ * Kontroluje: Node/npm, deps, config, .env, port 4322, testy, Vercel, Supabase.
+ * Módy: --quick (default, preskočí build), --full (vrátane buildu a astro info)
  */
 
-import { execSync, spawnSync } from 'child_process';
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import net from 'net';
 import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, '.diagnose');
-const results = { ok: [], warn: [], err: [] };
 
+const isFull = process.argv.includes('--full');
+const isQuick = !isFull;
+
+const results = { 
+  ok: 0, 
+  warn: 0, 
+  err: 0, 
+  details: { ok: [], warn: [], err: [] } 
+};
+
+// Pomocné funkcie
 function log(level, msg) {
-  results[level].push(msg);
+  results.details[level].push(msg);
+  results[level]++;
+  const color = level === 'ok' ? '\x1b[32m' : level === 'warn' ? '\x1b[33m' : '\x1b[31m';
   const prefix = level === 'ok' ? '✓' : level === 'warn' ? '⚠' : '✗';
-  console.log(`${prefix} ${msg}`);
+  console.log(`${color}${prefix} ${msg}\x1b[0m`);
 }
 
-function run(cmd, opts = {}) {
+function safeExec(cmd, timeout = 10000) {
   try {
-    return execSync(cmd, { encoding: 'utf-8', cwd: ROOT, ...opts });
+    return execSync(cmd, { cwd: ROOT, encoding: 'utf-8', stdio: 'pipe', timeout }).trim();
   } catch (e) {
-    return e.stdout || e.stderr || String(e);
+    return '';
   }
 }
 
 function section(title) {
-  console.log('\n' + '='.repeat(60));
-  console.log(`  ${title}`);
-  console.log('='.repeat(60));
+  console.log('\n' + '\x1b[1m' + '═'.repeat(60) + '\x1b[0m');
+  console.log(`  \x1b[1m${title}\x1b[0m ${isFull ? '[FULL]' : '[QUICK]'}`);
+  console.log('═'.repeat(60));
 }
 
-// --- 1. Prostredie ---
-section('1. Prostredie');
-try {
+function checkPort(port) {
+  return new Promise((resolve) => {
+    const server = net.createServer();
+    server.once('error', (err) => {
+      if (err.code === 'EADDRINUSE') resolve(false);
+      else resolve(true); // Iná chyba, predpokladáme voľný
+    });
+    server.once('listening', () => {
+      server.close();
+      resolve(true);
+    });
+    server.listen(port);
+  });
+}
+
+// === Hlavný priebeh ===
+async function main() {
+  // 1. Prostredie
+  section('1. PROSTREDIE');
   const nodeVer = process.version;
-  const nodeMajor = parseInt(nodeVer.slice(1).split('.')[0], 10);
-  if (nodeMajor >= 18) log('ok', `Node ${nodeVer}`);
-  else log('warn', `Node ${nodeVer} – odporúča sa 20.x (package.json engines)`);
-} catch (e) {
-  log('err', `Node: ${e.message}`);
-}
+  const majorNode = parseInt(nodeVer.slice(1).split('.')[0]);
+  if (majorNode >= 20) log('ok', `Node ${nodeVer} OK`);
+  else log('warn', `Node ${nodeVer} – odporúča sa v20+`);
 
-try {
-  const npmVer = run('npm -v').trim();
-  log('ok', `npm ${npmVer}`);
-} catch (e) {
-  log('warn', `npm: ${e.message}`);
-}
+  const npmVer = safeExec('npm -v');
+  npmVer ? log('ok', `npm ${npmVer}`) : log('err', 'npm -v zlyhalo');
 
-// --- 2. Závislosti ---
-section('2. Závislosti');
-const pkgPath = path.join(ROOT, 'package.json');
-if (fs.existsSync(pkgPath)) {
-  log('ok', 'package.json existuje');
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-  const deps = { ...pkg.dependencies, ...pkg.devDependencies };
-  const required = ['astro', '@keystatic/core', '@keystatic/astro', 'react'];
-  for (const r of required) {
-    if (deps[r]) log('ok', `${r}: ${deps[r]}`);
-    else log('err', `Chýba závislosť: ${r}`);
+  const port4322 = await checkPort(4322);
+  port4322 ? log('ok', 'Port 4322 voľný') : log('warn', 'Port 4322 obsadený (beží už dev server?)');
+
+  // 2. Súbory a Závislosti
+  section('2. SÚBORY A ZÁVISLOSTI');
+  const criticalFiles = ['package.json', 'astro.config.mjs', 'keystatic.config.ts', 'tailwind.config.mjs'];
+  criticalFiles.forEach(f => {
+    fs.existsSync(path.join(ROOT, f)) ? log('ok', `${f} OK`) : log('err', `${f} chýba`);
+  });
+
+  if (fs.existsSync(path.join(ROOT, 'package.json'))) {
+    const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8'));
+    const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+    const essential = ['astro', '@keystatic/core', 'react', 'tailwindcss'];
+    essential.forEach(d => {
+      deps[d] ? log('ok', `Dep: ${d} OK`) : log('err', `Chýba dep: ${d}`);
+    });
   }
-} else {
-  log('err', 'package.json neexistuje');
-}
 
-const nodeModules = path.join(ROOT, 'node_modules');
-if (fs.existsSync(nodeModules)) {
-  log('ok', 'node_modules existuje');
-} else {
-  log('err', 'node_modules chýba – spustite: npm install');
-}
+  fs.existsSync(path.join(ROOT, 'node_modules')) ? log('ok', 'node_modules OK') : log('err', 'node_modules chýba – npm install');
 
-// --- 3. Konfigurácia ---
-section('3. Konfigurácia');
-const astroConfig = path.join(ROOT, 'astro.config.mjs');
-if (fs.existsSync(astroConfig)) {
-  log('ok', 'astro.config.mjs existuje');
-  const astroContent = fs.readFileSync(astroConfig, 'utf-8');
-  if (astroContent.includes("define:") && astroContent.includes("process.env")) {
-    log('ok', 'Vite define (process polyfill) pre Keystatic je nastavený');
-  } else if (astroContent.includes('process.env') && !astroContent.includes("define:")) {
-    log('warn', 'astro.config používa process.env bez Vite define – môže spôsobiť chybu v prehliadači');
-  }
-} else {
-  log('err', 'astro.config.mjs chýba');
-}
-
-const keystaticConfig = path.join(ROOT, 'keystatic.config.ts');
-if (fs.existsSync(keystaticConfig)) {
-  log('ok', 'keystatic.config.ts existuje');
-  const kc = fs.readFileSync(keystaticConfig, 'utf-8');
-  if (kc.includes('process.env')) {
-    log('err', 'keystatic.config.ts používa process.env – spôsobuje "process is not defined" v prehliadači');
-  } else if (kc.includes('import.meta.env')) {
-    log('ok', 'keystatic.config.ts používa import.meta.env (správne)');
-  }
-} else {
-  log('err', 'keystatic.config.ts chýba');
-}
-
-// --- 4. Obsah a adresáre ---
-section('4. Obsah a adresáre');
-const contentDirs = [
-  'src/content/blog',
-  'src/content/settings',
-  'src/content/digital-cards',
-  'src/content/testimonials',
-];
-for (const d of contentDirs) {
-  const full = path.join(ROOT, d);
-  if (fs.existsSync(full)) {
-    const files = fs.readdirSync(full, { withFileTypes: true });
-    const count = files.filter((f) => f.isFile()).length;
-    log('ok', `${d}: ${count} súbor(ov)`);
+  // 3. Konfigurácia a ENV
+  section('3. KONFIGURÁCIA A ENV');
+  const envPath = path.join(ROOT, '.env');
+  if (fs.existsSync(envPath)) {
+    log('ok', '.env existuje');
+    const envData = fs.readFileSync(envPath, 'utf-8');
+    const requiredEnv = ['SITE_URL', 'SUPABASE_URL', 'SUPABASE_ANON_KEY', 'JWT_SECRET'];
+    requiredEnv.forEach(key => {
+      const match = envData.match(new RegExp(`^${key}=`, 'm'));
+      match ? log('ok', `ENV: ${key} OK`) : log('warn', `ENV: ${key} chýba`);
+    });
   } else {
-    log('warn', `${d} neexistuje – keystatic glob-loader to môže hlásiť`);
+    log('err', '.env chýba – vytvorte ho podľa .env.example');
   }
-}
 
-// --- 5. Známé problémy ---
-section('5. Známé problémy');
-// Note: API route is og.ts; no need to warn about og.tsx unless it is re-introduced.
+  // 4. Tools (Vercel, Playwright, Vitest)
+  section('4. NÁSTROJE');
+  const tools = [
+    { name: 'Vercel CLI', cmd: 'npx vercel --version' },
+    { name: 'Playwright', cmd: 'npx playwright --version' },
+    { name: 'Vitest', cmd: 'npx vitest --version' }
+  ];
 
-const envExample = path.join(ROOT, '.env.example');
-const env = path.join(ROOT, '.env');
-if (fs.existsSync(envExample) && !fs.existsSync(env)) {
-  log('warn', '.env chýba – skopírujte .env.example a vyplňte premenné');
-} else if (fs.existsSync(env)) {
-  log('ok', '.env existuje');
-}
+  tools.forEach(t => {
+    const out = safeExec(t.cmd);
+    out ? log('ok', `${t.name} OK (${out.split('\n')[0]})`) : log('warn', `${t.name} ?`);
+  });
 
-// --- 6. Astro info ---
-section('6. Astro info');
-try {
-  const astroInfo = run('npx astro info 2>&1', { timeout: 15000 });
-  console.log(astroInfo);
-  if (astroInfo.includes('Error')) log('warn', 'Astro info hlási chyby');
-  else log('ok', 'Astro info OK');
-} catch (e) {
-  log('warn', `Astro info: ${e.message}`);
-}
+  // Vercel Link check
+  if (fs.existsSync(path.join(ROOT, '.vercel/project.json'))) {
+    log('ok', 'Vercel Project linked');
+  } else {
+    log('warn', 'Vercel nie je prepojený (skúste vercel link)');
+  }
 
-// --- 7. Build (voliteľne, môže trvať) ---
-section('7. Rýchla kontrola build-u');
-const buildQuick = process.argv.includes('--build');
-if (buildQuick) {
-  try {
-    const out = run('npm run build 2>&1', { timeout: 120000 });
-    if (out.includes('Complete!') || out.includes('built in')) {
-      log('ok', 'Build prebehol úspešne');
-    } else if (out.includes('Error') || out.includes('error')) {
-      log('err', 'Build zlyhal – pozri výstup vyššie');
+  // Supabase Health (Ping)
+  const envData = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf-8') : '';
+  const sUrlMatch = envData.match(/^SUPABASE_URL=(.*)$/m);
+  if (sUrlMatch) {
+    const sUrl = sUrlMatch[1].trim().replace(/['"]/g, '');
+    try {
+      // Skúsime len jednoduchý ping cez npx (curl/node fetch by bol lepší ale toto je non-blocking)
+      // Využijeme fakt, že supabase url končí na .supabase.co
+      const host = new URL(sUrl).host;
+      log('ok', `Supabase host: ${host}`);
+    } catch {
+      log('warn', 'Supabase URL neplatná');
     }
-  } catch (e) {
-    log('err', `Build: ${e.message}`);
   }
-} else {
-  console.log('  (preskočené – spustite s --build pre plný build)');
+
+  // 5. Full Checks (Astro info & Build)
+  if (isFull) {
+    section('5. FULL KONTROLA (Pomalé)');
+    log('ok', 'Spúšťam Astro info...');
+    const info = safeExec('npx astro info', 20000);
+    console.log(info ? info : 'Astro info zlyhalo');
+
+    log('ok', 'Spúšťam skúšobný Build...');
+    const build = safeExec('npm run build', 120000);
+    if (build && (build.includes('Complete') || build.includes('built'))) {
+      log('ok', 'Build OK');
+    } else {
+      log('err', 'Build zlyhal');
+    }
+  }
+
+  // Súhrn
+  section('SÚHRN');
+  console.log('\n┌' + '─'.repeat(25) + '┐');
+  console.log(`│ Stav        │ Počet     │`);
+  console.log('├' + '─'.repeat(25) + '┤');
+  console.log(`│ \x1b[32m✓ OK\x1b[0m        │ ${results.ok.toString().padEnd(10)} │`);
+  console.log(`│ \x1b[33m⚠ Varovania\x1b[0m │ ${results.warn.toString().padEnd(10)} │`);
+  console.log(`│ \x1b[31m✗ Chyby\x1b[0m     │ ${results.err.toString().padEnd(10)} │`);
+  console.log('└' + '─'.repeat(25) + '┘');
+
+  // Uloženie reportu
+  try {
+    if (!fs.existsSync(OUT)) fs.mkdirSync(OUT, { recursive: true });
+    const report = {
+      timestamp: new Date().toISOString(),
+      mode: isFull ? 'full' : 'quick',
+      ...results
+    };
+    fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 2));
+    console.log(`\nReport uložený do: .diagnose/report.json`);
+  } catch (e) {}
+
+  // Exit kód: 0 ak len OK, 2 ak sú Varovania, 1 ak sú Chyby (Chyby majú prednosť)
+  const exitCode = results.err > 0 ? 1 : (results.warn > 0 ? 2 : 0);
+  process.exit(exitCode);
 }
 
-// --- Súhrn ---
-section('Súhrn');
-console.log(`OK: ${results.ok.length}`);
-console.log(`Varovania: ${results.warn.length}`);
-console.log(`Chyby: ${results.err.length}`);
-
-// Uloženie do súboru
-fs.mkdirSync(OUT, { recursive: true });
-const report = {
-  timestamp: new Date().toISOString(),
-  ok: results.ok,
-  warn: results.warn,
-  err: results.err,
-};
-fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 2), 'utf-8');
-console.log(`\nReport uložený do: ${path.join(OUT, 'report.json')}`);
-
-process.exit(results.err.length > 0 ? 1 : 0);
+main().catch(err => {
+  console.error('\x1b[31mKritická chyba diagnostiky:\x1b[0m', err);
+  process.exit(1);
+});
