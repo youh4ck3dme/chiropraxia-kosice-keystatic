@@ -10,13 +10,10 @@ describe('POST /api/book', () => {
     vi.clearAllMocks();
   });
 
-  it('accepts valid booking payload', async () => {
+  it('returns 503 with error message (booking temporarily disabled)', async () => {
     const request = new Request('http://localhost/api/book', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-forwarded-for': '1.2.3.4',
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         name: 'Ján Novák',
         email: 'jan@example.com',
@@ -24,33 +21,23 @@ describe('POST /api/book', () => {
         service_id: 'chiroprakticka-masaz',
         date: '2026-03-21',
         time: '10:00',
-        notes: 'Test rezervácia',
-        website_url: '',
       }),
     });
 
     const response = await POST({ request } as any);
-    expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toEqual({ success: true });
+    expect(response.status).toBe(503);
+    const body = await response.json();
+    expect(body).toHaveProperty('error');
   });
 
-  it('rejects invalid payload', async () => {
+  it('also returns 503 for invalid payload (booking temporarily disabled)', async () => {
     const request = new Request('http://localhost/api/book', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-forwarded-for': '5.6.7.8',
-      },
-      body: JSON.stringify({
-        name: 'A',
-        email: 'bad-email',
-        service_id: '',
-        date: 'invalid',
-        time: 'invalid',
-      }),
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ name: 'A', email: 'bad-email' }),
     });
 
     const response = await POST({ request } as any);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(503);
   });
 });
