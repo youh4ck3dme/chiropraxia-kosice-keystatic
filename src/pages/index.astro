@@ -1,22 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { BookingWidget } from '../components/react/BookingWidget';
 import FyzioFitBanner from '../components/FyzioFitBanner.astro';
 import { getCollection } from 'astro:content';
-
-const rawServices = await getCollection('services');
-const initialServices = rawServices
-  .filter(s => s.data.isActive)
-  .sort((a, b) => a.data.sort_order - b.data.sort_order)
-  .map(s => ({
-    id: s.id,
-    name: s.data.name,
-    description: s.data.description,
-    duration_min: s.data.duration_min,
-    buffer_time_min: 10,
-    price: s.data.price,
-    sort_order: s.data.sort_order,
-  }));
 
 const faqs = [
   {
@@ -49,7 +34,7 @@ const rating = { value: 4.9, count: 520 };
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in text-balance">
           <span class="text-chrome">Zbavte sa</span>
           <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00a7ed] to-[#006fb8]">
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-[#00a7ed] to-[#006fb8]">
             bolesti chrbta v Košiciach
           </span>
         </h1>
@@ -169,22 +154,6 @@ const rating = { value: 4.9, count: 520 };
     </div>
   </section>
 
-  <!-- Quick Booking Preview -->
-  <section class="py-20 px-6 relative">
-    <div class="max-w-4xl mx-auto relative z-10">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-chrome mb-4">
-          Rezervujte si termín u chiropraktika
-        </h2>
-        <p class="text-chrome-gray">
-          Žiadne čakanie na telefóne. Vyberte si termín, ktorý vám vyhovuje.
-        </p>
-      </div>
-      
-      <BookingWidget client:visible initialServices={initialServices} />
-    </div>
-  </section>
-
   <!-- About Us Section (Migrated Content) -->
   <section class="py-20 px-6 border-t border-glass-subtle">
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center parallax-3d">
@@ -219,7 +188,7 @@ const rating = { value: 4.9, count: 520 };
       <div class="relative">
         <div class="glass-card p-2 rounded-3xl relative z-10 rotate-1 hover:rotate-0 transition-transform duration-500">
            <!-- Wellness Illustration Image -->
-           <div class="aspect-[4/3] bg-glass-dark rounded-2xl flex items-center justify-center overflow-hidden">
+           <div class="aspect-4/3 bg-glass-dark rounded-2xl flex items-center justify-center overflow-hidden">
              <img 
                src="/images/chiropractic-wellness.png" 
                alt="Chiropraktická starostlivosť - wellness ilustrácia" 
@@ -233,7 +202,7 @@ const rating = { value: 4.9, count: 520 };
   </section>
 
   <!-- FAQ Section (SEO) -->
- <section class="py-16 px-6">
+  <section class="py-16 px-6">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-3xl font-bold text-center text-chrome mb-10">Časté otázky</h2>
       <div class="space-y-4">
@@ -319,7 +288,7 @@ const rating = { value: 4.9, count: 520 };
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
           </div>
-          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-black via-slate-900 to-slate-600">500+</span>
+          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">500+</span>
           <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Spokojných pacientov</span>
           <p class="text-sm text-chrome-gray leading-relaxed">Úspešne odliečených prípadov s individuálnym prístupom.</p>
         </div>
@@ -331,7 +300,7 @@ const rating = { value: 4.9, count: 520 };
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
             </svg>
           </div>
-          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-black via-slate-900 to-slate-600">4.9★</span>
+          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">4.9★</span>
           <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Google Hodnotenie</span>
           <p class="text-sm text-chrome-gray leading-relaxed">Najvyššie hodnotená chiropraktická ambulancia v regióne.</p>
         </div>
@@ -344,7 +313,7 @@ const rating = { value: 4.9, count: 520 };
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
           </div>
-          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-black via-slate-900 to-slate-600">98%</span>
+          <span class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">98%</span>
           <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Úspešnosť liečby</span>
           <p class="text-sm text-chrome-gray leading-relaxed">Pacientov pociťuje výraznú úľavu už po prvých sedeniach.</p>
         </div>
