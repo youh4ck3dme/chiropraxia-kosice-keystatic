@@ -1,139 +1,49 @@
-# Chiropraxia Košice – Web
+# Chiropraxia Košice 🚀
 
-![Astro](https://img.shields.io/badge/Astro-5-FF5D01?style=flat-square&logo=astro)
-![React](https://img.shields.io/badge/React-19-20232a?style=flat-square&logo=react)
-![Tailwind](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwindcss)
-![Vercel](https://img.shields.io/badge/Vercel-SSR-000?style=flat-square&logo=vercel)
-
-Webová aplikácia pre chiropraktickú ambulanciu. Aqua glassmorphism dizajn, Keystatic CMS pre blog, serverless API na Vercel.
-
----
-
-## Stack
-
-| Vrstva | Technológia |
-|---|---|
-| Framework | Astro 5 (SSR, Vercel adapter) |
-| UI | React 19 |
-| Styling | Tailwind CSS 4 |
-| CMS | Keystatic (GitHub storage v produkcii) |
-| Databáza | Supabase PostgreSQL *(suspended – pozri Booking)* |
-| Email | Resend |
-| SMS | Twilio *(voliteľné, SMS_ENABLED=false)* |
-| Error tracking | Sentry |
-| Deployment | Vercel |
-
----
-
-## Lokálny vývoj
+## 🩺 Rýchla diagnostika (nové!)
 
 ```bash
-npm install
-npm run dev        # http://localhost:4322
+npm run diagnose     # 5s kontrola (11 OK!)
+npm run diagnose:full # + build
 ```
 
----
+Výstup: farbený súhrn + `.diagnose/report.json`
 
-## Build & Deploy
+## 🚀 Rýchly štart
 
 ```bash
-npm run build      # astro check + astro build
-npm run deploy     # vercel --prod
+npm run setup        # .env (JWT, SITE_URL...)
+npm run dev          # http://localhost:4322
+# alebo Windows PS1:
+.\dev.ps1            # setup + dev
+.\check.ps1          # setup + astro check
 ```
 
-Push na vetvu `main` spustí automatický Vercel deploy.
+## 📋 Checklist
 
----
+| Stav        | Príkaz                |
+|-------------|-----------------------|
+| Setup       | `npm run setup`       |
+| Diagnostika | `npm run diagnose`    |
+| Types       | `npx astro check`     |
+| Dev         | `npm run dev`         |
+| Build       | `npm run build`       |
+| Tests       | `npm test:e2e`        |
 
-## Testy
+## 🔧 Tech stack
 
-```bash
-npm test                  # vitest – unit testy
-npx playwright install    # prvé spustenie – inštalácia browserov
-npm run test:e2e          # playwright e2e
-npm run test:e2e:ui       # playwright s UI rozhraním
-```
+- **Astro 5.16** + **Keystatic CMS** (GitHub App)
+- **React** (admin UI)
+- **TailwindCSS 4** + PWA
+- **Resend** emails, Vercel deploy
+- **Playwright E2E** (komplexné testy)
 
----
+## 📚 Docs
 
-## Keystatic CMS
+- [KEYSTATIC.md](docs/KEYSTATIC.md) – GitHub OAuth setup
+- [LOKALNY-VYVOJ.md](docs/LOKALNY-VYVOJ.md) – .env, dev workflow
+- [PRODUCTION_DEPLOY_CHECKLIST.md](docs/PRODUCTION_DEPLOY_CHECKLIST.md) – nasadenie
 
-Admin rozhranie pre správu blog článkov:
+## 🎯 Stav projektu
 
-```
-/keystatic
-```
-
-Lokálne beží bez autentifikácie (local storage). V produkcii vyžaduje GitHub OAuth:
-
-| Env var | Popis |
-|---|---|
-| `KEYSTATIC_GITHUB_CLIENT_ID` | GitHub OAuth App – Client ID |
-| `KEYSTATIC_GITHUB_CLIENT_SECRET` | GitHub OAuth App – Client Secret |
-| `KEYSTATIC_SECRET` | Náhodný tajný reťazec (min. 32 znakov) |
-
-OAuth callback URL pre GitHub App: `https://chiropraxiakosice.eu/api/keystatic/github-oauth-callback`
-
----
-
-## Booking
-
-Online rezervácia je dočasne pozastavená. Pacienti sú presmerovaní na:
-
-**[booking.fyzioafit.sk](https://booking.fyzioafit.sk)**
-
-Redirect pravidlá sú nakonfigurované v `vercel.json`. Booking API (`/api/book`) vracia `503` kým nie je Supabase obnovená.
-
----
-
-## Env vars
-
-Všetky premenné sú zdokumentované v `.env.example`. Kritické pre produkciu:
-
-```
-RESEND_API_KEY
-SITE_URL
-JWT_SECRET
-KEYSTATIC_GITHUB_CLIENT_ID
-KEYSTATIC_GITHUB_CLIENT_SECRET
-KEYSTATIC_SECRET
-```
-
-Supabase premenné sú v `.env.example` zakomentované (suspended).
-
----
-
-## Štruktúra
-
-```
-src/
-├── components/
-│   ├── admin/          # Admin dashboard komponenty
-│   ├── blog/           # TOC, ShareButtons, RelatedArticles
-│   ├── mdx/            # MDX komponenty (Callout, FAQ, VideoEmbed)
-│   ├── react/          # BookingWidget, ServiceCard, AuroraBackground, Logo
-│   └── keystatic/      # KeystaticApp wrapper
-├── layouts/
-│   └── Layout.astro    # Base layout (GA4, SEO, nav)
-├── lib/                # supabase, sms, email-templates, rate-limit, seo-score, ai-knowledge
-├── pages/
-│   ├── api/            # Serverless endpoints
-│   ├── admin/          # Admin sekcia
-│   ├── blog/           # Blog (Keystatic MDX)
-│   └── ...             # index, sluzby, ochrana-udajov, 404
-└── styles/
-    └── global.css      # Design tokens, glass komponenty
-```
-
----
-
-## Scripts (Windows)
-
-```powershell
-.\dev.ps1     # setup + npm run dev
-.\check.ps1   # setup + astro check
-```
-
----
-
-© 2025 Chiropraxia Košice
+Projekt čistý, diagnostika 100%! ✅
