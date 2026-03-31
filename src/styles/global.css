@@ -115,7 +115,7 @@
   /* Selection */
   ::selection {
     background: rgba(0, 111, 184, 0.4);
-    color: #0a0a1a;
+    color: #ffffff;
   }
 
   /* Scrollbar */
@@ -217,13 +217,8 @@
 
   .btn-aurora::after {
     content: '';
-    @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply absolute top-0 -left-full w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent;
     animation: sheen 4s infinite linear;
-  }
-
-  /* Hover effect removed per user request - static blue */
-  .btn-aurora:hover {
-    /* No change on hover */
   }
 
   .btn-aurora:active {
@@ -302,6 +297,7 @@
   }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .text-balance { text-wrap: balance; }
+  .text-uppercase { text-transform: uppercase; }
 }
 
 /* ============================================
@@ -383,7 +379,7 @@
 
 .link-premium::after {
   content: '';
-  @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300;
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
 }
 
 .link-premium:hover::after {

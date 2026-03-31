@@ -65,7 +65,6 @@
     // Defines the gtag function if not already defined (usually done in Layout head)
     // and pushes the consent update.
     // Real GA initialization happens in Layout.astro based on this or immediately if configured
-    console.log('Analytics consent granted');
     if (typeof (window as any).gtag === 'function') {
         (window as any).gtag('consent', 'update', {
             'ad_storage': 'granted',

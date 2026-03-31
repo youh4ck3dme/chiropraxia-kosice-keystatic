@@ -23,18 +23,17 @@ export async function sendSms(
     }
 
     if (!smsEnabled) {
-        console.log('SMS notifications are disabled (env SMS_ENABLED).');
         return { success: true };
     }
 
     try {
         let message = smsTemplate
-            .replace('{name}', data.name)
-            .replace('{date}', data.date)
-            .replace('{time}', data.time);
+            .replaceAll('{name}', data.name)
+            .replaceAll('{date}', data.date)
+            .replaceAll('{time}', data.time);
 
         if (data.cancellationLink) {
-            message = message.replace('{cancel_link}', data.cancellationLink);
+            message = message.replaceAll('{cancel_link}', data.cancellationLink);
             if (!smsTemplate.includes('{cancel_link}')) {
                 message += `\nZrušenie: ${data.cancellationLink}`;
             }
@@ -56,7 +55,6 @@ export async function sendSms(
             to: phone,
         });
 
-        console.log(`SMS sent to ${phone}`);
         return { success: true };
 
     } catch (err: any) {
