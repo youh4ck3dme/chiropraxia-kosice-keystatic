@@ -104,10 +104,22 @@ async function main() {
   if (fs.existsSync(envPath)) {
     log('ok', '.env existuje');
     const envData = fs.readFileSync(envPath, 'utf-8');
-    const requiredEnv = ['SITE_URL', 'SUPABASE_URL', 'SUPABASE_ANON_KEY', 'JWT_SECRET'];
+    const requiredEnv = ['SITE_URL', 'JWT_SECRET', 'KEYSTATIC_SECRET', 'KEYSTATIC_GITHUB_CLIENT_ID', 'KEYSTATIC_GITHUB_CLIENT_SECRET'];
     requiredEnv.forEach(key => {
       const match = envData.match(new RegExp(`^${key}=`, 'm'));
-      match ? log('ok', `ENV: ${key} OK`) : log('warn', `ENV: ${key} chýba`);
+      if (match) {
+        const value = envData.match(new RegExp(`^${key}=(.*)$`, 'm'))[1].trim();
+        value ? log('ok', `ENV: ${key} OK`) : log('warn', `ENV: ${key} prázdny`);
+      } else {
+        log('err', `ENV: ${key} chýba`);
+      }
+    });
+
+    // Voliteľné / Ignorované (Supabase)
+    const optionalEnv = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'];
+    optionalEnv.forEach(key => {
+      const match = envData.match(new RegExp(`^${key}=`, 'm'));
+      if (match) log('ok', `ENV: ${key} prítomný (Supabase ignored)`);
     });
   } else {
     log('err', '.env chýba – vytvorte ho podľa .env.example');
