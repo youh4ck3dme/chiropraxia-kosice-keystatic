@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 import Breadcrumbs from '../../components/blog/Breadcrumbs.astro';
 import ShareButtons from '../../components/blog/ShareButtons.astro';
 import RelatedArticles from '../../components/blog/RelatedArticles.astro';
@@ -14,18 +14,13 @@ import FAQ from '../../components/mdx/FAQ.astro';
 import VideoEmbed from '../../components/mdx/VideoEmbed.astro';
 import BeforeAfter from '../../components/mdx/BeforeAfter.astro';
 
-export const prerender = true;
+const { slug } = Astro.params;
+const post = await getEntry('blog', slug as string);
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  const publishedPosts = posts.filter((post) => post.data.status !== 'draft');
-  return publishedPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+if (!post || post.data.status === 'draft') {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const { post } = Astro.props;
 const { Content, headings } = await post.render();
 
 // Calculate approximate reading time (200 words per minute)
