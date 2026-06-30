@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BookingWidget } from '../../components/react/BookingWidget';
+<<<<<<< HEAD
 import * as supabase from '../../lib/supabase';
 
 // Mock supabase client module
@@ -14,10 +15,13 @@ vi.mock('./ServiceCard', () => ({
     </button>
   ),
 }));
+=======
+>>>>>>> origin/main
 
 describe('BookingWidget', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+<<<<<<< HEAD
 
     // Setup default mock data
     vi.mocked(supabase.getServices).mockResolvedValue([
@@ -37,19 +41,25 @@ describe('BookingWidget', () => {
     vi.mocked(supabase.getAvailableSlots).mockResolvedValue([
       { slot_time: '10:00:00', slot_end_time: '10:30:00', staff_id: '1', staff_name: 'Dr. Test' },
     ]);
+=======
+>>>>>>> origin/main
   });
 
-  it('loads and displays services on mount', async () => {
+  it('shows temporarily unavailable message after loading', async () => {
     render(<BookingWidget />);
+<<<<<<< HEAD
 
     // Initially shows loading or directly loads if fast
+=======
+>>>>>>> origin/main
     await waitFor(() => {
-      expect(screen.getByText('Test Service')).toBeDefined();
-    });
+      expect(screen.getByText('Online rezervácia je dočasne pozastavená')).toBeDefined();
+    }, { timeout: 3000 });
   });
 
-  it('flows through booking steps', async () => {
+  it('shows phone contact link after loading', async () => {
     render(<BookingWidget />);
+<<<<<<< HEAD
 
     // 1. Select Service
     await waitFor(() => screen.getByText('Test Service'));
@@ -99,5 +109,19 @@ describe('BookingWidget', () => {
     fireEvent.click(confirmBtn);
 
     await waitFor(() => expect(screen.getByText('Rezervácia úspešná!')).toBeDefined());
+=======
+    await waitFor(() => {
+      const phoneLink = screen.getByRole('link', { name: /zavolať/i });
+      expect((phoneLink as HTMLAnchorElement).href).toContain('tel:');
+    }, { timeout: 3000 });
+  });
+
+  it('shows email contact link after loading', async () => {
+    render(<BookingWidget />);
+    await waitFor(() => {
+      const emailLink = screen.getByRole('link', { name: /napísať e-mail/i });
+      expect((emailLink as HTMLAnchorElement).href).toContain('mailto:');
+    }, { timeout: 3000 });
+>>>>>>> origin/main
   });
 });

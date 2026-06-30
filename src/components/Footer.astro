@@ -7,7 +7,7 @@ const { companyInfo, openingHours } = settings?.data || {
   companyInfo: {
     name: 'Chiropraxia Košice',
     phone: '+421 905 307 198',
-    email: 'info@chiropraxiakosice.eu',
+    email: 'booking@fyzioafit.sk',
     address: 'Krmanova 854/6, 040 01 Košice',
     instagramUrl: 'https://www.instagram.com/jaro_fyziofit/',
     facebookUrl: 'https://www.facebook.com/Jaro.Begala/',
@@ -30,7 +30,7 @@ const { companyInfo, openingHours } = settings?.data || {
       <!-- 1. Brand & Description -->
       <div class="space-y-6">
         <a href="/" class="flex items-center gap-2">
-          <Logo className="h-8 w-auto" showText={false} />
+          <Logo className="h-8 w-auto" />
         </a>
         <p class="text-chrome-gray max-w-xs text-sm leading-relaxed">
           Profesionálna starostlivosť o pohybový aparát. Riešime bolesti chrbta, migrény a poúrazové
@@ -215,6 +215,7 @@ const { companyInfo, openingHours } = settings?.data || {
             class="opacity-70 transition-opacity group-hover:opacity-100"
             title="Mapa prevádzky Chiropraxia Košice"></iframe>
         </div>
+<<<<<<< HEAD
         <ul class="mt-4 flex items-center gap-4">
           <li>
             <a href="/sluzby" class="text-chrome-gray text-sm transition-colors hover:text-blue-600"
@@ -226,6 +227,12 @@ const { companyInfo, openingHours } = settings?.data || {
               >Náš Blog</a
             >
           </li>
+=======
+        <ul class="flex items-center gap-4 mt-4">
+          <li><a href="/sluzby" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">Služby a Cenník</a></li>
+          <li><a href="/about" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">O nás</a></li>
+          <li><a href="/blog" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">Náš Blog</a></li>
+>>>>>>> origin/main
         </ul>
       </div>
     </div>

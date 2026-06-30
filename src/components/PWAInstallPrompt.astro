@@ -1,5 +1,6 @@
 ---
 
+<<<<<<< HEAD
 ---
 
 <div
@@ -47,10 +48,50 @@
         class="bg-accent hover:bg-accent/90 shadow-accent/20 rounded-lg px-3 py-1.5 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105"
       >
         Inštalovať
+=======
+<div id="pwa-install-toast" class="fixed bottom-4 left-4 z-9999 translate-y-[200%] transition-transform duration-500 will-change-transform">
+  <div class="pwa-liquid-glass p-4 rounded-2xl flex items-center gap-4 max-w-sm">
+    <!-- Shimmer top border -->
+    <div class="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-linear-to-r from-transparent via-white/40 to-transparent"></div>
+
+    <!-- App Icon -->
+    <div class="relative shrink-0">
+      <div class="absolute inset-0 rounded-xl blur-md opacity-60 bg-aurora-glow animate-pulse"></div>
+      <img src="/chiropraxia.webp" alt="App Icon" class="w-12 h-12 rounded-xl relative z-10 shadow-lg object-contain" />
+    </div>
+
+    <div class="flex-1 min-w-0">
+      <h3 class="font-bold text-white text-sm leading-tight">Nainštalovať aplikáciu</h3>
+      <p class="text-xs text-white/75 mt-0.5 truncate">Pre rýchlejší prístup a offline režim.</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button id="pwa-close" class="p-2 text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10" aria-label="Zatvoriť">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <button id="pwa-install-btn" class="btn-aurora px-3 py-1.5 text-xs font-bold rounded-lg">
+        <span>Inštalovať</span>
+>>>>>>> origin/main
       </button>
     </div>
   </div>
 </div>
+
+<style>
+  .pwa-liquid-glass {
+    position: relative;
+    overflow: hidden;
+    background: rgba(10, 10, 26, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    box-shadow:
+      0 8px 32px rgba(0, 111, 184, 0.30),
+      0 2px 12px rgba(0, 0, 0, 0.60),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  }
+</style>
 
 <script>
   let deferredPrompt: any;
@@ -59,19 +100,19 @@
   const closeBtn = document.getElementById('pwa-close');
 
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
-    // Stash the event so it can be triggered later.
     deferredPrompt = e;
 
+<<<<<<< HEAD
     // Check if user has already dismissed it recently
+=======
+>>>>>>> origin/main
     const dismissedAt = localStorage.getItem('pwa_dismissed_at');
     if (dismissedAt) {
       const daysSinceDismissal = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
-      if (daysSinceDismissal < 7) return; // Don't show for 7 days if dismissed
+      if (daysSinceDismissal < 7) return;
     }
 
-    // Show the prompt after a small delay
     setTimeout(() => {
       toast?.classList.remove('translate-y-[200%]');
     }, 3000);
@@ -81,7 +122,6 @@
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to the install prompt: ${outcome}`);
       deferredPrompt = null;
       toast?.classList.add('translate-y-[200%]');
     }
@@ -95,6 +135,5 @@
   window.addEventListener('appinstalled', () => {
     toast?.classList.add('translate-y-[200%]');
     deferredPrompt = null;
-    console.log('PWA was installed');
   });
 </script>

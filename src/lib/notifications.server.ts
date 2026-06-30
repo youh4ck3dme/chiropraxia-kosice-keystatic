@@ -2,6 +2,55 @@ import { Resend } from 'resend';
 import { wrapEmailLayout } from './email-templates';
 import { generateCancellationToken } from './tokens';
 
+function escapeHtml(value: string): string {
+    return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
+export async function sendBookingNotificationEmail(details: {
+    clientName: string;
+    clientEmail: string;
+    clientPhone?: string;
+    serviceId: string;
+    bookingDate: string;
+    startTime: string;
+    notes?: string;
+}) {
+    const apiKey = import.meta.env.RESEND_API_KEY;
+    if (!apiKey) return;
+
+    const bookingEmail = import.meta.env.BOOKING_EMAIL || 'booking@chiropraxiakosice.eu';
+    const resend = new Resend(apiKey);
+    const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
+    const time = details.startTime.slice(0, 5);
+
+    await resend.emails.send({
+        from: 'Rezervácie web <booking@fyzioafit.sk>',
+        to: [bookingEmail],
+        replyTo: details.clientEmail,
+        subject: `🗓️ Nová rezervácia: ${formattedDate} o ${time}`,
+        html: wrapEmailLayout(
+            'Nová rezervácia z webu',
+            `
+      <p style="margin-bottom: 20px;">Prišla nová rezervácia, skontrolujte detaily nižšie.</p>
+      <table width="100%" cellpadding="10" cellspacing="0" style="background-color: #111; border: 1px solid #333; border-radius: 8px;">
+         <tr><td width="35%" style="color:#aaa;font-size:12px;">MENO:</td><td style="color:#fff;">${escapeHtml(details.clientName)}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">EMAIL:</td><td style="color:#fff;">${escapeHtml(details.clientEmail)}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">TELEFÓN:</td><td style="color:#fff;">${escapeHtml(details.clientPhone || 'Neuvedený')}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">SLUŽBA:</td><td style="color:#fff;">${escapeHtml(details.serviceId)}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">DÁTUM:</td><td style="color:#fff;">${formattedDate}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">ČAS:</td><td style="color:#fff;">${escapeHtml(time)}</td></tr>
+         <tr><td style="color:#aaa;font-size:12px;">POZNÁMKA:</td><td style="color:#fff;">${escapeHtml(details.notes || 'Bez poznámky')}</td></tr>
+      </table>
+      `
+        ),
+    });
+}
+
 export async function sendConfirmationEmail(
   bookingId: string,
   details: {
@@ -26,6 +75,7 @@ export async function sendConfirmationEmail(
   const cancelToken = generateCancellationToken(bookingId);
   const cancelLink = `${siteUrl}/api/cancel-booking?token=${cancelToken}`;
 
+<<<<<<< HEAD
   await resend.emails.send({
     from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
     to: [details.clientEmail],
@@ -33,6 +83,15 @@ export async function sendConfirmationEmail(
     html: wrapEmailLayout(
       'Vaša rezervácia je potvrdená',
       `
+=======
+    await resend.emails.send({
+        from: 'Chiropraxia Košice <booking@fyzioafit.sk>',
+        to: [details.clientEmail],
+        subject: `✅ Potvrdenie rezervácie: ${formattedDate} o ${time}`,
+        html: wrapEmailLayout(
+            'Vaša rezervácia je potvrdená',
+            `
+>>>>>>> origin/main
       <p style="margin-bottom: 30px;">
         Vážený klient <strong>${details.clientName}</strong>,<br><br>
         radi by sme vám potvrdili váš termín u nás. Tešíme sa na vašu návštevu.
@@ -120,6 +179,7 @@ export async function sendBookingEmail(
       break;
   }
 
+<<<<<<< HEAD
   await resend.emails.send({
     from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
     to: [details.clientEmail],
@@ -127,6 +187,15 @@ export async function sendBookingEmail(
     html: wrapEmailLayout(
       title,
       `
+=======
+    await resend.emails.send({
+        from: 'Chiropraxia Košice <booking@fyzioafit.sk>',
+        to: [details.clientEmail],
+        subject: subject,
+        html: wrapEmailLayout(
+            title,
+            `
+>>>>>>> origin/main
       <p style="margin-bottom: 20px;">Vážený klient <strong>${details.clientName}</strong>,</p>
       
       <div style="background-color: #1a1a1a; border-left: 4px solid ${color}; padding: 15px; border-radius: 4px; margin-bottom: 25px;">

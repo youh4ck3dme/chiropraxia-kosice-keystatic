@@ -1,44 +1,23 @@
-/**
- * Supabase stub – databáza je momentálne pozastavená.
- * Rezervácie a admin z DB nie sú aktívne. Blog je plne statický (Astro content).
- * Pri opätovnom zapnutí obnovte @supabase/supabase-js a skutočný createClient.
- */
-
-// Types (unchanged for imports)
-export interface Staff {
-  id: string;
-  name: string;
-  role: string;
-  bio: string | null;
-  photo_url: string | null;
-}
+// Supabase has been removed. Booking data helpers below are lightweight
+// in-memory/static replacements used by the current UI.
 
 export interface Service {
   id: string;
   name: string;
-  description: string | null;
+  description: string;
   duration_min: number;
   buffer_time_min: number;
   price: number;
   sort_order: number;
 }
 
-export interface AvailableSlot {
-  slot_time: string;
-  slot_end_time: string;
-  staff_id: string;
-  staff_name: string;
-}
-
-export interface BookingData {
-  clientName: string;
-  clientEmail: string;
-  clientPhone?: string;
-  staffId: string;
-  serviceId: string;
-  bookingDate: string;
-  startTime: string;
-  notes?: string;
+export interface Staff {
+  id: string;
+  name: string;
+  role: string;
+  bio?: string;
+  photo_url?: string;
+  is_active?: boolean;
 }
 
 export interface StaffInput {
@@ -48,29 +27,29 @@ export interface StaffInput {
   photo_url?: string;
 }
 
+<<<<<<< HEAD
 const _emptyPromise = <T>(value: T): Promise<{ data: T; error: null }> =>
   Promise.resolve({ data: value, error: null });
+=======
+export interface AvailableSlot {
+  slot_time: string;
+  slot_end_time: string;
+  staff_id: string;
+  staff_name: string;
+}
+>>>>>>> origin/main
 
-const emptyResult = { data: [], error: null };
-const emptySingle = { data: null, error: null };
-const noopChain = {
-  select: () => noopChain,
-  insert: () => noopChain,
-  update: () => noopChain,
-  upsert: () => noopChain,
-  delete: () => noopChain,
-  eq: () => noopChain,
-  order: () => noopChain,
-  single: () => Promise.resolve(emptySingle),
-  then: (resolve: (v: { data: never[]; error: null }) => void) => resolve(emptyResult),
-};
-
-const authStub = {
-  getSession: () => Promise.resolve({ data: { session: null }, error: null }),
-  onAuthStateChange: (_event: string, callback: (session: null) => void) => {
-    callback(null);
-    return { data: { subscription: { unsubscribe: () => {} } } };
+const STATIC_SERVICES: Service[] = [
+  {
+    id: 'chiroprakticka-masaz',
+    name: 'Chiropraktická masáž',
+    description: 'Uvoľnenie chrbtice a svalového napätia.',
+    duration_min: 50,
+    buffer_time_min: 10,
+    price: 55,
+    sort_order: 1,
   },
+<<<<<<< HEAD
   signInWithPassword: () =>
     Promise.resolve({
       data: { user: null, session: null },
@@ -80,21 +59,48 @@ const authStub = {
   exchangeCodeForSession: () =>
     Promise.resolve({ data: null, error: { message: 'Auth je dočasne nedostupný.' } }),
 };
+=======
+  {
+    id: 'korekcia',
+    name: 'Naprávanie/Chiropraxia',
+    description: 'Cielená korekcia blokád chrbtice a kĺbov.',
+    duration_min: 15,
+    buffer_time_min: 10,
+    price: 30,
+    sort_order: 2,
+  },
+];
+>>>>>>> origin/main
 
-export const supabase = {
-  auth: authStub,
-  from: (_table: string) => noopChain,
-  rpc: (_fn: string, _params?: Record<string, unknown>) => Promise.resolve(null),
-};
+const STATIC_STAFF: Staff[] = [
+  {
+    id: 'staff-1',
+    name: 'Chiropraxia Košice',
+    role: 'Terapeut',
+    is_active: true,
+  },
+];
+
+const STATIC_SLOT_TIMES = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+const ARBITRARY_BASE_DATE_YEAR = 2000;
+
+function addMinutesToTime(time: string, minutes: number): string {
+  const [h, m] = time.split(':').map(Number);
+  const date = new Date(Date.UTC(ARBITRARY_BASE_DATE_YEAR, 0, 1, h, m + minutes, 0));
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const mins = String(date.getUTCMinutes()).padStart(2, '0');
+  return `${hours}:${mins}:00`;
+}
 
 export async function getServices(): Promise<Service[]> {
-  return [];
+  return STATIC_SERVICES;
 }
 
 export async function getStaff(): Promise<Staff[]> {
-  return [];
+  return STATIC_STAFF;
 }
 
+<<<<<<< HEAD
 export async function getAllStaff(): Promise<Staff[]> {
   return [];
 }
@@ -128,4 +134,13 @@ export async function getAvailableSlots(
 
 export async function createBooking(_booking: BookingData): Promise<string | null> {
   throw new Error('Rezervácie sú dočasne nedostupné.');
+=======
+export async function getAvailableSlots(_date: string, _serviceId: string): Promise<AvailableSlot[]> {
+  return STATIC_SLOT_TIMES.map((time) => ({
+    slot_time: `${time}:00`,
+    slot_end_time: addMinutesToTime(time, 30),
+    staff_id: STATIC_STAFF[0].id,
+    staff_name: STATIC_STAFF[0].name,
+  }));
+>>>>>>> origin/main
 }

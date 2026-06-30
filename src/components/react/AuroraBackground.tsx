@@ -6,6 +6,7 @@ import { useRef, type FC } from 'react';
  * Optimized for performance with CSS-only animations and hardware acceleration.
  */
 export const AuroraBackground: FC = () => {
+<<<<<<< HEAD
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -24,6 +25,22 @@ export const AuroraBackground: FC = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: `
+=======
+  return (
+    <div
+      className="fixed inset-0 pointer-events-none overflow-hidden -z-10 bg-void"
+      aria-hidden="true"
+    >
+      {/* Aurora Blobs - Baby Blue Oriented */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="aurora-blob blob-1" />
+        <div className="aurora-blob blob-2" />
+        <div className="aurora-blob blob-3" />
+      </div>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+>>>>>>> origin/main
         .aurora-blob {
           position: absolute;
           width: 60vw;
@@ -70,9 +87,13 @@ export const AuroraBackground: FC = () => {
           0% { transform: translate(0, 0) scale(1); }
           100% { transform: translate(10%, -15%) scale(1.1); }
         }
+<<<<<<< HEAD
       `,
         }}
       />
+=======
+      `}} />
+>>>>>>> origin/main
     </div>
   );
 };

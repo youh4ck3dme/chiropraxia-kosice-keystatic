@@ -41,6 +41,7 @@ export async function sendSms(
       }
     }
 
+<<<<<<< HEAD
     const client = twilio(accountSid, authToken);
     let phone = to.replace(/\s+/g, '');
     if (!phone.startsWith('+')) {
@@ -63,4 +64,45 @@ export async function sendSms(
     console.error('Error sending SMS:', err);
     return { success: false, error: err.message };
   }
+=======
+    if (!smsEnabled) {
+        return { success: true };
+    }
+
+    try {
+        let message = smsTemplate
+            .replaceAll('{name}', data.name)
+            .replaceAll('{date}', data.date)
+            .replaceAll('{time}', data.time);
+
+        if (data.cancellationLink) {
+            message = message.replaceAll('{cancel_link}', data.cancellationLink);
+            if (!smsTemplate.includes('{cancel_link}')) {
+                message += `\nZrušenie: ${data.cancellationLink}`;
+            }
+        }
+
+        const client = twilio(accountSid, authToken);
+        let phone = to.replace(/\s+/g, '');
+        if (!phone.startsWith('+')) {
+            if (phone.startsWith('09')) {
+                phone = '+421' + phone.substring(1);
+            } else if (phone.startsWith('00')) {
+                phone = '+' + phone.substring(2);
+            }
+        }
+
+        await client.messages.create({
+            body: message,
+            from: fromNumber,
+            to: phone,
+        });
+
+        return { success: true };
+
+    } catch (err: any) {
+        console.error('Error sending SMS:', err);
+        return { success: false, error: err.message };
+    }
+>>>>>>> origin/main
 }

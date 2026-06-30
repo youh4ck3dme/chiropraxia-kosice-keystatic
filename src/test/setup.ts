@@ -4,10 +4,7 @@ import { vi } from 'vitest';
 // Mock Supabase
 vi.mock('../lib/supabase', () => ({
   getServices: vi.fn(),
-  getStaff: vi.fn(),
   getAvailableSlots: vi.fn(),
-  createBooking: vi.fn(),
-  sendConfirmationEmail: vi.fn(),
 }));
 
 // Mock ResizeObserver (needed for some React components)
@@ -18,4 +15,9 @@ global.ResizeObserver = class ResizeObserver {
 };
 
 // Mock ScrollIntoView
+<<<<<<< HEAD
 window.HTMLElement.prototype.scrollIntoView = function () {};
+=======
+window.HTMLElement.prototype.scrollIntoView = function() {};
+
+>>>>>>> origin/main

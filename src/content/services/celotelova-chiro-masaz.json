@@ -1,0 +1,9 @@
+{
+  "slug": "celotelova-chiro-masaz",
+  "name": "Celotelová chiro masáž",
+  "description": "klasická masáž celého tela, bankovanie, mobilizácie, chiropraxia/naprávanie a iné",
+  "duration_min": 90,
+  "price": 75,
+  "sort_order": 3,
+  "isActive": true
+}

@@ -111,6 +111,7 @@ test.describe('Admin Dashboard', () => {
       });
     });
 
+<<<<<<< HEAD
     // 5. Mock Services Data
     await page.route('**/rest/v1/services*', async (route) => {
       await route.fulfill({
@@ -120,6 +121,28 @@ test.describe('Admin Dashboard', () => {
           { id: 's2', name: 'Chiropraktická náprava' },
         ]),
       });
+=======
+    // Helper: Login and dismiss cookie consent
+    async function loginAsAdmin(page: any) {
+        await page.goto('/admin', { waitUntil: 'domcontentloaded' });
+        
+        // Cookie consent is handled via initScript
+        
+        await page.fill('input[type="email"]', 'booking@fyzioafit.sk');
+        await page.fill('input[type="password"]', 'admin123');
+        await page.click('button[type="submit"]');
+        
+        // Wait for dashboard to load
+        await page.waitForSelector('text=Rezervácie', { timeout: 10000 });
+    }
+
+    // ========== BOOKINGS TAB TESTS ==========
+    test('should allow admin login and show bookings', async ({ page }) => {
+        await loginAsAdmin(page);
+        
+        await expect(page.locator('text=Test Client').first()).toBeAttached();
+        await expect(page.getByText('Čaká').first()).toBeVisible();
+>>>>>>> origin/main
     });
 
     // 6. Mock Settings Data

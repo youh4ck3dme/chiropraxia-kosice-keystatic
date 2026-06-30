@@ -1,13 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { BookingWidget } from '../components/react/BookingWidget';
+import Logo from '../components/Logo.astro';
 import FyzioFitBanner from '../components/FyzioFitBanner.astro';
 
 const faqs = [
   {
+<<<<<<< HEAD
     question: 'Bolí chiropraktická náprava?',
     answer:
       "Nie, zákrok je zvyčajne bezbolestný. Zvuk 'puknutia' je len uvoľnenie plynov z kĺbu. Pacienti po zákroku často cítia okamžitú úľavu.",
+=======
+    question: "Bolí chiropraktická náprava?",
+    answer: "Nie, zákrok je zvyčajne bezbolestný. Zvuk 'puknutia' je len uvoľnenie plynov z kĺbu. Pacienti po zákroku often cítia okamžitú úľavu."
+>>>>>>> origin/main
   },
   {
     question: 'Potrebujem výmenný lístok od lekára?',
@@ -24,6 +29,7 @@ const faqs = [
 const rating = { value: 4.9, count: 520 };
 ---
 
+<<<<<<< HEAD
 <Layout
   title="Chiropraxia Košice | Náprava chrbtice a Fyzioterapia bez čakania"
   description="Okamžitá pomoc pri bolestiach chrbta a kĺbov v Košiciach. Moderná diagnostika a jemné manuálne techniky. Objednajte sa online."
@@ -438,8 +444,94 @@ const rating = { value: 4.9, count: 520 };
           <p class="text-chrome-gray text-sm leading-relaxed">
             Úspešne odliečených prípadov s individuálnym prístupom.
           </p>
-        </div>
+=======
+<Layout title="Chiropraxia Košice | Náprava chrbtice a Fyzioterapia bez čakania"
+    description="Okamžitá pomoc pri bolestiach chrbta a kĺbov v Košiciach. Moderná diagnostika a jemné manuálne techniky. Objednajte sa online."
+    faqs={faqs} rating={rating}>
+    <!-- Hero Section -->
+    <section
+        class="relative min-h-[85vh] flex items-center justify-center px-4 md:px-6 overflow-hidden bg-linear-to-b from-blue-50/50 to-white/20">
+        
+        <!-- Liquid Glass Bubbles Canvas - High Visibility Version -->
+        <canvas id="hero-bubbles-canvas" class="absolute inset-0 z-[1] pointer-events-none"></canvas>
 
+        <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
+            <div class="flex flex-col items-center justify-center mb-10 animate-fade-in group" data-bubble-blocker>
+                <div class="parallax-3d mb-8">
+                    <Logo className="h-64 w-64 md:h-96 md:w-96 animate-float" />
+                </div>
+            </div>
+
+            <div class="parallax-3d" data-bubble-blocker>
+                <h1
+                    class="text-[clamp(2.25rem,7vw,4.5rem)] font-extrabold mb-6 animate-fade-in text-balance leading-[1.1]">
+                    <span class="text-chrome">Zbavte sa</span>
+                    <br />
+                    <span
+                        class="text-transparent bg-clip-text bg-linear-to-r from-[#003B73] via-[#00a7ed] to-[#003B73] bg-[length:200%_auto] animate-shimmer drop-shadow-[0_2px_10px_rgba(0,111,184,0.15)]">
+                        bolesti chrbta v Košiciach
+                    </span>
+                </h1>
+            </div>
+
+            <p class="text-base md:text-xl text-chrome-gray max-w-2xl mx-auto mb-10 animate-slide-up"
+                data-bubble-blocker>
+                Profesionálna chiropraktická starostlivosť.
+                Špecializujeme sa na riešenie bolestí chrbtice, krčnej oblasti a migrénu.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
+                style="animation-delay: 0.2s;" data-bubble-blocker>
+                <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-4">
+                    <span>Objednať sa online</span>
+                </a>
+                <a href="/sluzby" class="btn-glass text-lg px-8 py-4">
+                    Naše služby
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">15+ rokov praxe</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">Skúsený tím chiropraktikov s medzinárodnými certifikátmi.</p>
+                </div>
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">Rýchle termíny</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">Online rezervácia s možnosťou objednať sa do 24 hodín.</p>
+                </div>
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="M22 4L12 14.01l-3-3" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">Overené výsledky</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">Stovky spokojných pacientov a pozitívne recenzie.</p>
+                </div>
+            </div>
+>>>>>>> origin/main
+        </div>
+    </section>
+
+<<<<<<< HEAD
         <!-- Stat 2: Rating -->
         <div
           class="glass-card shadow-3d shadow-3d-hover stagger-item group flex flex-col items-center p-8 text-center"
@@ -505,8 +597,181 @@ const rating = { value: 4.9, count: 520 };
           <p class="text-chrome-gray text-sm leading-relaxed">
             Pacientov pociťuje výraznú úľavu už po prvých sedeniach.
           </p>
+=======
+    <!-- ... rest of page content ... -->
+    <section class="max-w-4xl mx-auto px-6">
+        <FyzioFitBanner />
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="py-24 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+            <div class="glass-card p-8">
+                <span class="text-4xl font-black block mb-2">500+</span>
+                <span class="text-blue-900 font-bold text-xs uppercase tracking-widest">Spokojných pacientov</span>
+            </div>
+            <div class="glass-card p-8">
+                <span class="text-4xl font-black block mb-2">4.9★</span>
+                <span class="text-blue-900 font-bold text-xs uppercase tracking-widest">Google Hodnotenie</span>
+            </div>
+            <div class="glass-card p-8">
+                <span class="text-4xl font-black block mb-2">98%</span>
+                <span class="text-blue-900 font-bold text-xs uppercase tracking-widest">Úspešnosť liečby</span>
+            </div>
+>>>>>>> origin/main
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </Layout>
+<<<<<<< HEAD
+=======
+
+<script>
+    interface BlockerRect {
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+    }
+
+    class Bubble {
+        canvas: HTMLCanvasElement;
+        blockers: BlockerRect[];
+        radius: number = 0;
+        x: number = 0;
+        y: number = 0;
+        vx: number = 0;
+        vy: number = 0;
+        opacity: number = 0;
+
+        constructor(canvas: HTMLCanvasElement, blockers: BlockerRect[]) {
+            this.canvas = canvas;
+            this.blockers = blockers;
+            this.init();
+        }
+
+        init() {
+            this.radius = Math.random() * 80 + 35;
+            this.x = Math.random() * this.canvas.width;
+            this.y = Math.random() * this.canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.opacity = Math.random() * 0.3 + 0.5;
+        }
+
+        update(mouse: { x: number | null, y: number | null }) {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < -this.radius) this.x = this.canvas.width + this.radius;
+            if (this.x > this.canvas.width + this.radius) this.x = -this.radius;
+            if (this.y < -this.radius) this.y = this.canvas.height + this.radius;
+            if (this.y > this.canvas.height + this.radius) this.y = -this.radius;
+
+            this.blockers.forEach(rect => {
+                const dx = this.x - (rect.left + rect.width / 2);
+                const dy = this.y - (rect.top + rect.height / 2);
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const minDistance = this.radius + Math.max(rect.width, rect.height) / 1.5;
+
+                if (distance < minDistance) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (minDistance - distance) / minDistance;
+                    this.vx += Math.cos(angle) * force * 0.15;
+                    this.vy += Math.sin(angle) * force * 0.15;
+                }
+            });
+
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 200) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (200 - distance) / 200;
+                    this.vx += Math.cos(angle) * force * 0.08;
+                    this.vy += Math.sin(angle) * force * 0.08;
+                }
+            }
+        }
+
+        draw(ctx: CanvasRenderingContext2D) {
+            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+            gradient.addColorStop(0, `rgba(200, 235, 255, 0)`);
+            gradient.addColorStop(0.5, `rgba(224, 245, 255, ${this.opacity * 0.5})`);
+            gradient.addColorStop(0.9, `rgba(255, 255, 255, ${this.opacity * 0.9})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+    }
+
+    let animationFrameId: number | null = null;
+    const mousePos: { x: number | null, y: number | null } = { x: null, y: null };
+
+    function initHeroAnimation() {
+        const canvas = document.getElementById('hero-bubbles-canvas') as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+        const parent = canvas.parentElement;
+        if (!parent) return;
+
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+
+        const blockerElements = parent.querySelectorAll('[data-bubble-blocker]');
+        const blockers: BlockerRect[] = Array.from(blockerElements).map(el => {
+            const rect = el.getBoundingClientRect();
+            const parentRect = parent.getBoundingClientRect();
+            return {
+                left: rect.left - parentRect.left,
+                top: rect.top - parentRect.top,
+                width: rect.width,
+                height: rect.height
+            };
+        });
+
+        const bubbles = Array.from({ length: 15 }, () => new Bubble(canvas, blockers));
+
+        function animate() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bubbles.forEach(b => { b.update(mousePos); b.draw(ctx); });
+            animationFrameId = requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+        const canvas = document.getElementById('hero-bubbles-canvas') as HTMLCanvasElement;
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        mousePos.x = e.clientX - rect.left;
+        mousePos.y = e.clientY - rect.top;
+    };
+
+    function setup() {
+        if (!document.getElementById('hero-bubbles-canvas')) return;
+        initHeroAnimation();
+        setTimeout(initHeroAnimation, 300);
+        window.addEventListener('resize', initHeroAnimation);
+        window.addEventListener('mousemove', handleMouseMove);
+    }
+
+    function cleanup() {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('resize', initHeroAnimation);
+        window.removeEventListener('mousemove', handleMouseMove);
+    }
+
+    document.addEventListener('astro:page-load', setup);
+    document.addEventListener('astro:before-swap', cleanup);
+    if (document.readyState === 'complete') setup();
+</script>
+>>>>>>> origin/main

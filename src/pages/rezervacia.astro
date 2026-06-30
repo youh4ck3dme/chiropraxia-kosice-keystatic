@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { NewBookingFlow } from '../components/NewBookingFlow';
 ---
 
 <Layout
@@ -17,6 +16,7 @@ import { NewBookingFlow } from '../components/NewBookingFlow';
             rezervácia</span
           >
         </h1>
+<<<<<<< HEAD
         <p class="text-chrome-gray mx-auto max-w-xl text-lg">
           Vyberte si službu, dátum a čas. Potvrdenie dostanete okamžite na email.
         </p>
@@ -179,8 +179,42 @@ import { NewBookingFlow } from '../components/NewBookingFlow';
           </svg>
           <h3 class="text-chrome mb-2 font-semibold">Bezplatné zrušenie</h3>
           <p class="text-chrome-gray text-sm">Do 24 hodín pred termínom</p>
+=======
+        <p class="text-chrome-gray text-lg max-w-xl mx-auto">
+          Online rezervácia je dočasne pozastavená.
+        </p>
+      </div>
+
+      <!-- Suspended Message -->
+      <div class="glass-card p-8 text-center">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-amber-500/10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-chrome mb-4">
+          Online rezervácia je dočasne pozastavená
+        </h2>
+        
+        <p class="text-chrome-gray mb-8">
+          Naše online rezervácie sú momentálne nedostupné. Kontaktujte nás priamo telefonicky alebo e-mailom pre objednanie termínu.
+        </p>
+        
+        <div class="flex flex-col gap-4">
+          <a href="tel:+421905307198" class="btn-aurora w-full justify-center py-3">
+            <span>Zavolať: +421 905 307 198</span>
+          </a>
+          <a href="mailto:booking@fyzioafit.sk" class="btn-glass w-full justify-center py-3">
+            <span>Napísať e-mail</span>
+          </a>
+          <a href="/" class="btn-glass w-full justify-center py-3">
+            <span>Späť na úvod</span>
+          </a>
+>>>>>>> origin/main
         </div>
       </div>
+
     </div>
   </section>
 </Layout>

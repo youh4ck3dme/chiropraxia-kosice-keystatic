@@ -23,10 +23,14 @@
       >
         Odmietnuť
       </button>
+<<<<<<< HEAD
       <button
         id="cookie-accept"
         class="bg-aurora shadow-aurora/20 flex-1 rounded-lg px-3 py-1.5 text-[10px] font-bold !text-black shadow-lg transition-all hover:brightness-110 active:scale-95"
       >
+=======
+      <button id="cookie-accept" class="flex-1 px-3 py-1.5 bg-aurora text-black! text-[10px] font-bold rounded-lg shadow-lg shadow-aurora/20 transition-all hover:brightness-110 active:scale-95">
+>>>>>>> origin/main
         Súhlasím
       </button>
     </div>
@@ -76,7 +80,6 @@
     // Defines the gtag function if not already defined (usually done in Layout head)
     // and pushes the consent update.
     // Real GA initialization happens in Layout.astro based on this or immediately if configured
-    console.log('Analytics consent granted');
     if (typeof (window as any).gtag === 'function') {
       (window as any).gtag('consent', 'update', {
         ad_storage: 'granted',

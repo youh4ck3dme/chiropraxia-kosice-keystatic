@@ -1,9 +1,9 @@
 ---
 interface Props {
   className?: string;
-  showText?: boolean;
 }
 
+<<<<<<< HEAD
 const { className = 'h-12 w-auto', showText = true } = Astro.props;
 ---
 
@@ -94,3 +94,17 @@ const { className = 'h-12 w-auto', showText = true } = Astro.props;
     }
   </svg>
 </div>
+=======
+const { className = "h-12 w-auto" } = Astro.props;
+---
+
+<div class={`${className} flex items-center justify-center overflow-hidden rounded-xl`}>
+  <img 
+    src="/chiropraxia.png" 
+    alt="Chiropraxia Košice Logo" 
+    class="h-full w-full object-contain"
+    loading="eager"
+  />
+</div>
+
+>>>>>>> origin/main

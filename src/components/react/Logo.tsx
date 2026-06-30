@@ -1,11 +1,18 @@
-import React from 'react';
+import type { FC } from 'react';
 
 interface LogoProps {
   className?: string;
   subtitle?: string;
 }
 
+<<<<<<< HEAD
 export const Logo: React.FC<LogoProps> = ({ className = '', subtitle = 'BLOG PORTAL' }) => {
+=======
+export const Logo: FC<LogoProps> = ({
+  className = "",
+  subtitle = "BLOG PORTAL"
+}) => {
+>>>>>>> origin/main
   return (
     <svg
       viewBox="0 0 280 44"
@@ -71,6 +78,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', subtitle = 'BLOG POR
       {/* --- TEXT ČASŤ --- */}
       <g transform="translate(52, 0)">
         {/* Hlavný nadpis (Rajdhani/Outfit) */}
+<<<<<<< HEAD
         <text
           y="22"
           className="font-display font-bold"
@@ -78,10 +86,14 @@ export const Logo: React.FC<LogoProps> = ({ className = '', subtitle = 'BLOG POR
           fill="#0a0b1e"
           letterSpacing="0.05em"
         >
+=======
+        <text y="22" className="font-display font-bold" fontSize="18" fill="#0a0b1e" letterSpacing="0.05em">
+>>>>>>> origin/main
           CHIROPRAXIA <tspan fill="#005a9e">KOŠICE</tspan>
         </text>
 
         {/* Podnadpis (Inter) */}
+<<<<<<< HEAD
         <text
           y="38"
           className="font-sans"
@@ -90,9 +102,16 @@ export const Logo: React.FC<LogoProps> = ({ className = '', subtitle = 'BLOG POR
           letterSpacing="0.2em"
           style={{ textTransform: 'uppercase' }}
         >
+=======
+        <text y="38" className="font-sans text-uppercase" fontSize="9" fill="#000000" letterSpacing="0.2em">
+>>>>>>> origin/main
           {subtitle}
         </text>
       </g>
     </svg>
   );
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main

@@ -1,0 +1,10 @@
+{
+  "slug": "expresny-termin",
+  "name": "Express termín",
+  "description": "do 36h, víkendové termíny, sviatky (+ cena služby)",
+  "duration_min": 0,
+  "price": 15,
+  "sort_order": 4,
+  "isActive": true,
+  "isExpress": true
+}

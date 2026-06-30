@@ -1,16 +1,43 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 import FyzioFitBanner from '../../components/FyzioFitBanner.astro';
 
+<<<<<<< HEAD
 // Get all blog posts
 const posts = await getCollection('blog');
 const publishedPosts = posts.filter((post) => post.data.status !== 'draft');
 const sortedPosts = publishedPosts.sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
+=======
+// Use Keystatic reader API to dynamically read articles from disk on each request
+const reader = createReader(process.cwd(), keystaticConfig);
+const allSlugs: string[] = await reader.collections.blog.list();
+>>>>>>> origin/main
 
-const formatDate = (date: Date) => {
+type BlogEntry = Awaited<ReturnType<typeof reader.collections.blog.read>>;
+type BlogPost = { slug: string; entry: BlogEntry };
+
+const allPosts: BlogPost[] = await Promise.all(
+  allSlugs.map(async (slug: string): Promise<BlogPost> => ({
+    slug,
+    entry: await reader.collections.blog.read(slug),
+  }))
+);
+const sortedPosts = allPosts
+  .filter((p): p is { slug: string; entry: NonNullable<BlogEntry> } =>
+    p.entry !== null && p.entry !== undefined && p.entry.status !== 'draft'
+  )
+  .sort((a, b) => {
+    const dateA = a.entry.publishDate ? new Date(a.entry.publishDate).getTime() : -Infinity;
+    const dateB = b.entry.publishDate ? new Date(b.entry.publishDate).getTime() : -Infinity;
+    return dateB - dateA;
+  });
+
+const formatDate = (date: string | null) => {
+  if (!date) return '';
   return new Date(date).toLocaleDateString('sk-SK', {
     year: 'numeric',
     month: 'long',
@@ -41,6 +68,7 @@ const formatDate = (date: Date) => {
       <FyzioFitBanner />
 
       <!-- Blog Grid -->
+<<<<<<< HEAD
       {
         sortedPosts.length > 0 ? (
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -72,6 +100,46 @@ const formatDate = (date: Date) => {
                 </div>
               </a>
             ))}
+=======
+      {sortedPosts.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sortedPosts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="glass-card-interactive group block overflow-hidden">
+              {post.entry.coverImage && (
+                <div class="aspect-video overflow-hidden">
+                  <img 
+                    src={post.entry.coverImage} 
+                    alt={post.entry.coverImageAlt || post.entry.title}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-2 text-xs text-chrome-gray mb-3">
+                  <span>{formatDate(post.entry.publishDate)}</span>
+                  <span>•</span>
+                  <span>{post.entry.author}</span>
+                </div>
+                <h2 class="text-xl font-semibold text-chrome mb-3 group-hover:text-aurora transition-colors">
+                  {post.entry.title}
+                </h2>
+                <p class="text-chrome-gray text-sm line-clamp-3">
+                  {post.entry.seoDescription}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <div class="glass-card p-12 max-w-md mx-auto">
+            <div class="text-4xl mb-4">📝</div>
+            <h2 class="text-xl font-semibold text-chrome mb-2">Články pripravujeme</h2>
+            <p class="text-chrome-gray text-sm">
+              Čoskoro tu nájdete odborné články o zdraví chrbtice a chiropraktickej starostlivosti.
+            </p>
+>>>>>>> origin/main
           </div>
         ) : (
           <div class="py-20 text-center">

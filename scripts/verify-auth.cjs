@@ -7,6 +7,7 @@ const supabase = createClient(
 );
 
 async function verifyAuth() {
+<<<<<<< HEAD
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
 
@@ -16,6 +17,11 @@ async function verifyAuth() {
     process.exit(1);
   }
 
+=======
+  const email = 'booking@fyzioafit.sk';
+  const password = 'admin123';
+  
+>>>>>>> origin/main
   console.log(`🔐 Verifying login for: ${email}`);
 
   const { data, error } = await supabase.auth.signInWithPassword({

@@ -1,9 +1,15 @@
 import { createHmac } from 'node:crypto';
 
+<<<<<<< HEAD
 const JWT_SECRET = import.meta.env.JWT_SECRET;
 
 if (!JWT_SECRET) {
   throw new Error('JWT_SECRET environment variable is required but not set.');
+=======
+const SECRET = import.meta.env.JWT_SECRET;
+if (!SECRET) {
+    throw new Error('JWT_SECRET environment variable is not set. Please configure it before using token functions.');
+>>>>>>> origin/main
 }
 
 export function generateCancellationToken(bookingId: string): string {

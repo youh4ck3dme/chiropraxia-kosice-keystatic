@@ -56,17 +56,32 @@ test.describe('Keystatic Admin UI', () => {
     await page.getByLabel('Kľúčové slová').fill('test, playwright, keystatic');
 
     // Content is MDX, slightly trickier to fill depending on how Keystatic renders it.
-    // Usually it's an editable div or a slate editor.
-    // Let's try to type into the editable area.
-    const editor = page.locator('[role="textbox"]').nth(1); // Usually the second one is the MDX content
-    await editor.fill('Toto je obsah testovacieho článku.');
+    // Usually it's an editable div or a slate editor with role="textbox".
+    // We target the main content editor (usually the second one, after the title)
+    // but we use a more robust approach looking for the specific editor container.
+    const editor = page.locator('.keystatic-editor [role="textbox"], [data-slate-editor="true"]').first();
+    if (await editor.count() > 0) {
+      await editor.fill('Toto je obsah testovacieho článku.');
+    } else {
+      // Fallback
+      await page.locator('[role="textbox"]').nth(1).fill('Toto je obsah testovacieho článku.');
+    }
 
     // Save
+<<<<<<< HEAD
     await page.getByRole('button', { name: 'Create' }).click();
 
     // Wait for success
     await expect(page.getByText('Created')).toBeVisible();
 
+=======
+    const saveBtn = page.getByRole('button', { name: /Create|Save|Uložiť|Pridať/i });
+    await saveBtn.click();
+    
+    // Wait for success - Keystatic shows a toast or changes URL
+    await expect(page.getByText(/Created|Success|Vytvorené|Uložené/i)).toBeVisible({ timeout: 15000 });
+    
+>>>>>>> origin/main
     // Cleanup: We should probably delete the file created in src/content/blog
     // but for now we just verify it was "created" in the UI sense.
   });

@@ -34,11 +34,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const resend = new Resend(apiKey);
+    const toEmail = import.meta.env.BOOKING_EMAIL || 'booking@fyzioafit.sk';
+    const fromEmail = import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
     // Send email using Resend
     const { error } = await resend.emails.send({
-      from: 'Web Formulár <info@chiropraxiakosice.eu>',
-      to: ['info@chiropraxiakosice.eu'],
+      from: `Web Formulár <${fromEmail}>`,
+      to: [toEmail],
       replyTo: data.email,
       subject: `📩 Nová správa: ${data.name}`,
       html: wrapEmailLayout(

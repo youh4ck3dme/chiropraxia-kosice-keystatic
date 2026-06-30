@@ -3,13 +3,38 @@ name: CI
 on:
   push:
     branches: [main]
+<<<<<<< HEAD
   pull_request:
     branches: [main]
+=======
+    paths-ignore:
+      - 'src/content/**'
+      - '**/*.mdx'
+      - 'public/**'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'src/content/**'
+      - '**/*.mdx'
+      - 'public/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+>>>>>>> origin/main
 
 jobs:
   lint-and-type-check:
     name: Lint & Type Check
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+    timeout-minutes: 15
+>>>>>>> origin/main
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,6 +50,7 @@ jobs:
 
       - name: Lint
         run: npm run lint
+<<<<<<< HEAD
 
       - name: Format check
         run: npm run format:check
@@ -33,10 +59,18 @@ jobs:
         run: npm run check
         env:
           SKIP_KEYSTATIC: true
+=======
+        env:
+          SKIP_KEYSTATIC: 'true'
+>>>>>>> origin/main
 
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+    timeout-minutes: 15
+>>>>>>> origin/main
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,4 +85,8 @@ jobs:
         run: npm ci
 
       - name: Run unit tests
+<<<<<<< HEAD
         run: npm test -- --run
+=======
+        run: npm test
+>>>>>>> origin/main

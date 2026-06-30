@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 import Breadcrumbs from '../../components/blog/Breadcrumbs.astro';
 import ShareButtons from '../../components/blog/ShareButtons.astro';
 import RelatedArticles from '../../components/blog/RelatedArticles.astro';
@@ -14,18 +14,13 @@ import FAQ from '../../components/mdx/FAQ.astro';
 import VideoEmbed from '../../components/mdx/VideoEmbed.astro';
 import BeforeAfter from '../../components/mdx/BeforeAfter.astro';
 
-export const prerender = true;
+const { slug } = Astro.params;
+const post = await getEntry('blog', slug as string);
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  const publishedPosts = posts.filter((post) => post.data.status !== 'draft');
-  return publishedPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+if (!post || post.data.status === 'draft') {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const { post } = Astro.props;
 const { Content, headings } = await post.render();
 
 // Calculate approximate reading time (200 words per minute)
@@ -273,6 +268,7 @@ const articleSchema = {
               </p>
             </div>
 
+<<<<<<< HEAD
             <!-- CTA Box -->
             <div
               class="glass-card from-aurora-purple/10 border-aurora-purple/20 border bg-gradient-to-br to-transparent p-6"
@@ -286,12 +282,24 @@ const articleSchema = {
               </a>
             </div>
           </div>
+=======
+             <!-- CTA Box -->
+             <div class="glass-card p-6 bg-gradient-to-br from-aurora-purple/10 to-transparent border border-aurora-purple/20">
+               <h3 class="font-bold text-white mb-2">Trápi vás podobný problém?</h3>
+               <p class="text-sm text-gray-400 mb-6">Neodkladajte liečbu. Rezervujte si termín u odborníka ešte dnes.</p>
+               <a href="https://booking.fyzioafit.sk" class="w-full btn-aurora flex justify-center py-3 text-sm">
+                 Rezervovať termín
+               </a>
+             </div>
+           </div>
+>>>>>>> origin/main
         </aside>
       </div>
     </div>
   </article>
 
   <!-- Mobile Sticky CTA (Bottom) -->
+<<<<<<< HEAD
   <div class="fixed bottom-6 left-1/2 z-40 w-[90%] max-w-sm -translate-x-1/2 lg:hidden">
     <a
       href="/rezervacia"
@@ -314,6 +322,18 @@ const articleSchema = {
         >
       </div>
     </a>
+=======
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 lg:hidden w-[90%] max-w-sm">
+      <a href="https://booking.fyzioafit.sk" class="glass-card flex items-center justify-between p-4 shadow-2xl border-aurora-teal/30 bg-black/80 backdrop-blur-xl animate-fade-in-up">
+        <div class="flex flex-col">
+            <span class="text-xs text-gray-400 uppercase">Bolí to?</span>
+            <span class="font-bold text-white">Objednať vyšetrenie</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-aurora-teal text-black flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+>>>>>>> origin/main
   </div>
 
   <!-- SEO panel (visible when ?seo=1; for editors) -->

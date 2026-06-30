@@ -1,18 +1,18 @@
-import { useRef } from 'react';
-
 interface ServiceCardProps {
   id: string;
   name: string;
   description?: string | null;
   duration: number;
   price: number;
+  isExpress?: boolean;
   onSelect?: (id: string) => void;
   isSelected?: boolean;
 }
 
 /**
  * Service Card Component
- * Glassmorphism card with 3D tilt effect and liquid highlight
+ * Glassmorphism card with 3D tilt effect and liquid highlight.
+ * Supports an `isExpress` variant with amber styling for priority bookings.
  */
 export function ServiceCard({
   id,
@@ -20,16 +20,40 @@ export function ServiceCard({
   description,
   duration,
   price,
+  isExpress = false,
   onSelect,
   isSelected = false,
-}: ServiceCardProps): React.ReactElement {
-  const cardRef = useRef<HTMLButtonElement>(null);
+}: Readonly<ServiceCardProps>) {
+  const buttonClass = (() => {
+    if (isExpress) {
+      return isSelected
+        ? 'ring-2 ring-amber-400 shadow-[0_0_80px_-10px_rgba(251,191,36,0.5)] bg-amber-50/60 border-[1.5px] border-amber-400 scale-[1.02]'
+        : 'hover:shadow-[0_0_60px_-15px_rgba(251,191,36,0.4)] bg-amber-50/40 border border-amber-300/60 scale-100';
+    }
+    return isSelected
+      ? 'ring-2 ring-aurora shadow-aurora-strong bg-white/60 border-[1.5px] border-[#006fb8] scale-[1.02]'
+      : 'hover:shadow-aurora bg-white/30 border border-white/50 scale-100';
+  })();
 
+<<<<<<< HEAD
+=======
+  const gradientClass = (() => {
+    if (isExpress) {
+      return isSelected
+        ? 'bg-linear-to-br from-amber-300 to-amber-400'
+        : 'bg-linear-to-br from-amber-200/40 to-amber-100/20';
+    }
+    return isSelected
+      ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
+      : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5';
+  })();
+
+>>>>>>> origin/main
   return (
     <button
-      ref={cardRef}
       type="button"
       onClick={() => onSelect?.(id)}
+<<<<<<< HEAD
       className={`relative w-full cursor-pointer overflow-hidden rounded-3xl p-6 text-left backdrop-blur-2xl transition-all duration-300 ease-out ${
         isSelected
           ? 'ring-aurora shadow-aurora-strong scale-[1.02] border-[1.5px] border-[#006fb8] bg-white/60 ring-2'
@@ -42,6 +66,20 @@ export function ServiceCard({
         <div className="mb-4 flex items-start justify-between">
           <h3 className="text-chrome flex items-center justify-between gap-2 text-xl font-bold">
             <span className="text-chrome font-bold">{name}</span>
+=======
+      className={`w-full text-left relative overflow-hidden cursor-pointer px-5 py-4 transition-all duration-300 ease-out rounded-3xl backdrop-blur-2xl ${buttonClass}`}
+    >
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-xl font-bold text-chrome flex items-center gap-2">
+            {isExpress && <span aria-hidden="true">⚡</span>}
+            <span className="text-chrome font-bold">
+              {name}
+            </span>
+>>>>>>> origin/main
           </h3>
           {isSelected && (
             <span className="bg-aurora flex h-6 w-6 items-center justify-center rounded-full text-white">
@@ -60,6 +98,7 @@ export function ServiceCard({
         </div>
 
         {/* Description */}
+<<<<<<< HEAD
         {description && <p className="text-chrome-gray mb-4 line-clamp-2 text-sm">{description}</p>}
 
         {/* Footer */}
@@ -77,6 +116,26 @@ export function ServiceCard({
               <path d="M12 6v6l4 2" />
             </svg>
             <span>{duration} min</span>
+=======
+        {description && (
+          <p className="text-chrome-gray text-sm mb-2 line-clamp-2">
+            {description}
+          </p>
+        )}
+
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-3 border-t border-glass-subtle">
+          <div className="flex items-center gap-2 text-sm text-chrome-gray">
+            {duration > 0 && (
+              <>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+                <span>{duration} min</span>
+              </>
+            )}
+>>>>>>> origin/main
           </div>
           <div className="text-chrome text-xl font-bold">{price.toFixed(0)}€</div>
         </div>
@@ -84,11 +143,15 @@ export function ServiceCard({
 
       {/* Gradient border overlay */}
       <div
+<<<<<<< HEAD
         className={`pointer-events-none absolute inset-0 rounded-[inherit] mask-exclude p-px [-webkit-mask-composite:xor] [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] ${
           isSelected
             ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
             : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5'
         }`}
+=======
+        className={`absolute inset-0 pointer-events-none rounded-[inherit] p-px [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] mask-exclude [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] ${gradientClass}`}
+>>>>>>> origin/main
       />
     </button>
   );

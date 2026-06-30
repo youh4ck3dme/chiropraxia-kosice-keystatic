@@ -12,6 +12,7 @@ const siteUrl = 'https://chiropraxiakosice.eu';
 ---
 
 <!-- JSON-LD Schema.org for Physician (Local SEO) + FAQ + Reviews -->
+<<<<<<< HEAD
 <script
   is:inline
   type="application/ld+json"
@@ -57,6 +58,24 @@ const siteUrl = 'https://chiropraxiakosice.eu';
             },
           }
         : {}),
+=======
+<script is:inline type="application/ld+json" set:html={JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": ["MedicalClinic", "Chiropractor"],
+    "name": "Chiropraxia Košice",
+    "image": `${siteUrl}/logo.png`,
+    "url": siteUrl,
+    "telephone": "+421 905 307 198",
+    "email": "booking@fyzioafit.sk",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Krmanova 854/6",
+      "addressLocality": "Košice",
+      "postalCode": "040 01",
+      "addressCountry": "SK"
+>>>>>>> origin/main
     },
     ...(faqs
       ? [

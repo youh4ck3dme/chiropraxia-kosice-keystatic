@@ -124,6 +124,7 @@ const BlogPostFyzioterapia = () => {
             profesionálnu starostlivosť v Košiciach.
           </p>
 
+<<<<<<< HEAD
           <div className="flex justify-center">
             <a
               href="/rezervacia" // Uprav podľa tvojej routing cesty
@@ -144,6 +145,49 @@ const BlogPostFyzioterapia = () => {
       </div>
     </article>
   );
+=======
+                    <h2 className={`text-2xl font-bold mb-4 text-gray-900 dark:text-white`}>
+                        Fyzioterapia Košice: Prečo práve u nás?
+                    </h2>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4 leading-7">
+                        Košice sú domovom špičkových odborníkov. V našej praxi kladieme dôraz na individuálny prístup.
+                        Nepoužívame šablóny – váš plán liečby vychádza z dôkladného vstupného vyšetrenia.
+                        Využívame najnovšie poznatky vedy, manuálne techniky a moderné prístrojové vybavenie.
+                    </p>
+
+                </div>
+
+                {/* --- CTA / ZÁVER SEKCIA --- */}
+                <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+                    <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-4">
+                        Pripravení na život bez bolesti?
+                    </h3>
+                    <p className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
+                        Nečakajte, kým sa bolesť zhorší. Objednajte sa na konzultáciu ešte dnes a zažite profesionálnu starostlivosť v Košiciach.
+                    </p>
+
+                    <div className="flex justify-center">
+                        <a
+                            href="https://booking.fyzioafit.sk"
+                            className={`
+                ${brandColorBg} text-white
+                px-8 py-4 rounded-lg
+                font-bold text-lg
+                shadow-lg hover:shadow-xl hover:opacity-90
+                transform hover:-translate-y-1 transition-all duration-300
+                flex items-center gap-2
+              `}
+                        >
+                            <span>Rezervovať termín</span>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    );
+>>>>>>> origin/main
 };
 
 export default BlogPostFyzioterapia;

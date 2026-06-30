@@ -1,20 +1,14 @@
 {
   "name": "chiropraxia-kosice",
-  "type": "module",
   "version": "1.0.0",
   "engines": {
     "node": "20.x"
   },
-  "description": "Chiropraxia Košice - Premium PWA with Headless Booking System",
   "scripts": {
-    "setup": "node scripts/setup-dev.js",
-    "diagnose": "node scripts/diagnose.js",
-    "verify:keystatic": "node scripts/verify-keystatic-github.js",
     "dev": "astro dev",
-    "dev:safe": "node scripts/setup-dev.js && astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
+<<<<<<< HEAD
     "astro": "astro",
     "check": "astro check",
     "check:safe": "node scripts/setup-dev.js && astro check",
@@ -24,12 +18,19 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "test": "vitest",
+=======
+    "lint": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+>>>>>>> origin/main
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "vercel:link": "vercel link --yes",
-    "vercel:env-push": "node scripts/vercel-env-push.js",
-    "vercel:env-production-public": "node scripts/vercel-env-production-public.js",
-    "deploy": "vercel deploy --prod --yes"
+    "diagnose": "node scripts/diagnose.js",
+    "diagnose:quick": "node scripts/diagnose.js --quick",
+    "diagnose:full": "node scripts/diagnose.js --full",
+    "vercel:link": "vercel link",
+    "deploy": "vercel --prod"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,cjs,astro}": [
@@ -99,10 +100,14 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
+<<<<<<< HEAD
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+=======
+    "sharp": "^0.34.5",
+>>>>>>> origin/main
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.16"

@@ -13,6 +13,7 @@ const supabase = createClient(
 );
 
 async function createAdminUser() {
+<<<<<<< HEAD
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
 
@@ -22,6 +23,11 @@ async function createAdminUser() {
     process.exit(1);
   }
 
+=======
+  const email = 'booking@fyzioafit.sk';
+  const password = 'admin123';
+  
+>>>>>>> origin/main
   console.log(`🔐 Checking if user exists: ${email}`);
 
   // List users to check existence

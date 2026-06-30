@@ -90,9 +90,24 @@ const settingsCollection = defineCollection({
   }),
 });
 
+const servicesCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    slug: z.string().optional(),
+    name: z.string(),
+    description: z.string(),
+    duration_min: z.number().int().min(0),
+    price: z.number().nonnegative(),
+    sort_order: z.number().int().default(0),
+    isActive: z.boolean().default(true),
+    isExpress: z.boolean().optional().default(false),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   testimonials: testimonialsCollection,
   'digital-cards': digitalCardsCollection,
   settings: settingsCollection,
+  services: servicesCollection,
 };

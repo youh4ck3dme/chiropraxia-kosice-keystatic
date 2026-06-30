@@ -495,7 +495,176 @@ const coverUrl =
         100% {
           transform: rotate(360deg);
         }
+<<<<<<< HEAD
       }
+=======
+        
+        .cover-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.1), rgba(5,5,5,0.8));
+        }
+
+        .profile-section {
+            margin-top: -70px;
+            text-align: center;
+            padding: 0 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .avatar-wrapper {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gold-gradient);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.3;
+            animation: pulse-gold 3s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1a1a1a;
+            background: url('var(--avatarUrl)') center/cover;
+        }
+
+        .brand-name {
+            font-size: 30px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+        }
+
+        .person-name {
+            font-size: 17px;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .job-title {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .bio-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d1d5db;
+            max-width: 100%;
+            margin-bottom: 25px;
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: auto;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .icon-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.06); }
+        .icon-btn i { font-size: 20px; color: var(--gold-primary); filter: drop-shadow(0 0 8px rgba(212,175,55,0.4)); }
+        .icon-btn span { font-size: 11px; font-weight: 500; opacity: 0.7; white-space: nowrap; }
+
+        .bottom-actions {
+            width: 100%;
+            padding: 20px 0 30px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-large {
+            flex: 1;
+            padding: 18px;
+            border-radius: 22px;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-web { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+        .btn-save { background: var(--gold-gradient); color: #1a1002; border: none; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); z-index: 1; }
+        .btn-save::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer { 0%, 80% { left: -100%; } 100% { left: 200%; } }
+        .btn-large:active { transform: scale(0.97); }
+>>>>>>> origin/main
     </style>
   </head>
   <body>
@@ -512,8 +681,48 @@ const coverUrl =
         <h2 class="person-name">{data.personName}</h2>
         <p class="job-title">{data.jobTitle}</p>
 
+<<<<<<< HEAD
         <div class="bio-box">
           <Content />
+=======
+            <div class="bio-box">
+                <Content />
+            </div>
+
+            <div class="action-grid">
+                {data.links.instagramUrl && (
+                  <a href={data.links.instagramUrl} class="icon-btn" target="_blank">
+                      <i class="fab fa-instagram"></i>
+                      <span>Instagram</span>
+                  </a>
+                )}
+                {data.links.aboutUrl && (
+                  <a href={data.links.aboutUrl} class="icon-btn">
+                      <i class="fas fa-info-circle"></i>
+                      <span>O nás</span>
+                  </a>
+                )}
+                {data.links.phone && (
+                  <a href={`tel:${data.links.phone}`} class="icon-btn">
+                      <i class="fas fa-phone-alt"></i>
+                      <span>Zavolať</span>
+                  </a>
+                )}
+            </div>
+
+            <div class="bottom-actions">
+                {data.links.webUrl && (
+                  <a href={data.links.webUrl} class="btn-large btn-web" target="_blank">
+                      <i class="fas fa-globe"></i>
+                      Web
+                  </a>
+                )}
+                <button class="btn-large btn-save" id="saveContact">
+                    <i class="fas fa-user-plus"></i>
+                    Uložiť kontakt
+                </button>
+            </div>
+>>>>>>> origin/main
         </div>
 
         <div class="action-grid">
@@ -568,6 +777,7 @@ const coverUrl =
       </div>
     </main>
 
+<<<<<<< HEAD
     {
       data.aiAssistant.enabled && (
         <div id="aiModal" class="modal">
@@ -673,3 +883,28 @@ const coverUrl =
     </script>
   </body>
 </html>
+=======
+    <script is:inline define:vars={{ vCard: data.vCard }}>
+        // vCard Logic
+        document.getElementById('saveContact')?.addEventListener('click', function() {
+            const vCardData = [
+                'BEGIN:VCARD', 'VERSION:3.0',
+                `FN:${vCard.fullName}`, 
+                `ORG:${vCard.organization || ''}`, 
+                `TITLE:${vCard.title || ''}`,
+                `TEL;TYPE=WORK,VOICE:${vCard.phone || ''}`,
+                `URL:${vCard.url || ''}`,
+                'END:VCARD'
+            ].join('\n');
+
+            const blob = new Blob([vCardData], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `${vCard.fullName.replace(/\s+/g, '-').toLowerCase()}.vcf`;
+            link.href = url;
+            link.click();
+        });
+    </script>
+</body>
+</html>
+>>>>>>> origin/main

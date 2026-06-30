@@ -15,8 +15,55 @@ test.describe('Public Pages', () => {
       await expect(page).toHaveTitle(/Chiropraxia Košice/);
     });
 
+<<<<<<< HEAD
     test('should have header with logo', async ({ page }) => {
       await expect(page.locator('header nav a[aria-label="Chiropraxia Košice"]')).toBeVisible();
+=======
+    test.describe('Homepage', () => {
+        test.beforeEach(async ({ page }) => await page.goto('/'));
+
+        test('should have correct title', async ({ page }) => {
+            await expect(page).toHaveTitle(/Chiropraxia Košice/);
+        });
+
+        test('should have header with logo', async ({ page }) => {
+            await expect(page.locator('header nav a[aria-label="Chiropraxia Košice"]')).toBeVisible();
+        });
+
+        test('should have correct navigation links', async ({ page }) => {
+            await expect(page.getByRole('link', { name: 'Domov' }).first()).toBeVisible();
+            await expect(page.getByRole('link', { name: 'Služby' }).first()).toBeVisible();
+            await expect(page.getByRole('link', { name: 'Blog' }).first()).toBeVisible();
+        });
+
+        test('should have CTA button in header', async ({ page }) => {
+            await expect(page.locator('header a.btn-aurora').first()).toContainText('Rezervovať');
+        });
+
+        test('should display hero section', async ({ page }) => {
+            const h1 = page.getByRole('heading', { level: 1 }).first();
+            await expect(h1).toBeVisible();
+            await expect(h1).toContainText(/Košice/);
+        });
+
+        test('should have services preview', async ({ page }) => {
+             // Assuming there's a section with ID or class for services
+             // Searching for a known service title like "Vstupné vyšetrenie" which is standard
+             await expect(page.getByText('Vstupné vyšetrenie').first()).toBeVisible();
+        });
+        
+        test('should have reviews/testimonials', async ({ page }) => {
+            await expect(page.getByText('Recenzie').or(page.getByText('Čo hovoria'))).toBeVisible();
+        });
+
+        test('should have footer', async ({ page }) => {
+            await expect(page.locator('footer')).toBeVisible();
+        });
+        
+        test('footer should contain contact info', async ({ page }) => {
+            await expect(page.locator('footer')).toContainText('booking@fyzioafit.sk');
+        });
+>>>>>>> origin/main
     });
 
     test('should have correct navigation links', async ({ page }) => {

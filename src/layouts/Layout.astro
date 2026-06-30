@@ -34,19 +34,31 @@ const {
     <meta name="author" content="Chiropraxia Košice" />
 
     <!-- Favicon -->
+<<<<<<< HEAD
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
     <!-- Preconnect for Supabase and Analytics -->
     <link rel="preconnect" href="https://supabase.co" />
 
+=======
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/chiropraxia.webp" />
+    <!-- PWA -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Chiropraxia" />
+    
+>>>>>>> origin/main
     <!-- Fonts are now self-hosted via @fontsource (see global.css) -->
 
     <meta name="google-site-verification" content="nBWrTuI-LpuQxt8PL73Gj7fflQdKgInjZiWcGnltH-4" />
     <title>{title}</title>
 
     <!-- Google Analytics (GA4) -->
-    <!-- TODO: Replace G-HXRKJKX56Y with your actual Measurement ID if different -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXRKJKX56Y"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -80,6 +92,7 @@ const {
     <!-- Main Content -->
     <div class="relative z-10">
       <!-- Header -->
+<<<<<<< HEAD
       <header class="fixed top-0 right-0 left-0 z-50">
         <nav class="glass-card mx-4 mt-4 flex items-center justify-between px-6 py-[18px]">
           <a href="/" class="flex items-center" aria-label="Chiropraxia Košice">
@@ -103,6 +116,29 @@ const {
               >Blog</a
             >
             <a href="/rezervacia" class="btn-aurora text-sm">
+=======
+      <header class="fixed top-0 left-0 right-0 z-50">
+        <nav class="glass-card mx-4 mt-4 px-4 md:px-8 py-3.5 flex items-center justify-between">
+          <a href="/" class="flex items-center gap-3 transition-all duration-300 hover:scale-105 group" aria-label="Chiropraxia Košice">
+            <div class="flex flex-col items-center justify-center">
+              <span class="text-[clamp(1.1875rem,4.5vw,1.9375rem)] font-display font-black tracking-[0.15em] leading-none mb-1 
+                           bg-linear-to-r from-[#003B73] via-[#00a7ed] to-[#003B73] bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent
+                           drop-shadow-[0_2px_8px_rgba(0,111,184,0.1)] text-center w-full">
+                CHIROPRAXIA
+              </span>
+              <span class="text-[clamp(0.55rem,2.2vw,0.85rem)] font-display font-bold tracking-[0.85em] text-chrome/60 leading-none uppercase text-center w-full ml-[0.85em]">
+                KOŠICE
+              </span>
+            </div>
+          </a>
+          
+          <div class="hidden md:flex items-center gap-8">
+            <a href="/" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">Domov</a>
+            <a href="/sluzby" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">Služby</a>
+            <a href="/about" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">O nás</a>
+            <a href="/blog" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">Blog</a>
+            <a href="https://booking.fyzioafit.sk" class="btn-aurora text-sm">
+>>>>>>> origin/main
               <span>Rezervovať</span>
             </a>
           </div>
@@ -126,6 +162,7 @@ const {
         </nav>
 
         <!-- Mobile Menu Overlay -->
+<<<<<<< HEAD
         <div
           id="mobile-menu"
           class="bg-void/95 pointer-events-none fixed inset-0 z-40 opacity-0 backdrop-blur-xl transition-all duration-300"
@@ -148,6 +185,15 @@ const {
               >Blog</a
             >
             <a href="/rezervacia" class="btn-aurora w-full max-w-xs px-8 py-3 text-center text-lg">
+=======
+        <div id="mobile-menu" class="fixed inset-0 z-40 bg-void/95 backdrop-blur-xl transition-all duration-300 opacity-0 pointer-events-none hidden md:hidden" style="top: 80px;">
+          <div class="flex flex-col items-center justify-center p-8 space-y-8">
+            <a href="/" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">Domov</a>
+            <a href="/sluzby" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">Služby</a>
+            <a href="/about" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">O nás</a>
+            <a href="/blog" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">Blog</a>
+            <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-3 w-full max-w-xs text-center">
+>>>>>>> origin/main
               <span>Rezervovať</span>
             </a>
           </div>
@@ -165,13 +211,16 @@ const {
 
           // Toggle menu visibility
           if (isOpen) {
-            menu?.classList.remove('opacity-0', 'pointer-events-none');
+            menu?.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
             // Animate hamburger to X
             spans?.[0].classList.add('rotate-45');
             spans?.[1].classList.add('opacity-0');
             spans?.[2].classList.add('-rotate-45');
           } else {
             menu?.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+              if (!isOpen) menu?.classList.add('hidden');
+            }, 300);
             // Reset hamburger
             spans?.[0].classList.remove('rotate-45');
             spans?.[1].classList.remove('opacity-0');
@@ -214,18 +263,27 @@ const {
     const containers = document.querySelectorAll('.parallax-3d');
 
     // Set fixed 3D transform
+<<<<<<< HEAD
     containers.forEach((container) => {
       const header = container.querySelector('h1, h2, h3') as HTMLElement;
+=======
+    containers.forEach(container => {
+      const header = container.querySelector('h1, h2, h3, .parallax-target') as HTMLElement || container.querySelector('img') as HTMLElement;
+>>>>>>> origin/main
       if (header) {
-        // Fixed perspective tilt
-        header.style.transform = `rotateY(5deg) rotateX(5deg) translateZ(40px)`;
-        // Fixed shadow
-        header.style.filter = `drop-shadow(-10px 10px 20px rgba(137, 207, 240, 0.3))`;
+        // Only apply on desktop (>= 1024px) to prevent overflow on mobile
+        if (window.innerWidth >= 1024) {
+          // Fixed perspective tilt
+          header.style.transform = `rotateY(5deg) rotateX(5deg) translateZ(40px)`;
+          // Fixed shadow
+          header.style.filter = `drop-shadow(-10px 10px 20px rgba(137, 207, 240, 0.3))`;
+        } else {
+          // Reset for smaller screens
+          header.style.transform = 'none';
+          header.style.filter = 'none';
+        }
       }
     });
-
-    // Clean up any existing listeners if we were replacing them (not strictly necessary for a fresh page load but good practice if logic changed)
-    // In this case, we just don't add the mousemove listener.
   };
 
   // Initialize on page load and after transitions

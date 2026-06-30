@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { ServiceCard } from '../components/react/ServiceCard';
+import { getCollection } from 'astro:content';
 
+<<<<<<< HEAD
 const services = [
   {
     id: '1',
@@ -35,6 +37,20 @@ const services = [
     price: 10,
   },
 ];
+=======
+const rawServices = await getCollection('services');
+const services = rawServices
+  .filter(s => s.data.isActive)
+  .sort((a, b) => a.data.sort_order - b.data.sort_order)
+  .map(s => ({
+    id: s.id,
+    name: s.data.name,
+    description: s.data.description,
+    duration_min: s.data.duration_min,
+    price: s.data.price,
+    isExpress: s.data.isExpress ?? false,
+  }));
+>>>>>>> origin/main
 
 const faqs = [
   {
@@ -111,9 +127,13 @@ const rating = { value: 4.9, count: 520 };
       <div class="parallax-3d mb-16 text-center">
         <h1 class="mb-4 text-3xl font-bold md:text-5xl">
           <span class="text-chrome">Naše</span>
+<<<<<<< HEAD
           <span class="from-aurora to-aurora-glow bg-gradient-to-r bg-clip-text text-transparent">
             služby</span
           >
+=======
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-aurora to-aurora-glow"> služby</span>
+>>>>>>> origin/main
         </h1>
         <p class="text-chrome-gray mx-auto max-w-2xl text-lg">
           Ponúkame široké spektrum chiropraktických služieb zameraných na riešenie bolestí
@@ -122,6 +142,7 @@ const rating = { value: 4.9, count: 520 };
       </div>
 
       <!-- Services Grid -->
+<<<<<<< HEAD
       <div class="mb-16 grid gap-6 md:grid-cols-2">
         {
           services.map((service) => (
@@ -135,6 +156,20 @@ const rating = { value: 4.9, count: 520 };
             />
           ))
         }
+=======
+      <div class="grid md:grid-cols-2 gap-6 mb-16">
+        {services.map((service) => (
+          <ServiceCard
+            client:visible
+            id={service.id}
+            name={service.name}
+            description={service.description}
+            duration={service.duration_min}
+            price={service.price}
+            isExpress={service.isExpress}
+          />
+        ))}
+>>>>>>> origin/main
       </div>
 
       <!-- CTA Section -->
@@ -143,7 +178,11 @@ const rating = { value: 4.9, count: 520 };
         <p class="text-chrome-gray mx-auto mb-8 max-w-xl">
           Objednajte sa online a urobte prvý krok k životu bez bolesti.
         </p>
+<<<<<<< HEAD
         <a href="/rezervacia" class="btn-aurora inline-flex px-8 py-4 text-lg">
+=======
+        <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-4 inline-flex">
+>>>>>>> origin/main
           <span>Rezervovať termín</span>
         </a>
       </div>
