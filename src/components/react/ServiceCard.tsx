@@ -35,38 +35,21 @@ export function ServiceCard({
       : 'hover:shadow-aurora bg-white/30 border border-white/50 scale-100';
   })();
 
-<<<<<<< HEAD
-=======
-  const gradientClass = (() => {
+  const accentClass = (() => {
     if (isExpress) {
       return isSelected
-        ? 'bg-linear-to-br from-amber-300 to-amber-400'
-        : 'bg-linear-to-br from-amber-200/40 to-amber-100/20';
+        ? 'border-amber-300/90 bg-linear-to-br from-amber-200/25 to-amber-100/10'
+        : 'border-amber-200/60';
     }
     return isSelected
-      ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
-      : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5';
+      ? 'border-[#89CFF0]/90 bg-linear-to-br from-[#89CFF0]/20 to-[#aadaf2]/10'
+      : 'border-white/40';
   })();
 
->>>>>>> origin/main
   return (
     <button
       type="button"
       onClick={() => onSelect?.(id)}
-<<<<<<< HEAD
-      className={`relative w-full cursor-pointer overflow-hidden rounded-3xl p-6 text-left backdrop-blur-2xl transition-all duration-300 ease-out ${
-        isSelected
-          ? 'ring-aurora shadow-aurora-strong scale-[1.02] border-[1.5px] border-[#006fb8] bg-white/60 ring-2'
-          : 'hover:shadow-aurora scale-100 border border-white/50 bg-white/30'
-      } `}
-    >
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Header */}
-        <div className="mb-4 flex items-start justify-between">
-          <h3 className="text-chrome flex items-center justify-between gap-2 text-xl font-bold">
-            <span className="text-chrome font-bold">{name}</span>
-=======
       className={`w-full text-left relative overflow-hidden cursor-pointer px-5 py-4 transition-all duration-300 ease-out rounded-3xl backdrop-blur-2xl ${buttonClass}`}
     >
 
@@ -79,18 +62,10 @@ export function ServiceCard({
             <span className="text-chrome font-bold">
               {name}
             </span>
->>>>>>> origin/main
           </h3>
           {isSelected && (
-            <span className="bg-aurora flex h-6 w-6 items-center justify-center rounded-full text-white">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-              >
+            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-aurora text-white">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                 <path d="M5 12l5 5L20 7" />
               </svg>
             </span>
@@ -98,25 +73,6 @@ export function ServiceCard({
         </div>
 
         {/* Description */}
-<<<<<<< HEAD
-        {description && <p className="text-chrome-gray mb-4 line-clamp-2 text-sm">{description}</p>}
-
-        {/* Footer */}
-        <div className="border-glass-subtle flex items-center justify-between border-t pt-4">
-          <div className="text-chrome-gray flex items-center gap-2 text-sm">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 6v6l4 2" />
-            </svg>
-            <span>{duration} min</span>
-=======
         {description && (
           <p className="text-chrome-gray text-sm mb-2 line-clamp-2">
             {description}
@@ -135,26 +91,20 @@ export function ServiceCard({
                 <span>{duration} min</span>
               </>
             )}
->>>>>>> origin/main
           </div>
-          <div className="text-chrome text-xl font-bold">{price.toFixed(0)}€</div>
+          <div className="text-xl font-bold text-chrome">
+            {price.toFixed(0)}€
+          </div>
         </div>
       </div>
 
       {/* Gradient border overlay */}
       <div
-<<<<<<< HEAD
-        className={`pointer-events-none absolute inset-0 rounded-[inherit] mask-exclude p-px [-webkit-mask-composite:xor] [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] ${
-          isSelected
-            ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
-            : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5'
-        }`}
-=======
-        className={`absolute inset-0 pointer-events-none rounded-[inherit] p-px [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] mask-exclude [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] ${gradientClass}`}
->>>>>>> origin/main
+        className={`absolute inset-0 pointer-events-none rounded-[inherit] border ${accentClass}`}
       />
     </button>
   );
 }
 
 export default ServiceCard;
+

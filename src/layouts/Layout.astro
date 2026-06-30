@@ -15,16 +15,16 @@ interface Props {
   rating?: { value: number; count: number };
 }
 
-const {
+const { 
   title = 'Chiropraxia Košice | Profesionálna chiropraktická starostlivosť',
   description = 'Riešime bolesti chrbta, krčnej chrbtice, migrény a pohybové problémy. Objednajte sa online na vyšetrenie u skúseného chiropraktika v Košiciach.',
   keywords,
   faqs,
-  rating,
+  rating
 } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sk" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -32,16 +32,8 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0a0b1e" />
     <meta name="author" content="Chiropraxia Košice" />
-
+    
     <!-- Favicon -->
-<<<<<<< HEAD
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-
-    <!-- Preconnect for Supabase and Analytics -->
-    <link rel="preconnect" href="https://supabase.co" />
-
-=======
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -52,71 +44,43 @@ const {
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Chiropraxia" />
     
->>>>>>> origin/main
     <!-- Fonts are now self-hosted via @fontsource (see global.css) -->
-
+    
     <meta name="google-site-verification" content="nBWrTuI-LpuQxt8PL73Gj7fflQdKgInjZiWcGnltH-4" />
     <title>{title}</title>
-
+    
     <!-- Google Analytics (GA4) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXRKJKX56Y"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        // eslint-disable-next-line prefer-rest-params
-        dataLayer.push(arguments);
-      }
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       // Default to denied for GDPR compliance
       gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
       });
 
       gtag('config', 'G-HXRKJKX56Y');
     </script>
-
+    
     <!-- SEO & Schema.org -->
     <SEO title={title} description={description} keywords={keywords} faqs={faqs} rating={rating} />
-
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.webmanifest" />
-
+    
     <slot name="head" />
   </head>
-
+  
   <body class="min-h-screen">
     <AuroraBackground client:load data-astro-transition-persist="aurora-bg" />
 
+    
     <!-- Main Content -->
     <div class="relative z-10">
       <!-- Header -->
-<<<<<<< HEAD
-      <header class="fixed top-0 right-0 left-0 z-50">
-        <nav class="glass-card mx-4 mt-4 flex items-center justify-between px-6 py-[18px]">
-          <a href="/" class="flex items-center" aria-label="Chiropraxia Košice">
-            <Logo className="h-10 w-auto md:h-12" />
-          </a>
-
-          <div class="hidden items-center gap-8 md:flex">
-            <a
-              href="/"
-              class="text-lg font-bold text-[#1e293b] transition-colors hover:text-[#006fb8]"
-              >Domov</a
-            >
-            <a
-              href="/sluzby"
-              class="text-lg font-bold text-[#1e293b] transition-colors hover:text-[#006fb8]"
-              >Služby</a
-            >
-            <a
-              href="/blog"
-              class="text-lg font-bold text-[#1e293b] transition-colors hover:text-[#006fb8]"
-              >Blog</a
-            >
-            <a href="/rezervacia" class="btn-aurora text-sm">
-=======
       <header class="fixed top-0 left-0 right-0 z-50">
         <nav class="glass-card mx-4 mt-4 px-4 md:px-8 py-3.5 flex items-center justify-between">
           <a href="/" class="flex items-center gap-3 transition-all duration-300 hover:scale-105 group" aria-label="Chiropraxia Košice">
@@ -138,54 +102,21 @@ const {
             <a href="/about" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">O nás</a>
             <a href="/blog" class="text-lg font-bold text-[#1e293b] hover:text-[#006fb8] transition-colors">Blog</a>
             <a href="https://booking.fyzioafit.sk" class="btn-aurora text-sm">
->>>>>>> origin/main
               <span>Rezervovať</span>
             </a>
           </div>
-
+          
           <!-- Mobile menu button -->
-          <button
-            id="mobile-menu-btn"
-            class="text-chrome-gray hover:text-chrome-white p-2 transition-colors md:hidden"
-            aria-label="Menu"
-          >
-            <div class="relative flex h-5 w-6 flex-col justify-between">
-              <span
-                class="h-0.5 w-full origin-left rounded-full bg-current transition-all duration-300"
-              ></span>
-              <span class="h-0.5 w-full rounded-full bg-current transition-all duration-300"></span>
-              <span
-                class="h-0.5 w-full origin-left rounded-full bg-current transition-all duration-300"
-              ></span>
+          <button id="mobile-menu-btn" class="md:hidden p-2 text-chrome-gray hover:text-chrome-white transition-colors" aria-label="Menu">
+            <div class="w-6 h-5 relative flex flex-col justify-between">
+              <span class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-left"></span>
+              <span class="w-full h-0.5 bg-current rounded-full transition-all duration-300"></span>
+              <span class="w-full h-0.5 bg-current rounded-full transition-all duration-300 origin-left"></span>
             </div>
           </button>
         </nav>
 
         <!-- Mobile Menu Overlay -->
-<<<<<<< HEAD
-        <div
-          id="mobile-menu"
-          class="bg-void/95 pointer-events-none fixed inset-0 z-40 opacity-0 backdrop-blur-xl transition-all duration-300"
-          style="top: 80px;"
-        >
-          <div class="flex flex-col items-center justify-center space-y-8 p-8">
-            <a
-              href="/"
-              class="text-chrome-gray text-2xl font-medium transition-colors hover:text-white"
-              >Domov</a
-            >
-            <a
-              href="/sluzby"
-              class="text-chrome-gray text-2xl font-medium transition-colors hover:text-white"
-              >Služby</a
-            >
-            <a
-              href="/blog"
-              class="text-chrome-gray text-2xl font-medium transition-colors hover:text-white"
-              >Blog</a
-            >
-            <a href="/rezervacia" class="btn-aurora w-full max-w-xs px-8 py-3 text-center text-lg">
-=======
         <div id="mobile-menu" class="fixed inset-0 z-40 bg-void/95 backdrop-blur-xl transition-all duration-300 opacity-0 pointer-events-none hidden md:hidden" style="top: 80px;">
           <div class="flex flex-col items-center justify-center p-8 space-y-8">
             <a href="/" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">Domov</a>
@@ -193,13 +124,12 @@ const {
             <a href="/about" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">O nás</a>
             <a href="/blog" class="text-2xl font-medium text-chrome-gray hover:text-white transition-colors">Blog</a>
             <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-3 w-full max-w-xs text-center">
->>>>>>> origin/main
               <span>Rezervovať</span>
             </a>
           </div>
         </div>
       </header>
-
+      
       <script>
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -208,7 +138,7 @@ const {
 
         btn?.addEventListener('click', () => {
           isOpen = !isOpen;
-
+          
           // Toggle menu visibility
           if (isOpen) {
             menu?.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
@@ -229,13 +159,13 @@ const {
         });
 
         // Close menu on link click
-        menu?.querySelectorAll('a').forEach((link) => {
+        menu?.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
-            isOpen = false;
-            menu?.classList.add('opacity-0', 'pointer-events-none');
-            spans?.[0].classList.remove('rotate-45');
-            spans?.[1].classList.remove('opacity-0');
-            spans?.[2].classList.remove('-rotate-45');
+             isOpen = false;
+             menu?.classList.add('opacity-0', 'pointer-events-none');
+             spans?.[0].classList.remove('rotate-45');
+             spans?.[1].classList.remove('opacity-0');
+             spans?.[2].classList.remove('-rotate-45');
           });
         });
       </script>
@@ -253,6 +183,7 @@ const {
       <PWAInstallPrompt />
       <CookieConsent />
     </aside>
+
   </body>
 </html>
 
@@ -261,15 +192,10 @@ const {
   // Static 3D Effect for Headers (No Mouse Movement)
   const initParallax = () => {
     const containers = document.querySelectorAll('.parallax-3d');
-
+    
     // Set fixed 3D transform
-<<<<<<< HEAD
-    containers.forEach((container) => {
-      const header = container.querySelector('h1, h2, h3') as HTMLElement;
-=======
     containers.forEach(container => {
       const header = container.querySelector('h1, h2, h3, .parallax-target') as HTMLElement || container.querySelector('img') as HTMLElement;
->>>>>>> origin/main
       if (header) {
         // Only apply on desktop (>= 1024px) to prevent overflow on mobile
         if (window.innerWidth >= 1024) {

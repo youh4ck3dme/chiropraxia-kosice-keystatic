@@ -4,18 +4,9 @@ import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 import FyzioFitBanner from '../../components/FyzioFitBanner.astro';
 
-<<<<<<< HEAD
-// Get all blog posts
-const posts = await getCollection('blog');
-const publishedPosts = posts.filter((post) => post.data.status !== 'draft');
-const sortedPosts = publishedPosts.sort(
-  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
-);
-=======
 // Use Keystatic reader API to dynamically read articles from disk on each request
 const reader = createReader(process.cwd(), keystaticConfig);
 const allSlugs: string[] = await reader.collections.blog.list();
->>>>>>> origin/main
 
 type BlogEntry = Awaited<ReturnType<typeof reader.collections.blog.read>>;
 type BlogPost = { slug: string; entry: BlogEntry };
@@ -46,21 +37,19 @@ const formatDate = (date: string | null) => {
 };
 ---
 
-<Layout
+<Layout 
   title="Blog | Chiropraxia Košice"
   description="Odborné články o zdraví chrbtice, prevencii bolesti a chiropraktickej starostlivosti. Praktické rady od skúsených chiropraktikov."
 >
-  <section class="px-6 py-12">
-    <div class="mx-auto max-w-6xl">
+  <section class="py-12 px-6">
+    <div class="max-w-6xl mx-auto">
       <!-- Page Header -->
-      <div class="mb-16 text-center">
-        <h1 class="mb-4 text-3xl font-bold md:text-5xl">
+      <div class="text-center mb-16">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">
           <span class="text-chrome">Odborný</span>
-          <span class="from-aurora to-aurora-glow bg-gradient-to-r bg-clip-text text-transparent">
-            blog</span
-          >
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurora to-aurora-glow"> blog</span>
         </h1>
-        <p class="text-chrome-gray mx-auto max-w-2xl text-lg">
+        <p class="text-chrome-gray text-lg max-w-2xl mx-auto">
           Praktické rady, najnovšie poznatky a odborné články o zdraví vašej chrbtice.
         </p>
       </div>
@@ -68,39 +57,6 @@ const formatDate = (date: string | null) => {
       <FyzioFitBanner />
 
       <!-- Blog Grid -->
-<<<<<<< HEAD
-      {
-        sortedPosts.length > 0 ? (
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {sortedPosts.map((post) => (
-              <a
-                href={`/blog/${post.slug}`}
-                class="glass-card-interactive group block overflow-hidden"
-              >
-                {post.data.coverImage && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={post.data.coverImage}
-                      alt={post.data.coverImageAlt || post.data.title}
-                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="text-chrome-gray mb-3 flex items-center gap-2 text-xs">
-                    <span>{formatDate(post.data.publishDate)}</span>
-                    <span>•</span>
-                    <span>{post.data.author}</span>
-                  </div>
-                  <h2 class="text-chrome group-hover:text-aurora mb-3 text-xl font-semibold transition-colors">
-                    {post.data.title}
-                  </h2>
-                  <p class="text-chrome-gray line-clamp-3 text-sm">{post.data.seoDescription}</p>
-                </div>
-              </a>
-            ))}
-=======
       {sortedPosts.length > 0 ? (
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedPosts.map((post) => (
@@ -139,21 +95,11 @@ const formatDate = (date: string | null) => {
             <p class="text-chrome-gray text-sm">
               Čoskoro tu nájdete odborné články o zdraví chrbtice a chiropraktickej starostlivosti.
             </p>
->>>>>>> origin/main
           </div>
-        ) : (
-          <div class="py-20 text-center">
-            <div class="glass-card mx-auto max-w-md p-12">
-              <div class="mb-4 text-4xl">📝</div>
-              <h2 class="text-chrome mb-2 text-xl font-semibold">Články pripravujeme</h2>
-              <p class="text-chrome-gray text-sm">
-                Čoskoro tu nájdete odborné články o zdraví chrbtice a chiropraktickej
-                starostlivosti.
-              </p>
-            </div>
-          </div>
-        )
-      }
+        </div>
+      )}
     </div>
   </section>
 </Layout>
+
+

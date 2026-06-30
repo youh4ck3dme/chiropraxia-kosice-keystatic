@@ -4,10 +4,6 @@ import { verifyCancellationToken } from '../../lib/tokens';
 const SUCCESS_MSG = 'Žiadosť o zrušenie rezervácie bola prijatá.';
 const INVALID_MSG = 'Neplatný alebo expirovaný odkaz na zrušenie rezervácie.';
 
-<<<<<<< HEAD
-export const GET: APIRoute = async () => {
-  return new Response(SUSPENDED_MSG, { status: 503 });
-=======
 export const prerender = false;
 
 export const GET: APIRoute = async ({ url }) => {
@@ -17,5 +13,4 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     return new Response(SUCCESS_MSG, { status: 200 });
->>>>>>> origin/main
 };

@@ -5,14 +5,10 @@ interface LogoProps {
   subtitle?: string;
 }
 
-<<<<<<< HEAD
-export const Logo: React.FC<LogoProps> = ({ className = '', subtitle = 'BLOG PORTAL' }) => {
-=======
 export const Logo: FC<LogoProps> = ({
   className = "",
   subtitle = "BLOG PORTAL"
 }) => {
->>>>>>> origin/main
   return (
     <svg
       viewBox="0 0 280 44"
@@ -41,29 +37,10 @@ export const Logo: FC<LogoProps> = ({
       {/* --- ICON ČASŤ --- */}
       <g>
         {/* Glow efekt pod ikonkou */}
-        <rect
-          x="2"
-          y="2"
-          width="40"
-          height="40"
-          rx="12"
-          fill="#89CFF0"
-          fillOpacity="0.15"
-          filter="url(#glow)"
-        />
+        <rect x="2" y="2" width="40" height="40" rx="12" fill="#89CFF0" fillOpacity="0.15" filter="url(#glow)" />
 
         {/* Hlavný tvar boxu */}
-        <rect
-          x="0"
-          y="0"
-          width="40"
-          height="40"
-          rx="12"
-          fill="url(#iconBg)"
-          stroke="white"
-          strokeOpacity="0.1"
-          strokeWidth="1"
-        />
+        <rect x="0" y="0" width="40" height="40" rx="12" fill="url(#iconBg)" stroke="white" strokeOpacity="0.1" strokeWidth="1" />
 
         {/* Activity Krivka (Baby Blue) */}
         <path
@@ -78,40 +55,16 @@ export const Logo: FC<LogoProps> = ({
       {/* --- TEXT ČASŤ --- */}
       <g transform="translate(52, 0)">
         {/* Hlavný nadpis (Rajdhani/Outfit) */}
-<<<<<<< HEAD
-        <text
-          y="22"
-          className="font-display font-bold"
-          fontSize="20"
-          fill="#0a0b1e"
-          letterSpacing="0.05em"
-        >
-=======
         <text y="22" className="font-display font-bold" fontSize="18" fill="#0a0b1e" letterSpacing="0.05em">
->>>>>>> origin/main
           CHIROPRAXIA <tspan fill="#005a9e">KOŠICE</tspan>
         </text>
 
         {/* Podnadpis (Inter) */}
-<<<<<<< HEAD
-        <text
-          y="38"
-          className="font-sans"
-          fontSize="10"
-          fill="#000000"
-          letterSpacing="0.2em"
-          style={{ textTransform: 'uppercase' }}
-        >
-=======
         <text y="38" className="font-sans text-uppercase" fontSize="9" fill="#000000" letterSpacing="0.2em">
->>>>>>> origin/main
           {subtitle}
         </text>
       </g>
     </svg>
   );
 };
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/main
