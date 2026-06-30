@@ -15,7 +15,7 @@ describe('ServiceCard', () => {
 
   it('renders service details correctly', () => {
     render(<ServiceCard {...mockProps} />);
-    
+
     expect(screen.getByText('Vstupné vyšetrenie')).toBeDefined();
     expect(screen.getByText('Komplexné vyšetrenie nového pacienta')).toBeDefined();
     expect(screen.getByText('30 min')).toBeDefined();
@@ -24,10 +24,10 @@ describe('ServiceCard', () => {
 
   it('calls onSelect when clicked', () => {
     render(<ServiceCard {...mockProps} />);
-    
+
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    
+
     expect(mockProps.onSelect).toHaveBeenCalled();
   });
 
@@ -60,4 +60,7 @@ describe('ServiceCard', () => {
     expect(button?.className).toContain('ring-amber-400');
   });
 });
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main

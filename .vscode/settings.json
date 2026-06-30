@@ -1,34 +1,49 @@
 {
-    "css.customData": [
-        ".vscode/tailwind.css-data.json"
-    ],
-    "css.validate": true,
-    "scss.validate": true,
-    "less.validate": true,
-    "css.lint.unknownAtRules": "ignore",
-    "scss.lint.unknownAtRules": "ignore",
-    "less.lint.unknownAtRules": "ignore",
-    "files.associations": {
-        "*.css": "tailwindcss"
-    },
-    "editor.quickSuggestions": {
-        "strings": true
-    },
-    "tailwindCSS.includeLanguages": {
-        "astro": "html"
-    },
-    "files.autoSave": "off",
+  "css.customData": [".vscode/tailwind.css-data.json"],
+  "css.validate": true,
+  "scss.validate": true,
+  "less.validate": true,
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "files.autoSave": "off",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.markdownlint": "always"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.markdownlint": "always"
-    },
-    "[markdown]": {
-        "editor.formatOnSave": true,
-        "editor.wordWrap": "on"
-    },
-    "markdownlint.run": "onSave",
-    "markdownlint.fixAll": true,
-    "cSpell.ignorePaths": [
-        "**/*.md"
-    ]
+    "editor.wordWrap": "on"
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "astro"],
+  "markdownlint.run": "onSave",
+  "markdownlint.fixAll": true,
+  "cSpell.ignorePaths": ["**/*.md"]
 }

@@ -27,12 +27,17 @@ export interface StaffInput {
   photo_url?: string;
 }
 
+<<<<<<< HEAD
+const _emptyPromise = <T>(value: T): Promise<{ data: T; error: null }> =>
+  Promise.resolve({ data: value, error: null });
+=======
 export interface AvailableSlot {
   slot_time: string;
   slot_end_time: string;
   staff_id: string;
   staff_name: string;
 }
+>>>>>>> origin/main
 
 const STATIC_SERVICES: Service[] = [
   {
@@ -44,6 +49,17 @@ const STATIC_SERVICES: Service[] = [
     price: 55,
     sort_order: 1,
   },
+<<<<<<< HEAD
+  signInWithPassword: () =>
+    Promise.resolve({
+      data: { user: null, session: null },
+      error: { message: 'Auth je dočasne nedostupný.' },
+    }),
+  signOut: () => Promise.resolve({ error: null }),
+  exchangeCodeForSession: () =>
+    Promise.resolve({ data: null, error: { message: 'Auth je dočasne nedostupný.' } }),
+};
+=======
   {
     id: 'korekcia',
     name: 'Naprávanie/Chiropraxia',
@@ -54,6 +70,7 @@ const STATIC_SERVICES: Service[] = [
     sort_order: 2,
   },
 ];
+>>>>>>> origin/main
 
 const STATIC_STAFF: Staff[] = [
   {
@@ -83,6 +100,41 @@ export async function getStaff(): Promise<Staff[]> {
   return STATIC_STAFF;
 }
 
+<<<<<<< HEAD
+export async function getAllStaff(): Promise<Staff[]> {
+  return [];
+}
+
+export async function createStaff(_staff: StaffInput): Promise<Staff | null> {
+  throw new Error('Rezervácie a admin sú dočasne nedostupné.');
+}
+
+export async function updateStaff(
+  _id: string,
+  _updates: Partial<StaffInput & { is_active?: boolean }>
+): Promise<Staff | null> {
+  throw new Error('Rezervácie a admin sú dočasne nedostupné.');
+}
+
+export async function deactivateStaff(_id: string): Promise<boolean> {
+  return false;
+}
+
+export async function reactivateStaff(_id: string): Promise<boolean> {
+  return false;
+}
+
+export async function getAvailableSlots(
+  _date: string,
+  _serviceId: string,
+  _staffId?: string
+): Promise<AvailableSlot[]> {
+  return [];
+}
+
+export async function createBooking(_booking: BookingData): Promise<string | null> {
+  throw new Error('Rezervácie sú dočasne nedostupné.');
+=======
 export async function getAvailableSlots(_date: string, _serviceId: string): Promise<AvailableSlot[]> {
   return STATIC_SLOT_TIMES.map((time) => ({
     slot_time: `${time}:00`,
@@ -90,4 +142,5 @@ export async function getAvailableSlots(_date: string, _serviceId: string): Prom
     staff_id: STATIC_STAFF[0].id,
     staff_name: STATIC_STAFF[0].name,
   }));
+>>>>>>> origin/main
 }

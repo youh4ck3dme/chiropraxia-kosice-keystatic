@@ -1,4 +1,3 @@
-
 /**
  * Shared Premium Email Template System
  * Uses table-based layout for maximum compatibility (Outlook, Gmail, Apple Mail).
@@ -6,12 +5,12 @@
  */
 
 const THEME = {
-    bg: '#000000',
-    cardBg: '#111111',
-    text: '#e5e5e5',
-    textMuted: '#a1a1aa',
-    border: '#27272a',
-    accent: '#14b8a6', // Teal
+  bg: '#000000',
+  cardBg: '#111111',
+  text: '#e5e5e5',
+  textMuted: '#a1a1aa',
+  border: '#27272a',
+  accent: '#14b8a6', // Teal
 };
 
 const LOGO_SVG = `
@@ -39,7 +38,7 @@ const LOGO_SVG = `
 `;
 
 export function wrapEmailLayout(title: string, contentHtml: string): string {
-    return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,5 +124,3 @@ export function wrapEmailLayout(title: string, contentHtml: string): string {
 </html>
   `;
 }
-
-

@@ -6,7 +6,12 @@ const BASE_URL = 'https://www.chiropraxiakosice.eu';
 function normalizeHref(rawHref: string): string | null {
   if (!rawHref) return null;
   if (rawHref.startsWith('#')) return null;
-  if (rawHref.startsWith('mailto:') || rawHref.startsWith('tel:') || rawHref.startsWith('javascript:')) return null;
+  if (
+    rawHref.startsWith('mailto:') ||
+    rawHref.startsWith('tel:') ||
+    rawHref.startsWith('javascript:')
+  )
+    return null;
 
   if (rawHref.startsWith('http://') || rawHref.startsWith('https://')) {
     return rawHref;
@@ -20,7 +25,10 @@ function normalizeHref(rawHref: string): string | null {
 }
 
 test.describe('Keystatic link health', () => {
-  test('all links on /keystatic should avoid 5xx and visible error pages', async ({ page, request }) => {
+  test('all links on /keystatic should avoid 5xx and visible error pages', async ({
+    page,
+    request,
+  }) => {
     const pageErrors: string[] = [];
 
     page.on('pageerror', (error) => {
@@ -42,17 +50,17 @@ test.describe('Keystatic link health', () => {
 
     await page.waitForTimeout(1200);
 
-    const hrefs = await page.locator('a[href]').evaluateAll((anchors) =>
-      anchors
-        .map((anchor) => (anchor as HTMLAnchorElement).getAttribute('href') || '')
-        .filter(Boolean)
-    );
+    const hrefs = await page
+      .locator('a[href]')
+      .evaluateAll((anchors) =>
+        anchors
+          .map((anchor) => (anchor as HTMLAnchorElement).getAttribute('href') || '')
+          .filter(Boolean)
+      );
 
     const normalizedLinks = Array.from(
       new Set(
-        hrefs
-          .map((href) => normalizeHref(href))
-          .filter((href): href is string => Boolean(href))
+        hrefs.map((href) => normalizeHref(href)).filter((href): href is string => Boolean(href))
       )
     );
 
@@ -84,10 +92,9 @@ test.describe('Keystatic link health', () => {
       `Links with server errors:\n${failingLinks.map((item) => `${item.status} -> ${item.url}`).join('\n')}`
     ).toHaveLength(0);
 
-    expect(
-      hasVisibleErrorMarker,
-      'Keystatic page contains visible generic error marker text'
-    ).toBe(false);
+    expect(hasVisibleErrorMarker, 'Keystatic page contains visible generic error marker text').toBe(
+      false
+    );
 
     expect(pageErrors, `Runtime errors on /keystatic:\n${pageErrors.join('\n')}`).toHaveLength(0);
   });

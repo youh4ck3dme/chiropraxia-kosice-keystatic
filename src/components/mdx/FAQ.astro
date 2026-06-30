@@ -12,45 +12,54 @@ const { items } = Astro.props;
 ---
 
 <!-- FAQ Schema.org JSON-LD -->
-<script is:inline type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": items.map(item => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer
-    }
-  }))
-})} />
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  })}
+/>
 
 <div class="faq-container my-8 space-y-3">
-  {items.map((item, index) => (
-    <details 
-      class="group glass-card border border-white/10 rounded-xl overflow-hidden"
-    >
-      <summary class="cursor-pointer p-4 flex items-center justify-between text-white font-medium hover:bg-white/5 transition-colors">
-        <span class="flex items-center gap-3">
-          <span class="w-6 h-6 rounded-full bg-aurora/20 text-aurora text-xs flex items-center justify-center font-bold">
-            {index + 1}
+  {
+    items.map((item, index) => (
+      <details class="group glass-card overflow-hidden rounded-xl border border-white/10">
+        <summary class="flex cursor-pointer items-center justify-between p-4 font-medium text-white transition-colors hover:bg-white/5">
+          <span class="flex items-center gap-3">
+            <span class="bg-aurora/20 text-aurora flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold">
+              {index + 1}
+            </span>
+            {item.question}
           </span>
-          {item.question}
-        </span>
-        <svg 
-          class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform duration-300" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </summary>
-      <div class="p-4 pt-0 text-gray-300 leading-relaxed border-t border-white/5">
-        <p class="mt-3">{item.answer}</p>
-      </div>
-    </details>
-  ))}
+          <svg
+            class="h-5 w-5 text-gray-400 transition-transform duration-300 group-open:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </summary>
+        <div class="border-t border-white/5 p-4 pt-0 leading-relaxed text-gray-300">
+          <p class="mt-3">{item.answer}</p>
+        </div>
+      </details>
+    ))
+  }
 </div>
 
 <style>
@@ -58,5 +67,3 @@ const { items } = Astro.props;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 </style>
-
-

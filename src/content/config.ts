@@ -19,7 +19,9 @@ const blogCollection = defineCollection({
     coverImageAlt: z.string().optional(),
     publishDate: z.date(),
     author: z.string().default('Dr. Martin Kováč'),
-    category: z.enum(['back-pain', 'headache', 'prevention', 'rehabilitation', 'general']).default('general'),
+    category: z
+      .enum(['back-pain', 'headache', 'prevention', 'rehabilitation', 'general'])
+      .default('general'),
     status: z.enum(['published', 'draft']).default('published'),
   }),
 });
@@ -109,5 +111,3 @@ export const collections = {
   settings: settingsCollection,
   services: servicesCollection,
 };
-
-

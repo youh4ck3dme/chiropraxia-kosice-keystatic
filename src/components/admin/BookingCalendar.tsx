@@ -5,7 +5,7 @@ import { sk } from 'date-fns/locale';
 import type { Booking } from './types';
 
 // Localization setup for Slovak
-const locales = { 'sk': sk };
+const locales = { sk: sk };
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -28,9 +28,9 @@ interface CalendarEvent {
 }
 
 const statusColors: Record<string, string> = {
-  pending: '#f59e0b',    // amber
-  confirmed: '#10b981',  // emerald
-  cancelled: '#ef4444',  // red
+  pending: '#f59e0b', // amber
+  confirmed: '#10b981', // emerald
+  cancelled: '#ef4444', // red
 };
 
 export function BookingCalendar({ bookings, onSelectEvent }: BookingCalendarProps) {
@@ -39,11 +39,11 @@ export function BookingCalendar({ bookings, onSelectEvent }: BookingCalendarProp
       const [hours, minutes] = (booking.start_time || '09:00').split(':').map(Number);
       const start = new Date(booking.booking_date);
       start.setHours(hours, minutes, 0, 0);
-      
+
       // Default duration: 1 hour
       const end = new Date(start);
       end.setHours(end.getHours() + 1);
-      
+
       return {
         id: booking.id,
         title: `${booking.client_name} - ${booking.services?.name || 'Služba'}`,
@@ -70,7 +70,7 @@ export function BookingCalendar({ bookings, onSelectEvent }: BookingCalendarProp
   };
 
   return (
-    <div className="glass-card p-4 overflow-hidden">
+    <div className="glass-card overflow-hidden p-4">
       <style>{`
         .rbc-calendar {
           background: transparent;
@@ -182,5 +182,3 @@ export function BookingCalendar({ bookings, onSelectEvent }: BookingCalendarProp
     </div>
   );
 }
-
-

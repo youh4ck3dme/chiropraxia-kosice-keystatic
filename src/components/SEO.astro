@@ -12,6 +12,53 @@ const siteUrl = 'https://chiropraxiakosice.eu';
 ---
 
 <!-- JSON-LD Schema.org for Physician (Local SEO) + FAQ + Reviews -->
+<<<<<<< HEAD
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify([
+    {
+      '@context': 'https://schema.org',
+      '@type': ['MedicalClinic', 'Chiropractor'],
+      name: 'Chiropraxia Košice',
+      image: `${siteUrl}/logo.png`,
+      url: siteUrl,
+      telephone: '+421 905 307 198',
+      email: 'info@chiropraxiakosice.eu',
+      priceRange: '€€',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Krmanova 854/6',
+        addressLocality: 'Košice',
+        postalCode: '040 01',
+        addressCountry: 'SK',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 48.716385,
+        longitude: 21.261074,
+      },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '08:00',
+          closes: '16:00',
+        },
+      ],
+      medicalSpecialty: ['Musculoskeletal', 'Physiotherapy'],
+      ...(rating
+        ? {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: rating.value,
+              reviewCount: rating.count,
+              bestRating: '5',
+              worstRating: '1',
+            },
+          }
+        : {}),
+=======
 <script is:inline type="application/ld+json" set:html={JSON.stringify([
   {
     "@context": "https://schema.org",
@@ -28,51 +75,39 @@ const siteUrl = 'https://chiropraxiakosice.eu';
       "addressLocality": "Košice",
       "postalCode": "040 01",
       "addressCountry": "SK"
+>>>>>>> origin/main
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.716385,
-      "longitude": 21.261074
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:00",
-        "closes": "16:00"
-      }
-    ],
-    "medicalSpecialty": ["Musculoskeletal", "Physiotherapy"],
-    ...(rating ? {
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": rating.value,
-        "reviewCount": rating.count,
-        "bestRating": "5",
-        "worstRating": "1"
-      }
-    } : {})
-  },
-  ...(faqs ? [{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  }] : [])
-])} />
+    ...(faqs
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ]
+      : []),
+  ])}
+/>
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={siteUrl} />
 <meta property="og:title" content={title || 'Chiropraxia Košice'} />
-<meta property="og:description" content={description || 'Profesionálna chiropraktická starostlivosť v Košiciach'} />
-<meta property="og:image" content={`${siteUrl}/api/og?title=${encodeURIComponent(title || 'Chiropraxia Košice')}`} />
+<meta
+  property="og:description"
+  content={description || 'Profesionálna chiropraktická starostlivosť v Košiciach'}
+/>
+<meta
+  property="og:image"
+  content={`${siteUrl}/api/og?title=${encodeURIComponent(title || 'Chiropraxia Košice')}`}
+/>
 <meta property="og:locale" content="sk_SK" />
 <meta property="og:site_name" content="Chiropraxia Košice" />
 
@@ -82,8 +117,14 @@ const siteUrl = 'https://chiropraxiakosice.eu';
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title || 'Chiropraxia Košice'} />
-<meta name="twitter:description" content={description || 'Profesionálna chiropraktická starostlivosť v Košiciach'} />
-<meta name="twitter:image" content={`${siteUrl}/api/og?title=${encodeURIComponent(title || 'Chiropraxia Košice')}`} />
+<meta
+  name="twitter:description"
+  content={description || 'Profesionálna chiropraktická starostlivosť v Košiciach'}
+/>
+<meta
+  name="twitter:image"
+  content={`${siteUrl}/api/og?title=${encodeURIComponent(title || 'Chiropraxia Košice')}`}
+/>
 
 <!-- Additional SEO -->
 <link rel="canonical" href={Astro.url.href} />
@@ -91,5 +132,3 @@ const siteUrl = 'https://chiropraxiakosice.eu';
 <meta name="googlebot" content="index, follow" />
 <meta name="geo.region" content="SK-KI" />
 <meta name="geo.placename" content="Košice" />
-
-

@@ -29,7 +29,15 @@ export const DEFAULT_HOURS: OpeningHours = {
   sunday: { open: '00:00', close: '00:00', closed: true },
 };
 
-export const DAY_ORDER = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+export const DAY_ORDER = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+] as const;
 
 export const DAY_NAMES: Record<string, string> = {
   monday: 'Pondelok',
@@ -67,5 +75,3 @@ export interface AdminStats {
 }
 
 export { type Service, type Staff, type StaffInput };
-
-

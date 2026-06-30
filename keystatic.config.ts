@@ -4,12 +4,13 @@ import { block, wrapper } from '@keystatic/core/content-components';
 const storageKind = import.meta.env.KEYSTATIC_STORAGE === 'local' ? 'local' : 'github';
 
 export default config({
-  storage: storageKind === 'local'
-    ? { kind: 'local' }
-    : {
-      kind: 'github',
-      repo: 'youh4ck3dme/chiropraxia-kosice-keystatic',
-    },
+  storage:
+    storageKind === 'local'
+      ? { kind: 'local' }
+      : {
+          kind: 'github',
+          repo: 'youh4ck3dme/chiropraxia-kosice-keystatic',
+        },
 
   singletons: {
     siteSettings: singleton({
@@ -17,6 +18,36 @@ export default config({
       path: 'src/content/settings/site',
       format: { data: 'json' },
       schema: {
+<<<<<<< HEAD
+        companyInfo: fields.object(
+          {
+            name: fields.text({ label: 'Názov firmy', defaultValue: 'Chiropraxia Košice' }),
+            phone: fields.text({ label: 'Telefónne číslo', defaultValue: '+421 905 307 198' }),
+            email: fields.text({ label: 'Email', defaultValue: 'info@chiropraxiakosice.eu' }),
+            address: fields.text({
+              label: 'Adresa',
+              defaultValue: 'Krmanova 854/6, 040 01 Košice',
+            }),
+            instagramUrl: fields.text({ label: 'Instagram URL' }),
+            facebookUrl: fields.text({ label: 'Facebook URL' }),
+          },
+          { label: 'Kontaktné údaje' }
+        ),
+
+        openingHours: fields.object(
+          {
+            monday: fields.text({ label: 'Pondelok', defaultValue: '08:00 - 17:00' }),
+            tuesday: fields.text({ label: 'Utorok', defaultValue: '08:00 - 17:00' }),
+            wednesday: fields.text({ label: 'Streda', defaultValue: '08:00 - 17:00' }),
+            thursday: fields.text({ label: 'Štvrtok', defaultValue: '08:00 - 17:00' }),
+            friday: fields.text({ label: 'Piatok', defaultValue: '08:00 - 17:00' }),
+            saturday: fields.text({ label: 'Sobota', defaultValue: '09:00 - 13:00' }),
+            sunday: fields.text({ label: 'Nedeľa', defaultValue: 'Zatvorené' }),
+          },
+          { label: 'Otváracie hodiny' }
+        ),
+      },
+=======
         companyInfo: fields.object({
           name: fields.text({ label: 'N\u00e1zov firmy', defaultValue: 'Chiropraxia Ko\u0161ice' }),
           phone: fields.text({ label: 'Telef\u00f3nne \u010d\u00edslo', defaultValue: '+421 905 307 198' }),
@@ -36,6 +67,7 @@ export default config({
           sunday: fields.text({ label: 'Nede\u013ea', defaultValue: 'Zatvorené' }),
         }, { label: 'Otv\u00e1racie hodiny' }),
       }
+>>>>>>> origin/main
     }),
   },
 
@@ -73,6 +105,30 @@ export default config({
           label: '\ud83c\udfaf Focus Keyword',
           description: 'Hlavn\u00e9 k\u013e\u00fa\u010dov\u00e9 slovo pre SEO. Uisti sa, \u017ee je v n\u00e1zve a popise.',
         }),
+<<<<<<< HEAD
+
+        // Advanced SEO (noIndex, schema type) – optional; allows existing content with this key to validate
+        advancedSeo: fields.object(
+          {
+            noIndex: fields.checkbox({
+              label: 'No Index',
+              description: 'Ak zapnuté, vyhľadávače nebudú stránku indexovať.',
+              defaultValue: false,
+            }),
+            schemaType: fields.text({
+              label: 'Schema.org typ',
+              description: 'Napr. Article, NewsArticle',
+              defaultValue: 'Article',
+            }),
+          },
+          {
+            label: 'Rozšírené SEO',
+            description: 'Voliteľné nastavenia pre indexovanie a štruktúrované dáta.',
+          }
+        ),
+
+        // Reading Time (manual for now, auto-calculated on frontend)
+=======
         advancedSeo: fields.object({
           noIndex: fields.checkbox({
             label: 'No Index',
@@ -85,6 +141,7 @@ export default config({
             defaultValue: 'Article',
           }),
         }, { label: 'Roz\u0161\u00edren\u00e9 SEO', description: 'Voli\u0165e\u013en\u00e9 nastavenia pre indexovanie a \u0161trukt\u00farovan\u00e9 d\u00e1ta.' }),
+>>>>>>> origin/main
         readingTimeMinutes: fields.integer({
           label: '\u23f1\ufe0f \u010cas \u010d\u00edtania (min)',
           description: 'Odhadovan\u00fd \u010das \u010d\u00edtania v min\u00fatach',
@@ -173,7 +230,8 @@ export default config({
                   }),
                   {
                     label: 'FAQ Položky',
-                    itemLabel: (props: { fields: { question: { value: string } } }) => props.fields.question.value || 'Položka',
+                    itemLabel: (props: { fields: { question: { value: string } } }) =>
+                      props.fields.question.value || 'Položka',
                   }
                 ),
               },
@@ -218,7 +276,14 @@ export default config({
         jobTitle: fields.text({ label: 'Pracovná pozícia' }),
         bio: fields.mdx({
           label: 'Krátke Bio / Motto',
+<<<<<<< HEAD
+          options: {
+            bold: true,
+            italic: true,
+          },
+=======
           options: { bold: true, italic: true }
+>>>>>>> origin/main
         }),
         avatar: fields.image({
           label: 'Profilová fotka (Avatar)',
@@ -230,6 +295,45 @@ export default config({
           directory: 'public/images/cards',
           publicPath: '/images/cards/',
         }),
+<<<<<<< HEAD
+
+        // Links
+        links: fields.object(
+          {
+            instagramUrl: fields.text({ label: 'Instagram URL' }),
+            aboutUrl: fields.text({ label: 'O nás / Info URL' }),
+            phone: fields.text({ label: 'Telefónne číslo' }),
+            webUrl: fields.text({ label: 'Webstránka URL' }),
+          },
+          { label: 'Odkazy a Kontakty' }
+        ),
+
+        // vCard Data
+        vCard: fields.object(
+          {
+            fullName: fields.text({ label: 'FN (Full Name for vCard)' }),
+            organization: fields.text({ label: 'Organizácia' }),
+            title: fields.text({ label: 'Titul/Pozícia' }),
+            phone: fields.text({ label: 'Telefón' }),
+            url: fields.text({ label: 'URL pre vizitku' }),
+          },
+          { label: 'Dáta pre uloženie kontaktu (vCard)' }
+        ),
+
+        // AI Assistant
+        aiAssistant: fields.object(
+          {
+            enabled: fields.checkbox({ label: 'Povoliť AI Poradňu', defaultValue: true }),
+            prompt: fields.text({
+              label: 'Inštrukcie pre AI (Prompt)',
+              multiline: true,
+              defaultValue: 'Si profesionálny AI asistent. Odpovedaj stručne a v slovenčine.',
+            }),
+          },
+          { label: 'Nastavenia AI Asistenta' }
+        ),
+      },
+=======
         links: fields.object({
           instagramUrl: fields.text({ label: 'Instagram URL' }),
           aboutUrl: fields.text({ label: 'O nás / Info URL' }),
@@ -252,6 +356,7 @@ export default config({
           }),
         }, { label: 'Nastavenia AI Asistenta' }),
       }
+>>>>>>> origin/main
     }),
 
     testimonials: collection({

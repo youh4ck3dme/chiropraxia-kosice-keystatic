@@ -7,14 +7,26 @@ const supabase = createClient(
 );
 
 async function verifyAuth() {
+<<<<<<< HEAD
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    console.error('❌ Missing required environment variables: ADMIN_EMAIL and ADMIN_PASSWORD');
+    console.log('   Set them in your .env file or export them before running this script.');
+    process.exit(1);
+  }
+
+=======
   const email = 'booking@fyzioafit.sk';
   const password = 'admin123';
   
+>>>>>>> origin/main
   console.log(`🔐 Verifying login for: ${email}`);
-  
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
-    password
+    password,
   });
 
   if (error) {

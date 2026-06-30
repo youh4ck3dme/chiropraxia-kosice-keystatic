@@ -13,7 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function verify() {
   console.log(`Checking connection to: ${supabaseUrl}`);
-  
+
   // Check Services table
   const { data: services, error: servicesError } = await supabase
     .from('services')

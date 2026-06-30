@@ -17,9 +17,9 @@ Tento dokument je **presný checklist**: čo naklikať vo Vercel a čo skontrolo
 
 V **GitHub** → **Settings** → **Developer settings** → **GitHub Apps** → **Keystatic Chiropraxia Kosice**:
 
-| Pole | Požadovaná hodnota |
-|------|--------------------|
-| **Homepage URL** | `https://chiropraxiakosice.eu` |
+| Pole             | Požadovaná hodnota                                                 |
+| ---------------- | ------------------------------------------------------------------ |
+| **Homepage URL** | `https://chiropraxiakosice.eu`                                     |
 | **Callback URL** | `https://chiropraxiakosice.eu/api/keystatic/github/oauth/callback` |
 
 - **Client ID** je na stránke zobrazený (napr. `Iv23liFiHhzVSsZPdHpT`) – skopírujte ho do Vercel.
@@ -33,14 +33,14 @@ V **GitHub** → **Settings** → **Developer settings** → **GitHub Apps** →
 
 Vo **Vercel** → váš projekt → **Settings** → **Environment Variables** nastavte pre **Production** (a prípadne Preview) tieto premenné:
 
-| Názov premenné | Hodnota | Poznámka |
-|----------------|--------|----------|
-| `SITE_URL` | `https://chiropraxiakosice.eu` | Presne takto, bez lomítka na konci. |
-| `KEYSTATIC_STORAGE` | `github` | |
-| `KEYSTATIC_GITHUB_CLIENT_ID` | *(Client ID z GitHub App)* | Napr. `Iv23liFiHhzVSsZPdHpT`. |
-| `KEYSTATIC_GITHUB_CLIENT_SECRET` | *(Client secret z GitHub App)* | Tajná hodnota – nikdy necommitujte. |
-| `KEYSTATIC_SECRET` | *(náhodný reťazec min. 32 znakov)* | Môžete použiť ten istý ako v lokálnom `.env`, alebo vygenerovať nový. |
-| `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | `keystatic-chiropraxia-kosice` | Voliteľné – v kóde je rovnaký fallback; nastavením sa pre istotu zhoduje s vašou GitHub App. |
+| Názov premenné                     | Hodnota                            | Poznámka                                                                                     |
+| ---------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------- |
+| `SITE_URL`                         | `https://chiropraxiakosice.eu`     | Presne takto, bez lomítka na konci.                                                          |
+| `KEYSTATIC_STORAGE`                | `github`                           |                                                                                              |
+| `KEYSTATIC_GITHUB_CLIENT_ID`       | _(Client ID z GitHub App)_         | Napr. `Iv23liFiHhzVSsZPdHpT`.                                                                |
+| `KEYSTATIC_GITHUB_CLIENT_SECRET`   | _(Client secret z GitHub App)_     | Tajná hodnota – nikdy necommitujte.                                                          |
+| `KEYSTATIC_SECRET`                 | _(náhodný reťazec min. 32 znakov)_ | Môžete použiť ten istý ako v lokálnom `.env`, alebo vygenerovať nový.                        |
+| `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | `keystatic-chiropraxia-kosice`     | Voliteľné – v kóde je rovnaký fallback; nastavením sa pre istotu zhoduje s vašou GitHub App. |
 
 **Povinné pre build a beh stránky (ak ešte nie sú):**
 
@@ -94,21 +94,21 @@ Všetky premenné môžete nastaviť **iba cez CLI** (bez otvárania Vercel Dash
 
 **Zoznam premenných, ktoré skript nahodí (ak sú v .env vyplnené):**
 
-| Premenná | Príklad / poznámka |
-|----------|--------------------|
-| `SITE_URL` | `https://chiropraxiakosice.eu` (produkcia) |
-| `RESEND_API_KEY` | kľúč z Resend |
-| `RESEND_FROM_EMAIL` | napr. `noreply@chiropraxiakosice.eu` |
-| `JWT_SECRET` | min. 16 znakov, odporúčané 32+ |
-| `KEYSTATIC_STORAGE` | `github` |
-| `KEYSTATIC_GITHUB_CLIENT_ID` | z GitHub App (napr. Iv23liFiHhzVSsZPdHpT) |
-| `KEYSTATIC_GITHUB_CLIENT_SECRET` | z GitHub App (tajné) |
-| `KEYSTATIC_SECRET` | min. 32 znakov |
-| `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | `keystatic-chiropraxia-kosice` |
-| `GOOGLE_GENERATIVE_AI_API_KEY` | voliteľné (AI chat) |
-| `SENTRY_AUTH_TOKEN` | voliteľné |
-| `TWILIO_*` | voliteľné (SMS) |
-| `SKIP_KEYSTATIC` | voliteľné; `true` = vypnúť CMS UI |
+| Premenná                           | Príklad / poznámka                         |
+| ---------------------------------- | ------------------------------------------ |
+| `SITE_URL`                         | `https://chiropraxiakosice.eu` (produkcia) |
+| `RESEND_API_KEY`                   | kľúč z Resend                              |
+| `RESEND_FROM_EMAIL`                | napr. `noreply@chiropraxiakosice.eu`       |
+| `JWT_SECRET`                       | min. 16 znakov, odporúčané 32+             |
+| `KEYSTATIC_STORAGE`                | `github`                                   |
+| `KEYSTATIC_GITHUB_CLIENT_ID`       | z GitHub App (napr. Iv23liFiHhzVSsZPdHpT)  |
+| `KEYSTATIC_GITHUB_CLIENT_SECRET`   | z GitHub App (tajné)                       |
+| `KEYSTATIC_SECRET`                 | min. 32 znakov                             |
+| `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | `keystatic-chiropraxia-kosice`             |
+| `GOOGLE_GENERATIVE_AI_API_KEY`     | voliteľné (AI chat)                        |
+| `SENTRY_AUTH_TOKEN`                | voliteľné                                  |
+| `TWILIO_*`                         | voliteľné (SMS)                            |
+| `SKIP_KEYSTATIC`                   | voliteľné; `true` = vypnúť CMS UI          |
 
 **Príkaz – nahodenie do všetkých prostredí (Production, Preview, Development):**
 

@@ -59,7 +59,8 @@ if (!keystaticSecret) {
 }
 
 if (appSlug) add('ok', 'PUBLIC_KEYSTATIC_GITHUB_APP_SLUG je nastavené');
-else add('warn', 'PUBLIC_KEYSTATIC_GITHUB_APP_SLUG nie je nastavené (odporúčané pre GitHub App flow)');
+else
+  add('warn', 'PUBLIC_KEYSTATIC_GITHUB_APP_SLUG nie je nastavené (odporúčané pre GitHub App flow)');
 checkNoOuterWhitespace('PUBLIC_KEYSTATIC_GITHUB_APP_SLUG', appSlug);
 
 console.log('\nOdporúčané callback URL v GitHub OAuth App:');

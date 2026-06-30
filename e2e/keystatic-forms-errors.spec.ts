@@ -65,9 +65,13 @@ test.describe('Keystatic forms and errors', () => {
     if ((await saveBtn.count()) > 0) {
       await saveBtn.click();
       await page.waitForTimeout(1000);
-      const hasValidation = await page.getByText(/required|povinn|vyplň|fill|error|chyba/i).count() > 0
-        || await page.locator('[role="alert"], .error, [data-invalid]').count() > 0;
-      expect(hasValidation, 'Validation message or invalid state should appear for empty title').toBe(true);
+      const hasValidation =
+        (await page.getByText(/required|povinn|vyplň|fill|error|chyba/i).count()) > 0 ||
+        (await page.locator('[role="alert"], .error, [data-invalid]').count()) > 0;
+      expect(
+        hasValidation,
+        'Validation message or invalid state should appear for empty title'
+      ).toBe(true);
     }
   });
 });

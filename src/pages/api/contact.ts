@@ -17,10 +17,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Validate
     if (!data.name || !data.email || !data.message) {
-      return new Response(
-        JSON.stringify({ error: 'Chýbajúce povinné polia' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Chýbajúce povinné polia' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const apiKey = import.meta.env.RESEND_API_KEY;
@@ -78,18 +78,15 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Contact error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Interná chyba servera' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Interná chyba servera' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

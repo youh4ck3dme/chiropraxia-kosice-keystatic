@@ -98,6 +98,56 @@ async function main() {
 
   fs.existsSync(path.join(ROOT, 'node_modules')) ? log('ok', 'node_modules OK') : log('err', 'node_modules chýba – npm install');
 
+<<<<<<< HEAD
+// --- 3. Konfigurácia ---
+section('3. Konfigurácia');
+const astroConfig = path.join(ROOT, 'astro.config.mjs');
+if (fs.existsSync(astroConfig)) {
+  log('ok', 'astro.config.mjs existuje');
+  const astroContent = fs.readFileSync(astroConfig, 'utf-8');
+  if (astroContent.includes('define:') && astroContent.includes('process.env')) {
+    log('ok', 'Vite define (process polyfill) pre Keystatic je nastavený');
+  } else if (astroContent.includes('process.env') && !astroContent.includes('define:')) {
+    log(
+      'warn',
+      'astro.config používa process.env bez Vite define – môže spôsobiť chybu v prehliadači'
+    );
+  }
+} else {
+  log('err', 'astro.config.mjs chýba');
+}
+
+const keystaticConfig = path.join(ROOT, 'keystatic.config.ts');
+if (fs.existsSync(keystaticConfig)) {
+  log('ok', 'keystatic.config.ts existuje');
+  const kc = fs.readFileSync(keystaticConfig, 'utf-8');
+  if (kc.includes('process.env')) {
+    log(
+      'err',
+      'keystatic.config.ts používa process.env – spôsobuje "process is not defined" v prehliadači'
+    );
+  } else if (kc.includes('import.meta.env')) {
+    log('ok', 'keystatic.config.ts používa import.meta.env (správne)');
+  }
+} else {
+  log('err', 'keystatic.config.ts chýba');
+}
+
+// --- 4. Obsah a adresáre ---
+section('4. Obsah a adresáre');
+const contentDirs = [
+  'src/content/blog',
+  'src/content/settings',
+  'src/content/digital-cards',
+  'src/content/testimonials',
+];
+for (const d of contentDirs) {
+  const full = path.join(ROOT, d);
+  if (fs.existsSync(full)) {
+    const files = fs.readdirSync(full, { withFileTypes: true });
+    const count = files.filter((f) => f.isFile()).length;
+    log('ok', `${d}: ${count} súbor(ov)`);
+=======
   // 3. Konfigurácia a ENV
   section('3. KONFIGURÁCIA A ENV');
   const envPath = path.join(ROOT, '.env');
@@ -121,6 +171,7 @@ async function main() {
       const match = envData.match(new RegExp(`^${key}=`, 'm'));
       if (match) log('ok', `ENV: ${key} prítomný (Supabase ignored)`);
     });
+>>>>>>> origin/main
   } else {
     log('err', '.env chýba – vytvorte ho podľa .env.example');
   }

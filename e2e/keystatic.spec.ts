@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 
 test.describe('Keystatic Admin UI', () => {
-  
   test.beforeEach(async ({ page }) => {
     // Navigate to Keystatic dashboard
     await page.goto('/keystatic', { waitUntil: 'domcontentloaded' });
@@ -13,9 +12,11 @@ test.describe('Keystatic Admin UI', () => {
     // When logged in: collections are visible. When not: GitHub login is shown.
     const blogLink = page.getByText('Blog Články');
     const recenzieLink = page.getByText('Recenzie');
-    const githubLogin = page.getByRole('button', { name: /GitHub/i }).or(page.getByRole('link', { name: /GitHub/i }));
+    const githubLogin = page
+      .getByRole('button', { name: /GitHub/i })
+      .or(page.getByRole('link', { name: /GitHub/i }));
     await expect(blogLink.or(recenzieLink).or(githubLogin)).toBeVisible({ timeout: 15000 });
-    if (await blogLink.count() > 0) await expect(recenzieLink).toBeVisible();
+    if ((await blogLink.count()) > 0) await expect(recenzieLink).toBeVisible();
   });
 
   test('should navigate to blog article creation', async ({ page }) => {
@@ -31,25 +32,29 @@ test.describe('Keystatic Admin UI', () => {
       return;
     }
     await createLink.first().click();
-    await expect(page.getByLabel('Názov článku').or(page.getByLabel(/Názov|title/i))).toBeVisible({ timeout: 10000 });
-    await expect(page.getByLabel('SEO Popis').or(page.getByLabel(/SEO|Popis|description/i))).toBeVisible({ timeout: 5000 });
+    await expect(page.getByLabel('Názov článku').or(page.getByLabel(/Názov|title/i))).toBeVisible({
+      timeout: 10000,
+    });
+    await expect(
+      page.getByLabel('SEO Popis').or(page.getByLabel(/SEO|Popis|description/i))
+    ).toBeVisible({ timeout: 5000 });
   });
 
   test('should create a test blog article', async ({ page }) => {
     const testSlug = `test-article-${Date.now()}`;
     const testTitle = 'Automatizovaný Testovací Článok';
-    
+
     await page.goto('/keystatic/collection/blog/create');
-    
+
     // Fill title
     await page.getByLabel('Názov článku').fill(testTitle);
-    
+
     // Fill SEO Description
     await page.getByLabel('SEO Popis').fill('Tento článok bol vytvorený automatizovaným testom.');
-    
+
     // Fill Keywords
     await page.getByLabel('Kľúčové slová').fill('test, playwright, keystatic');
-    
+
     // Content is MDX, slightly trickier to fill depending on how Keystatic renders it.
     // Usually it's an editable div or a slate editor with role="textbox".
     // We target the main content editor (usually the second one, after the title)
@@ -63,12 +68,20 @@ test.describe('Keystatic Admin UI', () => {
     }
 
     // Save
+<<<<<<< HEAD
+    await page.getByRole('button', { name: 'Create' }).click();
+
+    // Wait for success
+    await expect(page.getByText('Created')).toBeVisible();
+
+=======
     const saveBtn = page.getByRole('button', { name: /Create|Save|Uložiť|Pridať/i });
     await saveBtn.click();
     
     // Wait for success - Keystatic shows a toast or changes URL
     await expect(page.getByText(/Created|Success|Vytvorené|Uložené/i)).toBeVisible({ timeout: 15000 });
     
+>>>>>>> origin/main
     // Cleanup: We should probably delete the file created in src/content/blog
     // but for now we just verify it was "created" in the UI sense.
   });
@@ -80,6 +93,8 @@ test.describe('Keystatic Admin UI', () => {
       return;
     }
     await recenzie.click();
-    await expect(page.getByRole('link', { name: /Create/i }).first()).toBeVisible({ timeout: 5000 });
+    await expect(page.getByRole('link', { name: /Create/i }).first()).toBeVisible({
+      timeout: 5000,
+    });
   });
 });
