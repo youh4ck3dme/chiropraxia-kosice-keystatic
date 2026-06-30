@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react';
+import type { FC } from 'react';
 
 /**
  * Aurora Background Component
@@ -28,7 +28,6 @@ export const AuroraBackground: FC = () => {
           filter: blur(80px);
           opacity: 0.5;
           mix-blend-mode: plus-lighter;
-          will-change: transform;
         }
 
         .blob-1 {

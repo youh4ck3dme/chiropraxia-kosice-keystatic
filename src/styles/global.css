@@ -41,8 +41,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     font-optical-sizing: auto;
@@ -57,7 +55,6 @@
     overflow-x: hidden;
     line-height: 1.7;
     letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
   }
 
   /* Mobile Color Adjustment: Brighter Baby Blue */
@@ -84,7 +81,6 @@
     line-height: 1.2;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     transform-style: preserve-3d;
-    will-change: transform;
   }
 
   .parallax-3d {
@@ -346,9 +342,8 @@
 .stagger-item:nth-child(6) { animation-delay: 550ms; }
 
 /* GPU Acceleration */
-.gpu-accelerated, .glass-card, img, video {
+.gpu-accelerated {
   transform: translateZ(0);
-  will-change: transform, opacity;
 }
 
 /* Link Premium */

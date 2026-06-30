@@ -35,15 +35,15 @@ export function ServiceCard({
       : 'hover:shadow-aurora bg-white/30 border border-white/50 scale-100';
   })();
 
-  const gradientClass = (() => {
+  const accentClass = (() => {
     if (isExpress) {
       return isSelected
-        ? 'bg-linear-to-br from-amber-300 to-amber-400'
-        : 'bg-linear-to-br from-amber-200/40 to-amber-100/20';
+        ? 'border-amber-300/90 bg-linear-to-br from-amber-200/25 to-amber-100/10'
+        : 'border-amber-200/60';
     }
     return isSelected
-      ? 'bg-linear-to-br from-[#89CFF0] to-[#aadaf2]'
-      : 'bg-linear-to-br from-[#89CFF0]/20 to-[#89CFF0]/5';
+      ? 'border-[#89CFF0]/90 bg-linear-to-br from-[#89CFF0]/20 to-[#aadaf2]/10'
+      : 'border-white/40';
   })();
 
   return (
@@ -100,12 +100,11 @@ export function ServiceCard({
 
       {/* Gradient border overlay */}
       <div
-        className={`absolute inset-0 pointer-events-none rounded-[inherit] p-px [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] mask-exclude [-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] ${gradientClass}`}
+        className={`absolute inset-0 pointer-events-none rounded-[inherit] border ${accentClass}`}
       />
     </button>
   );
 }
 
 export default ServiceCard;
-
 

@@ -68,7 +68,7 @@
   installBtn?.addEventListener('click', async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+      await deferredPrompt.userChoice;
       deferredPrompt = null;
       toast?.classList.add('translate-y-[200%]');
     }

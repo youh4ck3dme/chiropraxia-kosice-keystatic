@@ -73,6 +73,10 @@ export const rateLimitConfigs = {
     windowMs: 60 * 1000,  // 1 minute
     maxRequests: 5,  // 5 booking attempts per minute
   },
+  chat: {
+    windowMs: 60 * 1000,  // 1 minute
+    maxRequests: 20,  // 20 chat prompts per minute
+  },
   email: {
     windowMs: 60 * 1000,  // 1 minute
     maxRequests: 3,  // 3 emails per minute
@@ -107,6 +111,5 @@ export function rateLimitResponse(resetIn: number): Response {
     }
   );
 }
-
 
 
