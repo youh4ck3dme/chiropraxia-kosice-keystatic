@@ -4,12 +4,7 @@
     "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-<<<<<<< HEAD
-    "editorconfig.editorconfig",
-    "saoudrizwan.claude-dev"
-=======
     "saoudrizwan.claude-dev",
     "imgildev.vscode-astro-generator"
->>>>>>> origin/main
   ]
 }

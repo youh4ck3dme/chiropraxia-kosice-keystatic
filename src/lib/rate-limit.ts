@@ -9,13 +9,13 @@ interface RateLimitEntry {
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
 interface RateLimitConfig {
-  windowMs: number; // Time window in milliseconds
-  maxRequests: number; // Max requests per window
+  windowMs: number;  // Time window in milliseconds
+  maxRequests: number;  // Max requests per window
 }
 
 const defaultConfig: RateLimitConfig = {
-  windowMs: 60 * 1000, // 1 minute
-  maxRequests: 30, // 30 requests per minute
+  windowMs: 60 * 1000,  // 1 minute
+  maxRequests: 30,  // 30 requests per minute
 };
 
 export function rateLimit(
@@ -24,15 +24,15 @@ export function rateLimit(
 ): { allowed: boolean; remaining: number; resetIn: number } {
   const now = Date.now();
   const key = clientId;
-
+  
   let entry = rateLimitStore.get(key);
-
+  
   // Clean up expired entries
   if (entry && entry.resetAt < now) {
     rateLimitStore.delete(key);
     entry = undefined;
   }
-
+  
   if (!entry) {
     // First request in this window
     entry = {
@@ -40,14 +40,14 @@ export function rateLimit(
       resetAt: now + config.windowMs,
     };
     rateLimitStore.set(key, entry);
-
+    
     return {
       allowed: true,
       remaining: config.maxRequests - 1,
       resetIn: config.windowMs,
     };
   }
-
+  
   // Check if over limit
   if (entry.count >= config.maxRequests) {
     return {
@@ -56,10 +56,10 @@ export function rateLimit(
       resetIn: entry.resetAt - now,
     };
   }
-
+  
   // Increment counter
   entry.count++;
-
+  
   return {
     allowed: true,
     remaining: config.maxRequests - entry.count,
@@ -69,24 +69,17 @@ export function rateLimit(
 
 // Specific rate limit configs for different routes
 export const rateLimitConfigs = {
-<<<<<<< HEAD
-  chat: {
-    windowMs: 60 * 1000, // 1 minute
-    maxRequests: 10, // 10 AI chat requests per minute
-  },
-=======
->>>>>>> origin/main
   booking: {
-    windowMs: 60 * 1000, // 1 minute
-    maxRequests: 5, // 5 booking attempts per minute
+    windowMs: 60 * 1000,  // 1 minute
+    maxRequests: 5,  // 5 booking attempts per minute
   },
   email: {
-    windowMs: 60 * 1000, // 1 minute
-    maxRequests: 3, // 3 emails per minute
+    windowMs: 60 * 1000,  // 1 minute
+    maxRequests: 3,  // 3 emails per minute
   },
   api: {
-    windowMs: 60 * 1000, // 1 minute
-    maxRequests: 60, // 60 general API calls per minute
+    windowMs: 60 * 1000,  // 1 minute
+    maxRequests: 60,  // 60 general API calls per minute
   },
 };
 
@@ -114,9 +107,6 @@ export function rateLimitResponse(resetIn: number): Response {
     }
   );
 }
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> origin/main

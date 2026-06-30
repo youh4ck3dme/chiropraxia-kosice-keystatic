@@ -20,139 +20,97 @@ const { companyInfo, openingHours } = settings?.data || {
     friday: '08:00 - 17:00',
     saturday: '09:00 - 13:00',
     sunday: 'Zatvorené',
-  },
+  }
 };
 ---
 
-<footer class="bg-void border-glass-subtle mt-20 border-t">
-  <div class="mx-auto max-w-7xl px-6 py-12 md:py-16">
-    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+<footer class="bg-void border-t border-glass-subtle mt-20">
+  <div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       <!-- 1. Brand & Description -->
       <div class="space-y-6">
         <a href="/" class="flex items-center gap-2">
           <Logo className="h-8 w-auto" />
         </a>
-        <p class="text-chrome-gray max-w-xs text-sm leading-relaxed">
-          Profesionálna starostlivosť o pohybový aparát. Riešime bolesti chrbta, migrény a poúrazové
-          stavy s dôrazom na dlhodobé výsledky.
+        <p class="text-chrome-gray text-sm leading-relaxed max-w-xs">
+          Profesionálna starostlivosť o pohybový aparát. Riešime bolesti chrbta, migrény a poúrazové stavy s dôrazom na dlhodobé výsledky.
         </p>
-
+        
         <!-- Social Icons -->
         <div class="flex items-center gap-4">
-          {
-            companyInfo.facebookUrl && (
-              <a
-                href={companyInfo.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/50 text-blue-900 transition-all duration-300 hover:bg-blue-600 hover:text-white"
-                aria-label="Facebook"
-              >
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </a>
-            )
-          }
-
-          {
-            companyInfo.instagramUrl && (
-              <a
-                href={companyInfo.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/50 text-blue-900 transition-all duration-300 hover:bg-pink-600 hover:text-white"
-                aria-label="Instagram"
-              >
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-            )
-          }
+          {companyInfo.facebookUrl && (
+            <a 
+              href={companyInfo.facebookUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/50 border border-white/20 text-blue-900 hover:text-white hover:bg-blue-600 transition-all duration-300 group"
+              aria-label="Facebook"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          )}
+          
+          {companyInfo.instagramUrl && (
+            <a 
+              href={companyInfo.instagramUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/50 border border-white/20 text-blue-900 hover:text-white hover:bg-pink-600 transition-all duration-300 group"
+              aria-label="Instagram"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          )}
         </div>
       </div>
 
       <!-- 2. Contacts -->
       <div class="space-y-6">
-        <h3 class="text-sm font-semibold tracking-wider text-blue-900 uppercase">Kontakt</h3>
+        <h3 class="text-sm font-semibold text-blue-900 uppercase tracking-wider">Kontakt</h3>
         <ul class="space-y-4">
           <li class="flex items-start gap-4">
-            <div
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/50 text-blue-900"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.05 12.05 0 0 0 .57 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.05 12.05 0 0 0 2.81.57A2 2 0 0 1 22 16.92z"
-                ></path>
+            <div class="w-8 h-8 rounded-full bg-white/50 border border-white/20 flex items-center justify-center shrink-0 text-blue-900">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.05 12.05 0 0 0 .57 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.05 12.05 0 0 0 2.81.57A2 2 0 0 1 22 16.92z" />
               </svg>
             </div>
             <div>
-              <p class="text-chrome-gray mb-1 text-sm">Telefón</p>
-              <a
-                href={`tel:${companyInfo.phone.replace(/\s+/g, '')}`}
-                class="text-chrome font-medium transition-colors hover:text-blue-600"
-              >
-                {companyInfo.phone}
+              <p class="text-chrome-gray text-sm mb-1">Telefón</p>
+              <a href={`tel:${companyInfo.phone.replace(/\s+/g, '')}`} class="text-chrome hover:text-blue-600 transition-colors font-medium">
+                 {companyInfo.phone}
               </a>
             </div>
           </li>
-
+          
           <li class="flex items-start gap-4">
-            <div
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/50 text-blue-900"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                ></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
+            <div class="w-8 h-8 rounded-full bg-white/50 border border-white/20 flex items-center justify-center shrink-0 text-blue-900">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
               </svg>
             </div>
             <div>
-              <p class="text-chrome-gray mb-1 text-sm">Email</p>
-              <a
-                href={`mailto:${companyInfo.email}`}
-                class="text-chrome font-medium transition-colors hover:text-blue-600"
-              >
+              <p class="text-chrome-gray text-sm mb-1">Email</p>
+              <a href={`mailto:${companyInfo.email}`} class="text-chrome hover:text-blue-600 transition-colors font-medium">
                 {companyInfo.email}
               </a>
             </div>
           </li>
 
           <li class="flex items-start gap-4">
-            <div
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/50 text-blue-900"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
+            <div class="w-8 h-8 rounded-full bg-white/50 border border-white/20 flex items-center justify-center shrink-0 text-blue-900">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
             </div>
             <div>
-              <p class="text-chrome-gray mb-1 text-sm">Adresa</p>
-              <span class="text-chrome block leading-tight font-medium">
+              <p class="text-chrome-gray text-sm mb-1">Adresa</p>
+              <span class="text-chrome leading-tight block font-medium">
                 {companyInfo.address}
               </span>
             </div>
@@ -162,9 +120,7 @@ const { companyInfo, openingHours } = settings?.data || {
 
       <!-- 3. Opening Hours -->
       <div class="space-y-6">
-        <h3 class="text-sm font-semibold tracking-wider text-blue-900 uppercase">
-          Otváracie hodiny
-        </h3>
+        <h3 class="text-sm font-semibold text-blue-900 uppercase tracking-wider">Otváracie hodiny</h3>
         <ul class="space-y-2">
           <li class="flex justify-between text-sm">
             <span class="text-chrome-gray">Pondelok:</span>
@@ -192,61 +148,44 @@ const { companyInfo, openingHours } = settings?.data || {
           </li>
           <li class="flex justify-between text-sm">
             <span class="text-chrome-gray">Nedeľa:</span>
-            <span class="font-medium text-red-500">{openingHours.sunday}</span>
+            <span class="text-red-500 font-medium">{openingHours.sunday}</span>
           </li>
         </ul>
       </div>
 
       <!-- 4. Navigation & Map Shortcut -->
       <div class="space-y-6">
-        <h3 class="text-sm font-semibold tracking-wider text-blue-900 uppercase">
-          Kde nás nájdete
-        </h3>
-        <div
-          class="border-glass-subtle bg-glass-dark group relative h-32 w-full overflow-hidden rounded-2xl border"
-        >
-          <iframe
-            src="https://maps.google.com/maps?q=Krmanova+854/6,+Košice&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            width="100%"
-            height="100%"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            class="opacity-70 transition-opacity group-hover:opacity-100"
-            title="Mapa prevádzky Chiropraxia Košice"></iframe>
+        <h3 class="text-sm font-semibold text-blue-900 uppercase tracking-wider">Kde nás nájdete</h3>
+        <div class="w-full h-32 rounded-2xl overflow-hidden border border-glass-subtle bg-glass-dark relative group">
+    <iframe 
+            src="https://maps.google.com/maps?q=Krmanova+854/6,+Košice&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            class="opacity-70 group-hover:opacity-100 transition-opacity"
+            title="Mapa prevádzky Chiropraxia Košice"
+          ></iframe>
         </div>
-<<<<<<< HEAD
-        <ul class="mt-4 flex items-center gap-4">
-          <li>
-            <a href="/sluzby" class="text-chrome-gray text-sm transition-colors hover:text-blue-600"
-              >Služby a Cenník</a
-            >
-          </li>
-          <li>
-            <a href="/blog" class="text-chrome-gray text-sm transition-colors hover:text-blue-600"
-              >Náš Blog</a
-            >
-          </li>
-=======
         <ul class="flex items-center gap-4 mt-4">
           <li><a href="/sluzby" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">Služby a Cenník</a></li>
           <li><a href="/about" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">O nás</a></li>
           <li><a href="/blog" class="text-chrome-gray hover:text-blue-600 transition-colors text-sm">Náš Blog</a></li>
->>>>>>> origin/main
         </ul>
       </div>
     </div>
-
-    <div class="border-glass-subtle text-chrome-gray mt-16 border-t pt-8 text-center text-xs">
-      <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
+    
+    <div class="border-t border-glass-subtle mt-16 pt-8 text-center text-chrome-gray text-xs">
+      <div class="flex flex-col md:flex-row justify-center items-center gap-4">
         <p>&copy; {new Date().getFullYear()} {companyInfo.name}. Všetky práva vyhradené.</p>
-        <span class="hidden text-blue-900/20 md:inline">|</span>
-        <a href="/ochrana-udajov" class="transition-colors hover:text-blue-600"
-          >Ochrana osobných údajov</a
-        >
-        <span class="hidden text-blue-900/20 md:inline">|</span>
-        <a href="/admin" class="transition-colors hover:text-blue-600">Administrácia</a>
+        <span class="hidden md:inline text-blue-900/20">|</span>
+        <a href="/ochrana-udajov" class="hover:text-blue-600 transition-colors">Ochrana osobných údajov</a>
+        <span class="hidden md:inline text-blue-900/20">|</span>
+        <a href="/admin" class="hover:text-blue-600 transition-colors">Administrácia</a>
       </div>
     </div>
   </div>
 </footer>
+
+

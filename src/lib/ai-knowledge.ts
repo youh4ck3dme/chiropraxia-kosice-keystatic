@@ -36,8 +36,6 @@ AKO REAGOVAŤ NA "CHCEM SA OBJEDNAŤ":
 AK KLIENT NEVIE ČO MU JE:
 - Spýtaj sa: "Kde presne cítite bolesť? Je to ostrá bolesť alebo skôr tlak?"
 `;
-<<<<<<< HEAD
-=======
 }
 
 // Fallback static prompt used when services cannot be loaded
@@ -50,4 +48,3 @@ export const SYSTEM_PROMPT = buildSystemPrompt([
 
 
 
->>>>>>> origin/main
