@@ -1,80 +1,51 @@
-# MASTER PLAN Execution
+# Aktuálny stav projektu
 
-## 🏗 Fáza 1: Admin Sekcia 2.0
+> Aktualizované: 2026-07-01 (po diagnostike)
 
-- [x] **Architektúra** (✅ COMPLETE)
-  - [x] Create `BookingManager.tsx`
-  - [x] Create `StaffManager.tsx`
-  - [x] Create `SettingsManager.tsx`
-  - [x] Create `LinksManager.tsx`
-  - [x] Refactor `AdminDashboard.tsx`
-- [x] **Nové Funkcie** (✅ COMPLETE)
-  - [x] 📅 Calendar view (react-big-calendar)
-  - [x] 🔍 Search filtering (name/email/phone)
-  - [x] 💀 Loading Skeletons
-- [x] **UX Improvements** (✅ COMPLETE)
-  - [x] View toggle (List/Calendar)
-  - [x] Skeleton loading states
+## 1) Technický stav
 
-## ⚡️ Fáza 2: MAX Level Core & SEO
+- Framework: **Astro 5**
+- UI: **React 19**
+- Štýly: **Tailwind CSS 4**
+- CMS: **Keystatic**
+- Testy: **Vitest + Playwright**
+- Deploy: **Vercel**
 
-- [x] Image optimization (Astro Image)
-- [x] Dynamic Canonical URLs
-- [x] View Transitions
-- [x] Self-hosted fonts (@fontsource) ✅
+## 2) Overené príkazy
 
-## ✨ Fáza 3: Luxury UI & Polish
+- `npm run lint` ✅
+- `npm test` ✅
+- `npm run build` ✅
+- `npm run diagnose` ⚠️/❌ (detail nižšie)
 
-- [x] Premium micro-animations
-- [x] Card lift effects
-- [x] Skeleton loading styles
-- [x] Page transition animations
-- [x] Scroll Reveal (Framer Motion)
+## 3) Výsledok poslednej diagnostiky (`npm run diagnose`)
 
-## 🧪 Fáza 4: Testing & Security
+- **OK:** 14
+- **Varovania:** 2
+- **Chyby:** 1
 
-- [x] E2E Admin tests (12 tests)
-- [x] Rate limiting (chat: 10/min)
-- [x] CSP Headers ✅
+### Chyba
+- `.env` chýba (nutné vytvoriť podľa `.env.example`)
 
-## 🧪 Fáza 5: Expanded Test Coverage (50+ Tests)
+### Varovania
+- Vercel CLI nie je dostupné v lokálnom prostredí
+- Projekt nie je lokálne prepojený cez `vercel link`
 
-- [x] **Public Pages Suite** (`e2e/public.spec.ts`)
-  - [x] Homepage (Hero, USP, FAQ)
-  - [x] Services & Pricing
-  - [x] Blog & Articles
-  - [x] Booking Widget Logic (Validation, Flows)
-- [x] **Admin Advanced Suite** (`e2e/admin-advanced.spec.ts`)
-  - [x] Security & Edge Cases
-  - [x] Settings Validation
-  - [x] Complex Booking Flows
-  - [x] Staff Management Edge Cases
-- [x] **Integration**
-  - [x] Full Booking -> Admin Confirmation Flow
-  - [x] Full Booking -> Admin Confirmation Flow
+## 4) Aktuálne funkčné oblasti
 
-## 🤖 Fáza 6: AI Intelligence & Final Polish
+- Verejné stránky (`/`, `/sluzby`, `/about`, `/blog`, `/rezervacia`) sú v projekte.
+- API endpointy pre booking, kontakt, newsletter, chatbot a AI SEO helpery sú prítomné.
+- Admin rozhranie existuje (`/admin`), vrátane SEO overview (`/admin/seo-overview`).
 
-- [x] **AI Chatbot Integration**
-  - [x] Connect Gemini API (`src/pages/api/chat.ts`) ✅
-  - [x] System Prompt Engineering (Context about Chiropraxia) ✅
-  - [x] Fallback responses
-- [x] **SEO & Performance**
-  - [x] Sitemap & Robots.txt generation ✅
-  - [x] Image Alt Text Audit (Automated via E2E)
-  - [x] 404 Page Visual Polish ✅
-- [x] **Production Build**
-  - [x] Build Verification (Passed)
-  - [x] Bundle Size Analysis
+## 5) Otvorené prevádzkové kroky
 
-## 🚀 Fáza 7: Deployment & Handoff
+- Doplniť reálne produkčné ENV vo Verceli.
+- Overiť Vercel link a nasadenie v cieľovom tíme/projekte.
+- Pri potrebe DB workflow obnoviť Supabase podľa `docs/SUPABASE_SETUP.md`.
 
-- [x] **Repository Setup**
-  - [x] Git Init & Clean History
-  - [x] Push to GitHub (Private Repo)
-- [x] **Production Deployment**
-  - [x] Vercel Project Link
-  - [x] Environment Variables Sync
-  - [x] Deploy (`vercel --prod`)
-- [x] **Final Polish**
-  - [x] Logo Implementation (Admin Dashboard)
+## 6) Súvisiaca dokumentácia
+
+- [README.md](../README.md)
+- [LOKALNY-VYVOJ.md](./LOKALNY-VYVOJ.md)
+- [PRODUCTION_DEPLOY_CHECKLIST.md](./PRODUCTION_DEPLOY_CHECKLIST.md)
+- [VERCEL_KEYSTATIC_AUDIT.md](./VERCEL_KEYSTATIC_AUDIT.md)
