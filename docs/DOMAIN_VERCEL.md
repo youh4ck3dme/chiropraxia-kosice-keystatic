@@ -14,7 +14,7 @@ Ak doména **chiropraxiakosice.eu** neotvára stránku (timeout, „Site not fou
 
 U poskytovateľa domény (napr. Active24, Wedos, Cloudflare) musia byť nastavené záznamy podľa toho, čo Vercel zobrazí po pridaní domény. Typicky:
 
-- **A** record pre `chiropraxiakosice.eu` → IP adresa, ktorú Vercel ukáže (napr. `76.76.21.21`), alebo  
+- **A** record pre `chiropraxiakosice.eu` → IP adresa, ktorú Vercel ukáže (napr. `76.76.21.21`), alebo
 - **CNAME** pre `chiropraxiakosice.eu` → `cname.vercel-dns.com`
 
 Ak používate **www**: CNAME `www` → `cname.vercel-dns.com`.
@@ -40,6 +40,7 @@ Po pridaní domény Vercel automaticky vystaví certifikát. Stav uvidíte v **S
 Ak Vercel vráti **404 DEPLOYMENT_NOT_FOUND**, znamená to, že URL smeruje na deployment, ktorý neexistuje alebo bol vymazaný. Žiadna zmena v kóde nie je potrebná.
 
 **Skontrolujte:**
+
 - **Deployments**: Musí existovať aspoň jeden deployment so stavom **Ready** a typom **Production**. Ak nie, spustite nový deploy (push na `main` alebo v Deployments kliknite **Redeploy** na posledný commit).
 - **Domains**: Overte, že `chiropraxiakosice.eu` a `www.chiropraxiakosice.eu` sú priradené k **tomuto** projektu (ten s repo `chiropraxia-kosice-keystatic`). Ak je doména na inom projekte, odstráňte ju tam a pridajte sem.
 - Nepoužívajte staré **Preview URL** z e-mailov – tie deploymenty môžu byť vymazané. Používajte len production doménu.

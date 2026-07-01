@@ -41,8 +41,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     font-optical-sizing: auto;
@@ -57,7 +55,6 @@
     overflow-x: hidden;
     line-height: 1.7;
     letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
   }
 
   /* Mobile Color Adjustment: Brighter Baby Blue */
@@ -84,7 +81,6 @@
     line-height: 1.2;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     transform-style: preserve-3d;
-    will-change: transform;
   }
 
   .parallax-3d {
@@ -115,7 +111,7 @@
   /* Selection */
   ::selection {
     background: rgba(0, 111, 184, 0.4);
-    color: #0a0a1a;
+    color: #ffffff;
   }
 
   /* Scrollbar */
@@ -217,13 +213,8 @@
 
   .btn-aurora::after {
     content: '';
-    @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply absolute top-0 -left-full w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent;
     animation: sheen 4s infinite linear;
-  }
-
-  /* Hover effect removed per user request - static blue */
-  .btn-aurora:hover {
-    /* No change on hover */
   }
 
   .btn-aurora:active {
@@ -302,6 +293,7 @@
   }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .text-balance { text-wrap: balance; }
+  .text-uppercase { text-transform: uppercase; }
 }
 
 /* ============================================
@@ -325,10 +317,16 @@
   20%, 100% { left: 200%; }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
 .animate-float { animation: float 8s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
 .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .animate-slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-shimmer { animation: shimmer 8s linear infinite; }
 
 /* Stagger Animation for Lists */
 .stagger-item {
@@ -344,9 +342,8 @@
 .stagger-item:nth-child(6) { animation-delay: 550ms; }
 
 /* GPU Acceleration */
-.gpu-accelerated, .glass-card, img, video {
+.gpu-accelerated {
   transform: translateZ(0);
-  will-change: transform, opacity;
 }
 
 /* Link Premium */
@@ -383,7 +380,7 @@
 
 .link-premium::after {
   content: '';
-  @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300;
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
 }
 
 .link-premium:hover::after {

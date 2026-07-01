@@ -1,59 +1,17 @@
 ---
 interface Props {
   className?: string;
-  showText?: boolean;
 }
 
-const { className = "h-12 w-auto", showText = true } = Astro.props;
+const { className = "h-12 w-auto" } = Astro.props;
 ---
 
-<div class={className}>
-  <svg 
-    viewBox="0 0 280 44" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg" 
-    class="h-full w-auto"
-    aria-label="Chiropraxia Košice Logo"
-  >
-    <defs>
-      <linearGradient id="iconBg-astro" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#262626" />
-        <stop offset="100%" stop-color="#000000" />
-      </linearGradient>
-      
-      <filter id="glow-astro" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-        <feMerge>
-          <feMergeNode in="coloredBlur" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-    </defs>
-
-    {/* --- ICON ČASŤ --- */}
-    <g>
-      <rect x="2" y="2" width="40" height="40" rx="12" fill="#89CFF0" fill-opacity="0.15" filter="url(#glow-astro)" />
-      <rect x="0" y="0" width="40" height="40" rx="12" fill="url(#iconBg-astro)" stroke="white" stroke-opacity="0.1" stroke-width="1" />
-      <path 
-        d="M10 20H14L17 11L23 29L26 20H30" 
-        stroke="#89CFF0" 
-        stroke-width="2" 
-        stroke-linecap="round" 
-        stroke-linejoin="round" 
-      />
-    </g>
-
-    {showText && (
-      <g transform="translate(52, 0)">
-        <text y="22" font-family="Outfit, sans-serif" font-weight="900" font-size="20" fill="#0a0b1e" letter-spacing="0.05em">
-          CHIROPRAXIA <tspan fill="#005a9e">KOŠICE</tspan>
-        </text>
-        <text y="38" font-family="Inter, sans-serif" font-size="10" fill="#000000" letter-spacing="0.2em" style="text-transform: uppercase;">
-          BLOG PORTAL
-        </text>
-      </g>
-    )}
-  </svg>
+<div class={`${className} flex items-center justify-center overflow-hidden rounded-xl`}>
+  <img 
+    src="/chiropraxia.png" 
+    alt="Chiropraxia Košice Logo" 
+    class="h-full w-full object-contain"
+    loading="eager"
+  />
 </div>
-
 

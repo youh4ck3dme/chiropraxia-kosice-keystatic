@@ -23,13 +23,13 @@ export async function sendBookingNotificationEmail(details: {
     const apiKey = import.meta.env.RESEND_API_KEY;
     if (!apiKey) return;
 
-    const bookingEmail = import.meta.env.BOOKING_EMAIL || 'booking@fyzioafit.sk';
+    const bookingEmail = import.meta.env.BOOKING_EMAIL || 'booking@chiropraxiakosice.eu';
     const resend = new Resend(apiKey);
     const formattedDate = new Date(details.bookingDate).toLocaleDateString('sk-SK');
     const time = details.startTime.slice(0, 5);
 
     await resend.emails.send({
-        from: 'Rezervácie web <info@chiropraxiakosice.eu>',
+        from: 'Rezervácie web <booking@fyzioafit.sk>',
         to: [bookingEmail],
         replyTo: details.clientEmail,
         subject: `🗓️ Nová rezervácia: ${formattedDate} o ${time}`,
@@ -76,7 +76,7 @@ export async function sendConfirmationEmail(
     const cancelLink = `${siteUrl}/api/cancel-booking?token=${cancelToken}`;
 
     await resend.emails.send({
-        from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
+        from: 'Chiropraxia Košice <booking@fyzioafit.sk>',
         to: [details.clientEmail],
         subject: `✅ Potvrdenie rezervácie: ${formattedDate} o ${time}`,
         html: wrapEmailLayout(
@@ -170,7 +170,7 @@ export async function sendBookingEmail(
     }
 
     await resend.emails.send({
-        from: 'Chiropraxia Košice <info@chiropraxiakosice.eu>',
+        from: 'Chiropraxia Košice <booking@fyzioafit.sk>',
         to: [details.clientEmail],
         subject: subject,
         html: wrapEmailLayout(

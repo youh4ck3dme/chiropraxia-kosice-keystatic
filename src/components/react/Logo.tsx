@@ -1,11 +1,11 @@
-import React from 'react';
+import type { FC } from 'react';
 
 interface LogoProps {
   className?: string;
   subtitle?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({
+export const Logo: FC<LogoProps> = ({
   className = "",
   subtitle = "BLOG PORTAL"
 }) => {
@@ -55,17 +55,16 @@ export const Logo: React.FC<LogoProps> = ({
       {/* --- TEXT ČASŤ --- */}
       <g transform="translate(52, 0)">
         {/* Hlavný nadpis (Rajdhani/Outfit) */}
-        <text y="22" className="font-display font-bold" fontSize="20" fill="#0a0b1e" letterSpacing="0.05em">
+        <text y="22" className="font-display font-bold" fontSize="18" fill="#0a0b1e" letterSpacing="0.05em">
           CHIROPRAXIA <tspan fill="#005a9e">KOŠICE</tspan>
         </text>
 
         {/* Podnadpis (Inter) */}
-        <text y="38" className="font-sans" fontSize="10" fill="#000000" letterSpacing="0.2em" style={{ textTransform: 'uppercase' }}>
+        <text y="38" className="font-sans text-uppercase" fontSize="9" fill="#000000" letterSpacing="0.2em">
           {subtitle}
         </text>
       </g>
     </svg>
   );
 };
-
 

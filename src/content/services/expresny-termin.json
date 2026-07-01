@@ -1,9 +1,10 @@
 {
   "slug": "expresny-termin",
-  "name": "Expresný termín",
-  "description": "Príplatok k cene služby za termín do 2 pracovných dní alebo víkendové termíny.",
+  "name": "Express termín",
+  "description": "do 36h, víkendové termíny, sviatky (+ cena služby)",
   "duration_min": 0,
   "price": 15,
   "sort_order": 4,
-  "isActive": false
+  "isActive": true,
+  "isExpress": true
 }

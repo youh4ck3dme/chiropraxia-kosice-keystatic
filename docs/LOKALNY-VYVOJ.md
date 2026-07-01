@@ -16,6 +16,17 @@ Projekt obsahuje skript **`scripts/setup-dev.js`**, ktorý:
 
 Spustenie: **`npm run setup`** alebo ako prvý krok pred **`npm run dev:safe`** / **`npm run check:safe`**.
 
+---
+
+## Rýchla diagnostika
+
+Projekt obsahuje nástroj na rýchle overenie stavu prostredia: **`npm run diagnose`**.
+
+- **`npm run diagnose`** (alebo **`diagnose:quick`**): Skontroluje Node/npm verzie, voľnosť portu 4322, existenciu kritických súborov, závislosti, `.env` premenné a dostupnosť nástrojov (Vercel, Playwright, Vitest).
+- **`npm run diagnose:full`**: Navyše spustí kompletný **Astro build** a vypíše podrobné informácie o Astro prostredí.
+
+Tento skript sa automaticky spúšťa pred štartom **`.\dev.ps1`** a **`.\check.ps1`**.
+
 Súbor `.env` je v `.gitignore` a necommitne sa do repozitára.
 
 ---
@@ -24,15 +35,15 @@ Súbor `.env` je v `.gitignore` a necommitne sa do repozitára.
 
 Všetky príkazy sa spúšťajú z **rootu projektu** (priečinok, v ktorom je `package.json`).
 
-| Úloha | Príkaz |
-|--------|--------|
-| Pripraviť .env | `npm run setup` |
-| Kontrola typov a konfigurácie | `npx astro check` alebo `npm run check` |
-| Bezpečná kontrola (najprv setup) | `npm run check:safe` |
-| Dev server | `npm run dev` |
-| Dev server so setupom pred štartom | `npm run dev:safe` |
-| Build | `npm run build` |
-| Náhľad buildu lokálne | `npm run preview` (po `npm run build`) |
+| Úloha                              | Príkaz                                  |
+| ---------------------------------- | --------------------------------------- |
+| Pripraviť .env                     | `npm run setup`                         |
+| Kontrola typov a konfigurácie      | `npx astro check` alebo `npm run check` |
+| Bezpečná kontrola (najprv setup)   | `npm run check:safe`                    |
+| Dev server                         | `npm run dev`                           |
+| Dev server so setupom pred štartom | `npm run dev:safe`                      |
+| Build                              | `npm run build`                         |
+| Náhľad buildu lokálne              | `npm run preview` (po `npm run build`)  |
 
 ### Windows (PowerShell / CMD)
 

@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react';
+import type { FC } from 'react';
 
 /**
  * Aurora Background Component
@@ -6,23 +6,20 @@ import { useRef, type FC } from 'react';
  * Optimized for performance with CSS-only animations and hardware acceleration.
  */
 export const AuroraBackground: FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
+  return (
+    <div
+      className="fixed inset-0 pointer-events-none overflow-hidden -z-10 bg-void"
+      aria-hidden="true"
+    >
+      {/* Aurora Blobs - Baby Blue Oriented */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="aurora-blob blob-1" />
+        <div className="aurora-blob blob-2" />
+        <div className="aurora-blob blob-3" />
+      </div>
 
-    return (
-        <div
-            ref={containerRef}
-            className="fixed inset-0 pointer-events-none overflow-hidden -z-10 bg-void"
-            aria-hidden="true"
-        >
-            {/* Aurora Blobs - Baby Blue Oriented */}
-            <div className="absolute inset-0 opacity-40">
-                <div className="aurora-blob blob-1" />
-                <div className="aurora-blob blob-2" />
-                <div className="aurora-blob blob-3" />
-            </div>
-
-            <style dangerouslySetInnerHTML={{
-                __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .aurora-blob {
           position: absolute;
           width: 60vw;
@@ -31,7 +28,6 @@ export const AuroraBackground: FC = () => {
           filter: blur(80px);
           opacity: 0.5;
           mix-blend-mode: plus-lighter;
-          will-change: transform;
         }
 
         .blob-1 {
@@ -70,8 +66,8 @@ export const AuroraBackground: FC = () => {
           100% { transform: translate(10%, -15%) scale(1.1); }
         }
       `}} />
-        </div>
-    );
+    </div>
+  );
 };
 
 export default AuroraBackground;

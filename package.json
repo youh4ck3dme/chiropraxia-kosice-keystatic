@@ -14,6 +14,9 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "diagnose": "node scripts/diagnose.js",
+    "diagnose:quick": "node scripts/diagnose.js --quick",
+    "diagnose:full": "node scripts/diagnose.js --full",
     "vercel:link": "vercel link",
     "deploy": "vercel --prod"
   },
@@ -70,6 +73,7 @@
     "@types/react-dom": "^19.2.3",
     "@vite-pwa/astro": "^1.2.0",
     "jsdom": "^27.4.0",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"
   }

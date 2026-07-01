@@ -16,10 +16,10 @@ const labels: Record<string, string> = {
 
 export function StatusBadge({ status }: StatusBadgeProps) {
   return (
-    <span className={`px-3 py-1.5 rounded-full text-xs font-bold border ${styles[status] || 'bg-gray-500/20 text-gray-400'}`}>
+    <span
+      className={`rounded-full border px-3 py-1.5 text-xs font-bold ${styles[status] || 'bg-gray-500/20 text-gray-400'}`}
+    >
       {labels[status] || status}
     </span>
   );
 }
-
-

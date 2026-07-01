@@ -6,55 +6,71 @@ interface Props {
   afterAlt?: string;
 }
 
-const { 
-  beforeImage, 
-  afterImage, 
-  beforeAlt = 'Pred ošetrením', 
-  afterAlt = 'Po ošetrení' 
+const {
+  beforeImage,
+  afterImage,
+  beforeAlt = 'Pred ošetrením',
+  afterAlt = 'Po ošetrení',
 } = Astro.props;
 ---
 
-<div class="before-after-slider my-8 relative rounded-xl overflow-hidden border border-white/10 select-none touch-none">
-  <div class="aspect-[4/3] relative">
+<div
+  class="before-after-slider relative my-8 touch-none overflow-hidden rounded-xl border border-white/10 select-none"
+>
+  <div class="relative aspect-[4/3]">
     <!-- After Image (background) -->
-    <img 
-      src={afterImage} 
+    <img
+      src={afterImage}
       alt={afterAlt}
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 h-full w-full object-cover"
       loading="lazy"
     />
-    
+
     <!-- Before Image (clipped) -->
-    <div 
+    <div
       class="before-container absolute inset-0 overflow-hidden"
       style="clip-path: inset(0 50% 0 0);"
     >
-      <img 
-        src={beforeImage} 
+      <img
+        src={beforeImage}
         alt={beforeAlt}
-        class="absolute inset-0 w-full h-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover"
         loading="lazy"
       />
     </div>
-    
+
     <!-- Slider Handle -->
-    <div 
-      class="slider-handle absolute top-0 bottom-0 w-1 bg-aurora cursor-ew-resize"
+    <div
+      class="slider-handle bg-aurora absolute top-0 bottom-0 w-1 cursor-ew-resize"
       style="left: 50%;"
     >
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-aurora text-black shadow-lg flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <div
+        class="bg-aurora absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-black shadow-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <polyline points="15 18 9 12 15 6"></polyline>
           <polyline points="15 18 9 12 15 6" transform="translate(6 0) rotate(180 9 12)"></polyline>
         </svg>
       </div>
     </div>
-    
+
     <!-- Labels -->
-    <div class="absolute top-3 left-3 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium">
+    <div class="absolute top-3 left-3 rounded bg-black/70 px-2 py-1 text-xs font-medium text-white">
       PRED
     </div>
-    <div class="absolute top-3 right-3 px-2 py-1 bg-aurora/90 rounded text-xs text-black font-medium">
+    <div
+      class="bg-aurora/90 absolute top-3 right-3 rounded px-2 py-1 text-xs font-medium text-black"
+    >
       PO
     </div>
   </div>
@@ -64,46 +80,46 @@ const {
   document.querySelectorAll('.before-after-slider').forEach((slider) => {
     const handle = slider.querySelector('.slider-handle') as HTMLElement;
     const beforeContainer = slider.querySelector('.before-container') as HTMLElement;
-    
+
     let isDragging = false;
-    
+
     const updatePosition = (x: number) => {
       const rect = slider.getBoundingClientRect();
       let percent = ((x - rect.left) / rect.width) * 100;
       percent = Math.max(0, Math.min(100, percent));
-      
+
       handle.style.left = `${percent}%`;
       beforeContainer.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
     };
-    
+
     const onStart = () => {
       isDragging = true;
       slider.classList.add('dragging');
     };
-    
+
     const onEnd = () => {
       isDragging = false;
       slider.classList.remove('dragging');
     };
-    
+
     const onMove = (e: MouseEvent | TouchEvent) => {
       if (!isDragging) return;
       e.preventDefault();
-      
+
       const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
       updatePosition(x);
     };
-    
+
     // Mouse events
     handle.addEventListener('mousedown', onStart);
     document.addEventListener('mouseup', onEnd);
     document.addEventListener('mousemove', onMove);
-    
+
     // Touch events
     handle.addEventListener('touchstart', onStart);
     document.addEventListener('touchend', onEnd);
     document.addEventListener('touchmove', onMove);
-    
+
     // Click to jump
     slider.addEventListener('click', (e) => {
       updatePosition((e as MouseEvent).clientX);
@@ -116,5 +132,3 @@ const {
     cursor: ew-resize;
   }
 </style>
-
-

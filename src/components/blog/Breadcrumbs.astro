@@ -3,7 +3,7 @@ const { title } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="mb-8 overflow-x-auto whitespace-nowrap">
-  <ol class="flex items-center gap-2 text-sm text-chrome-gray">
+  <ol class="text-chrome-gray flex items-center gap-2 text-sm">
     <li class="flex items-center gap-2">
       <a href="/" class="hover:text-aurora transition-colors">Domov</a>
       <span class="text-white/20">/</span>
@@ -12,10 +12,8 @@ const { title } = Astro.props;
       <a href="/blog" class="hover:text-aurora transition-colors">Blog</a>
       <span class="text-white/20">/</span>
     </li>
-    <li class="text-chrome font-medium truncate max-w-[200px] md:max-w-none" aria-current="page">
+    <li class="text-chrome max-w-[200px] truncate font-medium md:max-w-none" aria-current="page">
       {title}
     </li>
   </ol>
 </nav>
-
-

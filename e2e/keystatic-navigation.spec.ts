@@ -23,16 +23,22 @@ test.describe('Keystatic navigation', () => {
     await page.waitForTimeout(1500);
 
     // Either we see login (GitHub) or the dashboard with collection links
-    const hasLogin = await page.getByRole('link', { name: /GitHub/i }).count() > 0
-      || await page.getByRole('button', { name: /GitHub|Prihlás|Sign/i }).count() > 0;
-    const hasNav = await page.getByText(/Blog|Články|Nastavenia|Recenzie|Vizitky|Dashboard/i).count() > 0;
+    const hasLogin =
+      (await page.getByRole('link', { name: /GitHub/i }).count()) > 0 ||
+      (await page.getByRole('button', { name: /GitHub|Prihlás|Sign/i }).count()) > 0;
+    const hasNav =
+      (await page.getByText(/Blog|Články|Nastavenia|Recenzie|Vizitky|Dashboard/i).count()) > 0;
 
-    expect(hasLogin || hasNav, 'Keystatic should show either login or dashboard navigation').toBe(true);
+    expect(hasLogin || hasNav, 'Keystatic should show either login or dashboard navigation').toBe(
+      true
+    );
 
     // If we have navigation, try to open collection links (Blog is primary)
     if (hasNav) {
-      const blogLink = page.locator('a[href*="blog"], a:has-text("Blog"), a:has-text("Články")').first();
-      if (await blogLink.count() > 0) {
+      const blogLink = page
+        .locator('a[href*="blog"], a:has-text("Blog"), a:has-text("Články")')
+        .first();
+      if ((await blogLink.count()) > 0) {
         await blogLink.click();
         await page.waitForTimeout(800);
         const res = page.url();
@@ -43,7 +49,9 @@ test.describe('Keystatic navigation', () => {
     }
   });
 
-  test('collection list and create-new entry are reachable when authenticated', async ({ page }) => {
+  test('collection list and create-new entry are reachable when authenticated', async ({
+    page,
+  }) => {
     await page.goto('/keystatic', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1500);
 
@@ -60,7 +68,7 @@ test.describe('Keystatic navigation', () => {
 
     // Click first collection link if present (e.g. blog)
     const firstCollection = page.locator('a[href*="keystatic"][href*="blog"]').first();
-    if (await firstCollection.count() > 0) {
+    if ((await firstCollection.count()) > 0) {
       await firstCollection.click();
       await page.waitForTimeout(1000);
       expect(page.url()).toMatch(/keystatic/);

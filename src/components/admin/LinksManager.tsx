@@ -40,8 +40,8 @@ const USEFUL_LINKS: LinkCard[] = [
 export function LinksManager() {
   return (
     <>
-      <h2 className="text-xl font-bold text-white mb-6">🔗 Užitočné Odkazy</h2>
-      
+      <h2 className="mb-6 text-xl font-bold text-white">🔗 Užitočné Odkazy</h2>
+
       <div className="grid gap-4 sm:grid-cols-2">
         {USEFUL_LINKS.map((link) => (
           <a
@@ -49,27 +49,32 @@ export function LinksManager() {
             href={link.url}
             target={link.url.startsWith('http') ? '_blank' : undefined}
             rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="glass-card p-6 group hover:scale-[1.02] transition-all duration-300"
+            className="glass-card group p-6 transition-all duration-300 hover:scale-[1.02]"
           >
             <div className="flex items-start gap-4">
-              <div className={`w-12 h-12 rounded-xl bg-linear-to-br ${link.color} flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform`}>
+              <div
+                className={`h-12 w-12 rounded-xl bg-linear-to-br ${link.color} flex shrink-0 items-center justify-center text-2xl transition-transform group-hover:scale-110`}
+              >
                 {link.icon}
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-white group-hover:text-aurora transition-colors">
+              <div className="min-w-0 flex-1">
+                <h3 className="group-hover:text-aurora font-bold text-white transition-colors">
                   {link.title}
                 </h3>
-                <p className="text-sm text-chrome-gray mt-1">
-                  {link.description}
-                </p>
+                <p className="text-chrome-gray mt-1 text-sm">{link.description}</p>
               </div>
-              <svg 
-                className="w-5 h-5 text-chrome-gray group-hover:text-aurora group-hover:translate-x-1 transition-all shrink-0" 
-                fill="none" 
-                viewBox="0 0 24 24" 
+              <svg
+                className="text-chrome-gray group-hover:text-aurora h-5 w-5 shrink-0 transition-all group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </div>
           </a>
@@ -77,16 +82,20 @@ export function LinksManager() {
       </div>
 
       {/* Quick Stats */}
-      <div className="mt-8 glass-card p-6 bg-aurora/5 border-aurora/30">
-        <h3 className="text-sm font-black text-white uppercase tracking-widest mb-4">💡 Tipy</h3>
-        <ul className="space-y-2 text-sm text-chrome-gray">
-          <li>• <strong>Keystatic</strong> - Na pridávanie blogov a služieb</li>
-          <li>• <strong>Supabase</strong> - Na úpravu databázy rezervácií</li>
-          <li>• <strong>Vercel</strong> - Na kontrolu deploymentov</li>
+      <div className="glass-card bg-aurora/5 border-aurora/30 mt-8 p-6">
+        <h3 className="mb-4 text-sm font-black tracking-widest text-white uppercase">💡 Tipy</h3>
+        <ul className="text-chrome-gray space-y-2 text-sm">
+          <li>
+            • <strong>Keystatic</strong> - Na pridávanie blogov a služieb
+          </li>
+          <li>
+            • <strong>Supabase</strong> - Na úpravu databázy rezervácií
+          </li>
+          <li>
+            • <strong>Vercel</strong> - Na kontrolu deploymentov
+          </li>
         </ul>
       </div>
     </>
   );
 }
-
-

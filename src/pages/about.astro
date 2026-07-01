@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="O nás | Fyzio&Fit tím – Jaro, Ľubo, Erik"
+  description="Sme tím odborníkov na pohybový aparát z Košíc. Kombinujeme skúsenosti z praxe, moderné terapeutické prístupy a individuálny prístup ku každému klientovi."
+>
+  <section class="py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Page Header -->
+      <div class="text-center mb-16 parallax-3d">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">
+          <span class="text-chrome">Fyzio&amp;Fit</span>
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-aurora to-aurora-glow"> tím</span>
+        </h1>
+        <p class="text-aurora font-semibold tracking-widest text-lg uppercase">
+          Jaro &bull; Ľubo &bull; Erik
+        </p>
+      </div>
+
+      <!-- Team Photo -->
+      <div class="glass-card p-3 rounded-3xl mb-16 rotate-1 hover:rotate-0 transition-transform duration-500">
+        <div class="rounded-2xl overflow-hidden">
+          <img
+            src="/images/tym-fyzioafit.jpg"
+            alt="Fyzio&Fit tím – Jaro, Ľubo, Erik"
+            class="w-full h-auto object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <!-- Intro text -->
+      <div class="max-w-3xl mx-auto space-y-6 mb-16 text-center">
+        <p class="text-chrome-gray text-lg leading-relaxed">
+          Sme tím odborníkov na pohybový aparát, ktorých spája spoločný cieľ – dostať tvoje telo späť do formy a udržať ho v nej dlhodobo.
+          V našej práci kombinujeme skúsenosti z praxe, moderné terapeutické prístupy a individuálny prístup ku každému klientovi.
+        </p>
+        <p class="text-chrome-gray text-lg leading-relaxed">
+          Neponúkame rýchle riešenia. Zameriavame sa na príčinu problému, nie len jeho následok – preto sú naše výsledky citeľné a dlhodobé.
+        </p>
+      </div>
+
+      <!-- Specializations -->
+      <div class="glass-card p-8 md:p-10 mb-16">
+        <h2 class="text-xl md:text-2xl font-bold text-chrome mb-8 text-center">
+          Špecializujeme sa na
+        </h2>
+        <ul class="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          {[
+            'naprávanie & mobilitu',
+            'hĺbkové klasické masáže',
+            'bankovanie & fasciálne techniky',
+            'regeneráciu & zlepšenie výkonu',
+            'prevenciu bolesti a disbalancií',
+          ].map((item) => (
+            <li class="flex items-center gap-3 text-chrome">
+              <span class="text-aurora text-lg shrink-0">✔</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Who we help -->
+      <div class="max-w-3xl mx-auto mb-16 text-center">
+        <p class="text-chrome-gray text-lg leading-relaxed">
+          Pomáhame bežným ľuďom aj aktívnym športovcom zlepšiť pohyb, odstrániť bolesť a fungovať naplno – bez obmedzení.
+        </p>
+      </div>
+
+      <!-- Tagline -->
+      <div class="glass-card p-6 md:p-8 mb-16 border-l-4 border-aurora max-w-3xl mx-auto">
+        <p class="text-chrome-gray italic text-lg leading-relaxed">
+          Keď tvoje telo nefunguje, vieme prečo.
+        </p>
+        <p class="text-chrome font-semibold text-lg mt-2">
+          A hlavne – vieme, čo s tým.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-4 inline-flex">
+          <span>Rezervovať termín</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

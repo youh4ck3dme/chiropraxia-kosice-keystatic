@@ -84,6 +84,7 @@ Kompletný návod na lokálny vývoj (príkazy, tipy, riešenie problémov): **[
 
 ## Ostatné
 
+- **[STABLE_MIGRATION_BLUEPRINT.md](STABLE_MIGRATION_BLUEPRINT.md)** – Kompletný blueprint na konsolidáciu 2 repozitárov do 1 stabilného Keystatic projektu (najnovšie blogy, bez Supabase, booking email-only na `booking@fyzioafit.sk`).
 - **[BLOG.md](BLOG.md)** – Blog je čisto statický (MDX, Astro content collections). Obsahuje špecifikáciu **cover obrázkov** (rozmer, formát, zoznam článok → unikátny súbor) a checklist pred nasadením.
 - **[todo.md](todo.md)** – Úlohy a priority.
 - **[digitalnavizitka.html](digitalnavizitka.html)** – Šablóna / náhľad digitálnej vizitky (HTML).

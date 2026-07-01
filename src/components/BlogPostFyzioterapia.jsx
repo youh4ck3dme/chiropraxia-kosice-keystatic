@@ -105,7 +105,7 @@ const BlogPostFyzioterapia = () => {
 
                     <div className="flex justify-center">
                         <a
-                            href="/rezervacia" // Uprav podľa tvojej routing cesty
+                            href="https://booking.fyzioafit.sk"
                             className={`
                 ${brandColorBg} text-white
                 px-8 py-4 rounded-lg

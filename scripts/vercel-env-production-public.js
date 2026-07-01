@@ -39,7 +39,9 @@ function runVercelEnvAdd(name, value, env) {
 }
 
 async function main() {
-  console.log('Nastavujem produkčné (verejné) env na Vercel: SITE_URL, KEYSTATIC_STORAGE, PUBLIC_KEYSTATIC_GITHUB_APP_SLUG\n');
+  console.log(
+    'Nastavujem produkčné (verejné) env na Vercel: SITE_URL, KEYSTATIC_STORAGE, PUBLIC_KEYSTATIC_GITHUB_APP_SLUG\n'
+  );
   for (const { name, value } of PRODUCTION_PUBLIC) {
     for (const env of ENVS) {
       try {
@@ -50,7 +52,9 @@ async function main() {
       }
     }
   }
-  console.log('\nHotovo. Tajné premenné (KEYSTATIC_GITHUB_CLIENT_ID, KEYSTATIC_GITHUB_CLIENT_SECRET, KEYSTATIC_SECRET, JWT_SECRET, RESEND_API_KEY) nastavte cez: npm run vercel:env-push (z .env) alebo vercel env add NÁZOV production');
+  console.log(
+    '\nHotovo. Tajné premenné (KEYSTATIC_GITHUB_CLIENT_ID, KEYSTATIC_GITHUB_CLIENT_SECRET, KEYSTATIC_SECRET, JWT_SECRET, RESEND_API_KEY) nastavte cez: npm run vercel:env-push (z .env) alebo vercel env add NÁZOV production'
+  );
 }
 
 main().catch((e) => {

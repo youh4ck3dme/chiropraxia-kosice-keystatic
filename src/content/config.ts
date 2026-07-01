@@ -19,7 +19,9 @@ const blogCollection = defineCollection({
     coverImageAlt: z.string().optional(),
     publishDate: z.date(),
     author: z.string().default('Dr. Martin Kováč'),
-    category: z.enum(['back-pain', 'headache', 'prevention', 'rehabilitation', 'general']).default('general'),
+    category: z
+      .enum(['back-pain', 'headache', 'prevention', 'rehabilitation', 'general'])
+      .default('general'),
     status: z.enum(['published', 'draft']).default('published'),
   }),
 });
@@ -98,6 +100,7 @@ const servicesCollection = defineCollection({
     price: z.number().nonnegative(),
     sort_order: z.number().int().default(0),
     isActive: z.boolean().default(true),
+    isExpress: z.boolean().optional().default(false),
   }),
 });
 
@@ -108,5 +111,3 @@ export const collections = {
   settings: settingsCollection,
   services: servicesCollection,
 };
-
-

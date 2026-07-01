@@ -69,13 +69,13 @@ export function rateLimit(
 
 // Specific rate limit configs for different routes
 export const rateLimitConfigs = {
-  chat: {
-    windowMs: 60 * 1000,  // 1 minute
-    maxRequests: 10,  // 10 AI chat requests per minute
-  },
   booking: {
     windowMs: 60 * 1000,  // 1 minute
     maxRequests: 5,  // 5 booking attempts per minute
+  },
+  chat: {
+    windowMs: 60 * 1000,  // 1 minute
+    maxRequests: 20,  // 20 chat prompts per minute
   },
   email: {
     windowMs: 60 * 1000,  // 1 minute

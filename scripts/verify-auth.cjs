@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 async function verifyAuth() {
-  const email = 'info@chiropraxiakosice.eu';
+  const email = 'booking@fyzioafit.sk';
   const password = 'admin123';
   
   console.log(`🔐 Verifying login for: ${email}`);

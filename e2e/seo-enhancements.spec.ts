@@ -3,41 +3,41 @@ import { test, expect } from '@playwright/test';
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || 'http://localhost:4322';
 
 test.describe('SEO & Editor Enhancements', () => {
-
   test.beforeEach(async ({ page }) => {
     // Mock AI API responses
-    await page.route('**/api/ai/generate-meta', async route => {
+    await page.route('**/api/ai/generate-meta', async (route) => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
           success: true,
-          metaDescription: 'Profesionálna chiropraxia v Košiciach. Pomôžeme vám s bolesťou chrbta a krčnej chrbtice.',
-          length: 85
-        })
+          metaDescription:
+            'Profesionálna chiropraxia v Košiciach. Pomôžeme vám s bolesťou chrbta a krčnej chrbtice.',
+          length: 85,
+        }),
       });
     });
 
-    await page.route('**/api/ai/suggest-titles', async route => {
+    await page.route('**/api/ai/suggest-titles', async (route) => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
           success: true,
-          suggestions: ['Chiropraxia v Košiciach', 'Ako na bolesť chrbta', 'Výhody fyzioterapie']
-        })
+          suggestions: ['Chiropraxia v Košiciach', 'Ako na bolesť chrbta', 'Výhody fyzioterapie'],
+        }),
       });
     });
 
-    await page.route('**/api/ai/analyze-readability', async route => {
+    await page.route('**/api/ai/analyze-readability', async (route) => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
           success: true,
           readability: { score: 75 },
-          readingTime: 2
-        })
+          readingTime: 2,
+        }),
       });
     });
   });
@@ -50,8 +50,8 @@ test.describe('SEO & Editor Enhancements', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: 'Testovací článok',
-          content: 'Toto je dlhý text o chiropraktike a zdraví chrbtice v Košiciach.'
-        })
+          content: 'Toto je dlhý text o chiropraktike a zdraví chrbtice v Košiciach.',
+        }),
       });
       return { status: res.status, data: await res.json() };
     }, BASE_URL);
@@ -70,8 +70,8 @@ test.describe('SEO & Editor Enhancements', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           currentTitle: 'Test',
-          content: 'Článok o výhodách chiropraxie pre športovcov.'
-        })
+          content: 'Článok o výhodách chiropraxie pre športovcov.',
+        }),
       });
       return { status: res.status, data: await res.json() };
     }, BASE_URL);
@@ -88,8 +88,9 @@ test.describe('SEO & Editor Enhancements', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: 'Chiropraxia je manuálna terapia. Pomáha ľuďom s bolesťou. Je to bezpečné a účinné.'
-        })
+          content:
+            'Chiropraxia je manuálna terapia. Pomáha ľuďom s bolesťou. Je to bezpečné a účinné.',
+        }),
       });
       return { status: res.status, data: await res.json() };
     }, BASE_URL);
@@ -103,11 +104,14 @@ test.describe('SEO & Editor Enhancements', () => {
   test('MDX Rendering: Custom Components', async ({ page }) => {
     // Navigate to the test post
     // Note: This requires the post to be deployed or tested locally
-    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
-    page.on('pageerror', err => console.log('PAGE ERROR:', err.message));
+    page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
+    page.on('pageerror', (err) => console.log('PAGE ERROR:', err.message));
 
     try {
-      await page.goto(`${BASE_URL}/blog/test-features`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      await page.goto(`${BASE_URL}/blog/test-features`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 60000,
+      });
     } catch (e) {
       console.error('Failed to load blog/test-features:', e);
       // Take a screenshot on failure to see what's on the page
@@ -139,5 +143,4 @@ test.describe('SEO & Editor Enhancements', () => {
     await expect(page.getByText('PRED', { exact: true })).toBeVisible();
     await expect(page.getByText('PO', { exact: true })).toBeVisible();
   });
-
 });

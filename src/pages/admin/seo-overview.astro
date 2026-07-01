@@ -29,31 +29,48 @@ function scoreBadgeClass(score: number): string {
   title="SEO prehľad článkov | Chiropraxia Košice"
   description="Prehľad SEO skóre blog článkov."
 >
-  <section class="py-12 px-6 max-w-4xl mx-auto">
-    <h1 class="text-2xl font-bold text-white mb-2">SEO prehľad článkov</h1>
-    <p class="text-gray-400 mb-6">
-      Články zoradené podľa SEO skóre (najnižšie first). Pre živý panel otvorte článok s <code class="bg-white/10 px-1 rounded">?seo=1</code>.
+  <section class="mx-auto max-w-4xl px-6 py-12">
+    <h1 class="mb-2 text-2xl font-bold text-white">SEO prehľad článkov</h1>
+    <p class="mb-6 text-gray-400">
+      Články zoradené podľa SEO skóre (najnižšie first). Pre živý panel otvorte článok s <code
+        class="rounded bg-white/10 px-1">?seo=1</code
+      >.
     </p>
-    {sorted.length === 0 ? (
-      <p class="text-gray-400 py-8">Žiadne články na zobrazenie.</p>
-    ) : (
-      <ul class="space-y-3">
-        {sorted.map(({ post, result }) => (
-          <li class="flex items-center justify-between gap-4 p-4 rounded-xl border border-white/10 bg-white/5">
-            <div class="min-w-0">
-              <a href={`/blog/${post.slug}?seo=1`} class="text-aurora-teal hover:underline font-medium truncate block">
-                {post.data.title}
-              </a>
-              <p class="text-sm text-gray-500 truncate">{post.slug}</p>
-            </div>
-            <div class="flex items-center gap-4 flex-shrink-0">
-              <span class={`px-2 py-0.5 rounded text-sm font-semibold ${scoreBadgeClass(result.score)}`} data-testid="seo-score-value">{result.score}</span>
-              <span class="text-gray-500">/ 100</span>
-              <a href={`/keystatic/collection/blog/${post.slug}`} class="text-sm text-gray-400 hover:text-white">Edit v Keystatic</a>
-            </div>
-          </li>
-        ))}
-      </ul>
-    )}
+    {
+      sorted.length === 0 ? (
+        <p class="py-8 text-gray-400">Žiadne články na zobrazenie.</p>
+      ) : (
+        <ul class="space-y-3">
+          {sorted.map(({ post, result }) => (
+            <li class="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
+              <div class="min-w-0">
+                <a
+                  href={`/blog/${post.slug}?seo=1`}
+                  class="text-aurora-teal block truncate font-medium hover:underline"
+                >
+                  {post.data.title}
+                </a>
+                <p class="truncate text-sm text-gray-500">{post.slug}</p>
+              </div>
+              <div class="flex flex-shrink-0 items-center gap-4">
+                <span
+                  class={`rounded px-2 py-0.5 text-sm font-semibold ${scoreBadgeClass(result.score)}`}
+                  data-testid="seo-score-value"
+                >
+                  {result.score}
+                </span>
+                <span class="text-gray-500">/ 100</span>
+                <a
+                  href={`/keystatic/collection/blog/${post.slug}`}
+                  class="text-sm text-gray-400 hover:text-white"
+                >
+                  Edit v Keystatic
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
   </section>
 </Layout>

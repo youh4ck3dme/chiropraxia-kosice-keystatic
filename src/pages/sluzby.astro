@@ -13,6 +13,7 @@ const services = rawServices
     description: s.data.description,
     duration_min: s.data.duration_min,
     price: s.data.price,
+    isExpress: s.data.isExpress ?? false,
   }));
 
 const faqs = [
@@ -82,7 +83,7 @@ const rating = { value: 4.9, count: 520 };
       <div class="text-center mb-16 parallax-3d">
         <h1 class="text-3xl md:text-5xl font-bold mb-4">
           <span class="text-chrome">Naše</span>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-aurora to-aurora-glow"> služby</span>
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-aurora to-aurora-glow"> služby</span>
         </h1>
         <p class="text-chrome-gray text-lg max-w-2xl mx-auto">
           Ponúkame široké spektrum chiropraktických služieb zameraných na riešenie bolestí pohybového aparátu.
@@ -99,6 +100,7 @@ const rating = { value: 4.9, count: 520 };
             description={service.description}
             duration={service.duration_min}
             price={service.price}
+            isExpress={service.isExpress}
           />
         ))}
       </div>
@@ -111,7 +113,7 @@ const rating = { value: 4.9, count: 520 };
         <p class="text-chrome-gray mb-8 max-w-xl mx-auto">
           Objednajte sa online a urobte prvý krok k životu bez bolesti.
         </p>
-        <a href="/rezervacia" class="btn-aurora text-lg px-8 py-4 inline-flex">
+        <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-4 inline-flex">
           <span>Rezervovať termín</span>
         </a>
       </div>

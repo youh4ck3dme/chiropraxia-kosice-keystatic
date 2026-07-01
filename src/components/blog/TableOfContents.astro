@@ -30,16 +30,16 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
     <ul class="space-y-1 relative">
       <!-- Active Indicator (Animated) -->
-      <div id="active-indicator" class="absolute left-0 w-[2px] h-6 bg-aurora rounded-full transition-all duration-300 ease-out opacity-0"></div>
+      <div id="active-indicator" class="absolute left-0 w-0.5 h-6 bg-aurora rounded-full transition-all duration-300 ease-out opacity-0"></div>
 
       {toc.map((heading) => (
         <li class={`toc-item ${heading.depth === 3 ? 'pl-4' : ''}`}>
           <a 
             href={`#${heading.slug}`} 
-            class="group flex items-start py-2 pr-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 block border-l-2 border-transparent hover:border-white/10 pl-3 -ml-[2px]"
+            class="group flex items-start py-2 pr-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 border-l-2 border-transparent hover:border-white/10 pl-3 -ml-0.5"
             data-slug={heading.slug}
           >
-            <span class="mr-2 mt-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-aurora transform group-hover:translate-x-1">
+            <span class="mr-2 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-aurora transform group-hover:translate-x-1">
                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" class="stroke-current" stroke-width="2">
                  <path d="M4 2L8 6L4 10"></path>
                </svg>

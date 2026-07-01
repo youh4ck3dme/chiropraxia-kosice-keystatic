@@ -11,25 +11,25 @@ export const POST: APIRoute = async ({ request }) => {
     const { content, currentSlug } = await request.json();
 
     if (!content) {
-      return new Response(
-        JSON.stringify({ error: 'Content is required' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Content is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Get all existing blog posts
     const allPosts = await getCollection('blog');
-    const otherPosts = allPosts.filter(post => post.slug !== currentSlug);
+    const otherPosts = allPosts.filter((post) => post.slug !== currentSlug);
 
     if (otherPosts.length === 0) {
-      return new Response(
-        JSON.stringify({ success: true, suggestions: [] }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ success: true, suggestions: [] }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Create context of existing articles
-    const existingArticles = otherPosts.map(post => ({
+    const existingArticles = otherPosts.map((post) => ({
       slug: post.slug,
       title: post.data.title,
       category: post.data.category,
@@ -43,7 +43,7 @@ Obsah aktuálneho článku:
 ${content.slice(0, 1500)}
 
 Existujúce články:
-${existingArticles.map(a => `- ${a.title} (/${a.slug})`).join('\n')}
+${existingArticles.map((a) => `- ${a.title} (/${a.slug})`).join('\n')}
 
 Navrhni maximálne 3 relevantné interné odkazy. Pre každý uveď:
 1. Slug článku
@@ -56,7 +56,7 @@ Odpoveď (len JSON):`;
 
     const result = await model.generateContent(prompt);
     let suggestions = [];
-    
+
     try {
       const text = result.response.text().trim();
       // Extract JSON from response
@@ -69,20 +69,17 @@ Odpoveď (len JSON):`;
     }
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        suggestions: suggestions.slice(0, 3)
+      JSON.stringify({
+        success: true,
+        suggestions: suggestions.slice(0, 3),
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-
   } catch (error) {
     console.error('Internal linking suggestions error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to generate link suggestions' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to generate link suggestions' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
-
-

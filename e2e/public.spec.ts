@@ -51,7 +51,7 @@ test.describe('Public Pages', () => {
         });
         
         test('footer should contain contact info', async ({ page }) => {
-            await expect(page.locator('footer')).toContainText('info@chiropraxiakosice.eu');
+            await expect(page.locator('footer')).toContainText('booking@fyzioafit.sk');
         });
     });
 

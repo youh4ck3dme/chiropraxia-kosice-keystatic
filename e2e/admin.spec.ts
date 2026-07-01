@@ -154,7 +154,7 @@ test.describe('Admin Dashboard', () => {
         
         // Cookie consent is handled via initScript
         
-        await page.fill('input[type="email"]', 'info@chiropraxiakosice.eu');
+        await page.fill('input[type="email"]', 'booking@fyzioafit.sk');
         await page.fill('input[type="password"]', 'admin123');
         await page.click('button[type="submit"]');
         

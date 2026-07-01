@@ -1,0 +1,566 @@
+**Zmenil som poradie vrstiev (z-index) a zvýšil viditeľnosť efektov.**
+
+Pôvodne boli bublinky na úrovni `z-0`, čo mohlo v niektorých prehliadačoch spôsobiť, že ich prekrýval gradient pozadia.
+Teraz je canvas nastavený na **`z-[1]`** a obsah na **`z-[10]`**, takže bublinky sú stopercentne "pred" pozadím, ale
+stále "za" textom. Zároveň som jemne zvýšil základnú opacitu v skripte, aby boli lepšie vidieť.
+
+Vraciam celý obsah `src/pages/index.astro`.
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import FyzioFitBanner from '../components/FyzioFitBanner.astro';
+
+const faqs = [
+{
+question: "Bolí chiropraktická náprava?",
+answer: "Nie, zákrok je zvyčajne bezbolestný. Zvuk 'puknutia' je len uvoľnenie plynov z kĺbu. Pacienti po zákroku often
+cítia okamžitú úľavu."
+},
+{
+question: "Potrebujem výmenný lístok od lekára?",
+answer: "Nie, Chiropraxia Košice je súkromné zariadenie. Môžete sa objednať priamo cez náš online rezervačný systém bez
+čakania."
+},
+{
+question: "Ako rýchlo dostanem termín v Košiciach?",
+answer: "Vďaka nášmu online systému vidíte voľné termíny v reálnom čase. Zvyčajne vieme akútne prípady (seknutie) vziať
+do 24-48 hodín."
+}
+];
+
+const rating = { value: 4.9, count: 520 };
+---
+
+<Layout title="Chiropraxia Košice | Náprava chrbtice a Fyzioterapia bez čakania"
+    description="Okamžitá pomoc pri bolestiach chrbta a kĺbov v Košiciach. Moderná diagnostika a jemné manuálne techniky. Objednajte sa online."
+    faqs={faqs} rating={rating}>
+    <!-- Hero Section -->
+    <section
+        class="relative min-h-[85vh] flex items-center justify-center px-4 md:px-6 overflow-hidden bg-linear-to-b from-blue-50/50 to-white/20">
+        <!-- Liquid Glass Bubbles Canvas - Moved to z-1 to ensure visibility above background -->
+        <canvas id="hero-bubbles-canvas" class="absolute inset-0 z-[1] pointer-events-none"></canvas>
+
+        <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
+            <div class="flex flex-col items-center justify-center mb-10 animate-fade-in group" data-bubble-blocker>
+                <div class="parallax-3d mb-8">
+                    <Logo className="h-64 w-64 md:h-96 md:w-96 animate-float" />
+                </div>
+            </div>
+
+            <div class="parallax-3d" data-bubble-blocker>
+                <h1
+                    class="text-[clamp(2.25rem,7vw,4.5rem)] font-extrabold mb-6 animate-fade-in text-balance leading-[1.1]">
+                    <span class="text-chrome">Zbavte sa</span>
+                    <br />
+                    <span
+                        class="text-transparent bg-clip-text bg-linear-to-r from-[#003B73] via-[#00a7ed] to-[#003B73] bg-[length:200%_auto] animate-shimmer drop-shadow-[0_2px_10px_rgba(0,111,184,0.15)]">
+                        bolesti chrbta v Košiciach
+                    </span>
+                </h1>
+            </div>
+
+            <p class="text-base md:text-xl text-chrome-gray max-w-2xl mx-auto mb-10 animate-slide-up"
+                data-bubble-blocker>
+                Profesionálna chiropraktická starostlivosť.
+                Špecializujeme sa na riešenie bolestí chrbtice, krčnej oblasti a migrénu.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
+                style="animation-delay: 0.2s;" data-bubble-blocker>
+                <a href="https://booking.fyzioafit.sk" class="btn-aurora text-lg px-8 py-4">
+                    <span>Objednať sa online</span>
+                </a>
+                <a href="/sluzby" class="btn-glass text-lg px-8 py-4">
+                    Naše služby
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2"
+                            class="group-hover:scale-110 transition-transform duration-300">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">15+ rokov praxe</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">
+                        Skúsený tím chiropraktikov s medzinárodnými certifikátmi.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2"
+                            class="group-hover:scale-110 transition-transform duration-300">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v6l4 2" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">Rýchle termíny</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">
+                        Online rezervácia s možnosťou objednať sa do 24 hodín.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card-interactive stagger-item p-8 text-center group cursor-default">
+                    <div
+                        class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/50 flex items-center justify-center group-hover:bg-white/70 transition-colors duration-300">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#006fb8" stroke-width="2"
+                            class="group-hover:scale-110 transition-transform duration-300">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <path d="M22 4L12 14.01l-3-3" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-chrome mb-3">Overené výsledky</h2>
+                    <p class="text-chrome-gray text-sm leading-relaxed">
+                        Stovky spokojných pacientov a pozitívne recenzie v Košiciach.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FyzioFit Banner -->
+    <section class="max-w-4xl mx-auto px-6">
+        <FyzioFitBanner />
+    </section>
+
+    <!-- SEO Content Section: Komplexná liečba -->
+    <section class="py-16 px-6 border-t border-glass-subtle">
+        <div class="max-w-4xl mx-auto space-y-12">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-chrome mb-6">
+                    Komplexná liečba bolesti chrbta a pohybového aparátu v Košiciach
+                </h2>
+                <p class="text-lg text-chrome-gray leading-relaxed">
+                    V našom centre <strong>Chiropraxia Košice</strong> sa nepozeráme na bolesť len ako na symptóm, ale
+                    hľadáme jej skutočnú príčinu.
+                    Kombinujeme tradičné chiropraktické techniky (náprava chrbtice) s modernou fyzioterapiou a
+                    rehabilitáciou.
+                    Či už vás trápi akútne "seknutie v krížoch" (lumbago), chronické migrény z krčnej chrbtice, alebo
+                    tŕpnutie končatín,
+                    naším cieľom je dlhodobé odstránenie bolesti a návrat k plnému pohybu bez obmedzení.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-chrome mb-4">Chiropraxia vs. Fyzioterapia: Čo potrebujete?</h3>
+                    <p class="text-chrome mb-4">
+                        Mnoho pacientov v Košiciach sa pýta, aký je rozdiel.
+                        <strong>Chiropraxia</strong> sa zameriava na funkčnosť nervového systému a správne postavenie
+                        stavcov.
+                        Jemnou manipuláciou odstraňujeme blokády, ktoré spôsobujú bolesť a zápal.
+                    </p>
+                    <p class="text-chrome">
+                        <strong>Fyzioterapia</strong> a rehabilitácia následne spevňujú svalový korzet, aby sa problém
+                        nevracal.
+                        U nás získate to najlepšie z oboch svetov pod jednou strechou. Efektívna liečba hernie disku,
+                        skoliózy aj poúrazových stavov.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold text-chrome mb-4">Ako prebieha prvé vyšetrenie?</h3>
+                    <p class="text-chrome mb-4">
+                        Každá terapia začína dôkladnou diagnostikou. Zisťujeme rozsah pohybu, svalové dysbalancie a
+                        neurologické príznaky.
+                        Ak máte RTG alebo MRI snímky, prineste ich so sebou.
+                    </p>
+                    <p class="text-chrome">
+                        Samotná terapia (náprava) je šetrná a prispôsobená vášmu veku a diagnóze.
+                        Okrem manuálnych techník využívame aj mäkké techniky, bankovanie and moderné prístroje na
+                        uvoľnenie svalstva.
+                        Nečakajte, kým bolesť ustúpi sama – objednajte sa k špecialistovi v Košiciach ešte dnes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section (Migrated Content) -->
+    <section class="py-20 px-6 border-t border-glass-subtle">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center parallax-3d">
+            <div class="space-y-6">
+                <h2 class="text-3xl font-bold text-blue-900">
+                    Prečo práve Chiropraxia Košice?
+                </h2>
+                <p class="text-chrome text-lg leading-relaxed">
+                    Spojujeme modernú <strong class="text-blue-600">fyzioterapiu</strong> a tradičnú <strong
+                        class="text-blue-500">chiropraxiu</strong> pre maximálny účinok liečby. Náš tím odborníkov sa
+                    nepozerá len na bolesť, ale hľadá jej príčinu.
+                </p>
+                <ul class="space-y-3 text-chrome">
+                    <li class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                        <span>Individuálny prístup ku každému pacientovi</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                        <span>Kombinácia manuálnych techník a cvičenia</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-blue-800"></div>
+                        <span>Príjemné a moderné prostredie v Košiciach</span>
+                    </li>
+                </ul>
+                <div class="pt-4">
+                    <a href="/sluzby"
+                        class="text-chrome hover:text-blue-900 transition-colors font-bold flex items-center gap-2 group">
+                        Spoznajte náš tím a metódy
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div
+                    class="glass-card p-2 rounded-3xl relative z-10 rotate-1 hover:rotate-0 transition-transform duration-500">
+                    <!-- Wellness Illustration Image -->
+                    <div class="aspect-4/3 bg-glass-dark rounded-2xl flex items-center justify-center overflow-hidden">
+                        <img src="/images/chiropractic-wellness.png"
+                            alt="Chiropraktická starostlivosť - wellness ilustrácia" class="w-full h-full object-cover"
+                            loading="lazy" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (SEO) -->
+    <section class="py-16 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-chrome mb-10">Časté otázky</h2>
+            <div class="space-y-4">
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-2">Bolí chiropraktická náprava?</h3>
+                    <p class="text-chrome-gray">Nie, zákrok je zvyčajne bezbolestný. Zvuk 'puknutia' je len uvoľnenie
+                        plynov z kĺbového puzdra. Väčšina pacientov cíti okamžitú úľavu a uvoľnenie napätia.</p>
+                </div>
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-2">Koľko trvá jedno ošetrenie?</h3>
+                    <p class="text-chrome-gray">Prvé vstupné vyšetrenie s terapiou trvá zvyčajne 45-60 minút. Následné
+                        terapie trvajú približne 30 minút, v závislosti od stavu pacienta.</p>
+                </div>
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-2">Môžem prísť aj bez výmenného lístka?</h3>
+                    <p class="text-chrome-gray">Áno, sme súkromné zariadenie a na vyšetrenie nepotrebujete výmenný
+                        lístok od všeobecného lekára.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 px-6 border-t border-glass-subtle relative overflow-hidden" id="kontakt">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+            <!-- Contact Info -->
+            <div class="space-y-8 parallax-3d">
+                <div>
+                    <h2 class="text-3xl font-bold text-chrome mb-4">Kontaktujte nás</h2>
+                    <p class="text-chrome-gray">Máte otázky alebo sa chcete poradiť? Sme tu pre vás.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-white/60 transition-colors">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/50 border border-white/20 flex items-center justify-center text-blue-900 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-chrome-gray">Telefón</p>
+                            <a href="tel:+421905307198"
+                                class="text-lg font-medium text-chrome hover:text-blue-600 transition-colors">+421 905
+                                307 198</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-white/60 transition-colors">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/50 border border-white/20 flex items-center justify-center text-blue-900 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-chrome-gray">Email</p>
+                            <a href="mailto:booking@fyzioafit.sk"
+                                class="text-lg font-medium text-chrome hover:text-blue-600 transition-colors">booking@fyzioafit.sk</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-white/60 transition-colors">
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/50 border border-white/20 flex items-center justify-center text-blue-900 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-chrome-gray">Adresa</p>
+                            <p class="text-lg font-medium text-chrome">Krmanova 854/6, 040 01 Košice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Premium Trust Bar -->
+    <section class="py-24 px-6 border-t border-white/5 relative overflow-hidden">
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-2xl md:text-3xl font-black text-chrome mb-4">Dôvera založená na výsledkoch</h2>
+                <p class="text-chrome-gray max-w-2xl mx-auto">Pomáhame pacientom z celého Košického kraja vrátiť sa k
+                    aktívnemu životu bez obmedzení.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 parallax-3d">
+                <!-- Stat 1: Patients -->
+                <div
+                    class="glass-card shadow-3d shadow-3d-hover stagger-item p-8 flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white/50 flex items-center justify-center text-blue-900 mb-6 group-hover:scale-110 group-hover:bg-white/70 transition-all duration-500">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <span
+                        class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">500+</span>
+                    <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Spokojných
+                        pacientov</span>
+                    <p class="text-sm text-chrome-gray leading-relaxed">Úspešne odliečených prípadov s individuálnym
+                        prístupom.</p>
+                </div>
+
+                <!-- Stat 2: Rating -->
+                <div
+                    class="glass-card shadow-3d shadow-3d-hover stagger-item p-8 flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white/50 flex items-center justify-center text-blue-900 mb-6 group-hover:scale-110 group-hover:bg-white/70 transition-all duration-500">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                    </div>
+                    <span
+                        class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">4.9★</span>
+                    <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Google
+                        Hodnotenie</span>
+                    <p class="text-sm text-chrome-gray leading-relaxed">Najvyššie hodnotená chiropraktická ambulancia v
+                        regióne.</p>
+                </div>
+
+                <!-- Stat 3: Satisfaction -->
+                <div
+                    class="glass-card shadow-3d shadow-3d-hover stagger-item p-8 flex flex-col items-center text-center group">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white/50 flex items-center justify-center text-blue-900 mb-6 group-hover:scale-110 group-hover:bg-white/70 transition-all duration-500">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <span
+                        class="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-linear-to-br from-black via-slate-900 to-slate-600">98%</span>
+                    <span class="text-blue-900 font-bold uppercase tracking-widest text-xs mb-3">Úspešnosť liečby</span>
+                    <p class="text-sm text-chrome-gray leading-relaxed">Pacientov pociťuje výraznú úľavu už po prvých
+                        sedeniach.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    // Liquid Glass Bubbles Logic - Clean Subtle Version
+    class Bubble {
+        constructor(canvas, blockers) {
+            this.canvas = canvas;
+            this.blockers = blockers;
+            this.init();
+        }
+
+        init() {
+            this.radius = Math.random() * 40 + 15;
+            this.x = Math.random() * this.canvas.width;
+            this.y = Math.random() * this.canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.25;
+            this.vy = (Math.random() - 0.5) * 0.25;
+            // Increased base opacity slightly for better visibility against bg
+            this.opacity = Math.random() * 0.2 + 0.1;
+        }
+
+        update(mouse) {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < -this.radius) this.x = this.canvas.width + this.radius;
+            if (this.x > this.canvas.width + this.radius) this.x = -this.radius;
+            if (this.y < -this.radius) this.y = this.canvas.height + this.radius;
+            if (this.y > this.canvas.height + this.radius) this.y = -this.radius;
+
+            this.blockers.forEach(rect => {
+                const dx = this.x - (rect.left + rect.width / 2);
+                const dy = this.y - (rect.top + rect.height / 2);
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const minDistance = this.radius + Math.max(rect.width, rect.height) / 1.6;
+
+                if (distance < minDistance) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (minDistance - distance) / minDistance;
+                    this.vx += Math.cos(angle) * force * 0.08;
+                    this.vy += Math.sin(angle) * force * 0.08;
+                }
+            });
+
+            if (mouse.x !== null && window.innerWidth > 768) {
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 120) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (120 - distance) / 120;
+                    this.vx += Math.cos(angle) * force * 0.025;
+                    this.vy += Math.sin(angle) * force * 0.025;
+                }
+            }
+
+            const maxSpeed = 0.8;
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            if (speed > maxSpeed) {
+                this.vx = (this.vx / speed) * maxSpeed;
+                this.vy = (this.vy / speed) * maxSpeed;
+            }
+        }
+
+        draw(ctx) {
+            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+            gradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
+            gradient.addColorStop(0.6, `rgba(255, 255, 255, ${this.opacity * 0.3})`);
+            gradient.addColorStop(0.9, `rgba(255, 255, 255, ${this.opacity * 0.7})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+    }
+
+    // Global state
+    let animationFrameId = null;
+    const mousePos = { x: null, y: null };
+
+    const handleMouseMove = (e) => {
+        const canvas = document.getElementById('hero-bubbles-canvas');
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        mousePos.x = e.clientX - rect.left;
+        mousePos.y = e.clientY - rect.top;
+    };
+
+    const handleResize = () => {
+        initHeroAnimation();
+    };
+
+    function initHeroAnimation() {
+        const canvas = document.getElementById('hero-bubbles-canvas');
+        if (!canvas || !canvas.parentElement) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+
+        // Scoped blockers only within Hero section
+        const blockerElements = parent.querySelectorAll('[data-bubble-blocker]');
+        const blockers = Array.from(blockerElements).map(el => {
+            const rect = el.getBoundingClientRect();
+            const parentRect = parent.getBoundingClientRect();
+            return {
+                left: rect.left - parentRect.left,
+                top: rect.top - parentRect.top,
+                width: rect.width,
+                height: rect.height
+            };
+        });
+
+        let count = 12;
+        if (window.innerWidth < 768) count = 6;
+        else if (window.innerWidth < 1024) count = 9;
+
+        const bubbles = Array.from({ length: count }, () => new Bubble(canvas, blockers));
+
+        function animate() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bubbles.forEach(b => { b.update(mousePos); b.draw(ctx); });
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    function cleanup() {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('mousemove', handleMouseMove);
+    }
+
+    function setup() {
+        cleanup();
+        if (document.getElementById('hero-bubbles-canvas')) {
+            initHeroAnimation();
+            window.addEventListener('resize', handleResize);
+            if (window.innerWidth > 768) {
+                window.addEventListener('mousemove', handleMouseMove);
+            }
+        }
+    }
+
+    // Final Astro Lifecycle
+    document.addEventListener('astro:page-load', setup);
+    document.addEventListener('astro:before-swap', cleanup);
+
+    // Initial fallback
+    if (document.readyState === 'complete') setup();
+</script>
+```

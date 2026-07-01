@@ -37,6 +37,27 @@ describe('ServiceCard', () => {
     const button = container.querySelector('button');
     expect(button?.className).toContain('ring-2');
   });
-});
 
+  it('hides duration clock when duration is 0', () => {
+    render(<ServiceCard {...mockProps} duration={0} />);
+    expect(screen.queryByText('0 min')).toBeNull();
+  });
+
+  it('renders express card with ⚡ icon and amber styling', () => {
+    const { container } = render(
+      <ServiceCard {...mockProps} duration={0} price={15} isExpress={true} />
+    );
+    expect(screen.getByText('⚡')).toBeDefined();
+    const button = container.querySelector('button');
+    expect(button?.className).toContain('amber');
+  });
+
+  it('express card selected state uses amber ring', () => {
+    const { container } = render(
+      <ServiceCard {...mockProps} duration={0} price={15} isExpress={true} isSelected={true} />
+    );
+    const button = container.querySelector('button');
+    expect(button?.className).toContain('ring-amber-400');
+  });
+});
 
