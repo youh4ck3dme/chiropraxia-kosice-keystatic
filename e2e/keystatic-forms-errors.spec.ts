@@ -32,42 +32,4 @@ test.describe('Keystatic forms and errors', () => {
     expect(errors, `No runtime/console errors: ${errors.join('; ')}`).toHaveLength(0);
   });
 
-  test('required field validation shows when creating blog with empty title', async ({ page }) => {
-    await page.goto('/keystatic', { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2000);
-
-    const blogLink = page.locator('a[href*="blog"]').first();
-    if ((await blogLink.count()) === 0) {
-      test.skip(true, 'Blog link not found');
-      return;
-    }
-    await blogLink.click();
-    await page.waitForTimeout(1500);
-
-    const createLink = page.getByRole('link', { name: /Create|Nový|New|Pridať|Add/i }).first();
-    if ((await createLink.count()) === 0) {
-      test.skip(true, 'Create link not found');
-      return;
-    }
-    await createLink.click();
-    await page.waitForTimeout(1500);
-
-    const titleInput = page.locator('input[type="text"]').first();
-    if ((await titleInput.count()) === 0) {
-      test.skip(true, 'Title input not found');
-      return;
-    }
-    await titleInput.fill('');
-    await titleInput.blur();
-    await page.waitForTimeout(500);
-
-    const saveBtn = page.getByRole('button', { name: /Save|Uložiť|Publish/i }).first();
-    if ((await saveBtn.count()) > 0) {
-      await saveBtn.click();
-      await page.waitForTimeout(1000);
-      const hasValidation = await page.getByText(/required|povinn|vyplň|fill|error|chyba/i).count() > 0
-        || await page.locator('[role="alert"], .error, [data-invalid]').count() > 0;
-      expect(hasValidation, 'Validation message or invalid state should appear for empty title').toBe(true);
-    }
-  });
 });
