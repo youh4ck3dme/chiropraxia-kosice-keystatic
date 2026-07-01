@@ -62,7 +62,7 @@ export default config({
         seoDescription: fields.text({
           label: 'SEO Popis',
           description: 'Meta description pre vyh\u013ead\u00e1va\u010de. Odpor\u00fa\u010dan\u00fdch 120\u2013160 znakov.',
-          validation: { isRequired: true },
+          validation: { isRequired: true, length: { max: 160 } },
           multiline: true,
         }),
         keywords: fields.text({
