@@ -81,7 +81,7 @@ const formatDate = (date: string | null) => {
                   {post.entry.title}
                 </h2>
                 <p class="text-chrome-gray text-sm line-clamp-3">
-                  {post.entry.seoDescription}
+                  {post.entry.seoDescription?.trim() || post.entry.title || 'Prečítajte si náš odborný článok.'}
                 </p>
               </div>
             </a>

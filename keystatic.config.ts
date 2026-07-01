@@ -49,8 +49,7 @@ export default config({
       schema: {
         title: fields.text({
           label: 'N\u00e1zov \u010dl\u00e1nku',
-          validation: { isRequired: true, length: { max: 120 } },
-          description: 'Odpor\u00fa\u010dan\u00e1 d\u013a\u017eka pre SEO: 50\u201360 znakov.',
+          description: 'Odpor\u00fa\u010dan\u00e1 d\u013a\u017eka pre SEO: 50\u201360 znakov. Pr\u00e1zdny n\u00e1zov sa dopln\u00ed automaticky.',
         }),
         metaTitle: fields.text({
           label: 'Meta Title (voli\u0165e\u013en\u00e9)',
@@ -61,8 +60,7 @@ export default config({
         }),
         seoDescription: fields.text({
           label: 'SEO Popis',
-          description: 'Meta description pre vyh\u013ead\u00e1va\u010de. Odpor\u00fa\u010dan\u00fdch 120\u2013160 znakov.',
-          validation: { isRequired: true, length: { max: 160 } },
+          description: 'Meta description pre vyh\u013ead\u00e1va\u010de. Odpor\u00fa\u010dan\u00fdch 120\u2013160 znakov. Ak ch\u00fdba, web ho dopln\u00ed z textu \u010dl\u00e1nku.',
           multiline: true,
         }),
         keywords: fields.text({
@@ -89,7 +87,6 @@ export default config({
           label: '\u23f1\ufe0f \u010cas \u010d\u00edtania (min)',
           description: 'Odhadovan\u00fd \u010das \u010d\u00edtania v min\u00fatach',
           defaultValue: 5,
-          validation: { min: 1, max: 60 },
         }),
         coverImage: fields.image({
           label: 'Titulný obrázok',

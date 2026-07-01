@@ -37,11 +37,17 @@ const formatDate = (date: Date) => {
 
 const fullUrl = `https://chiropraxiakosice.eu/blog/${post.slug}`;
 
+const pageTitle = (post.data.metaTitle || post.data.title || 'Článok').trim() || 'Článok';
+const seoDescription =
+  post.data.seoDescription.trim() ||
+  post.body.replace(/^---[\s\S]*?---/, '').replace(/\s+/g, ' ').trim().slice(0, 160) ||
+  'Článok z blogu Chiropraxia Košice.';
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": post.data.title,
-  "description": post.data.seoDescription,
+  "headline": pageTitle,
+  "description": seoDescription,
   "image": post.data.coverImage ? [`https://chiropraxiakosice.eu${post.data.coverImage}`] : [],
   "datePublished": post.data.publishDate.toISOString(),
   "dateModified": post.data.publishDate.toISOString(), // In real app, this should be updated date
@@ -70,8 +76,8 @@ const articleSchema = {
 ---
 
 <Layout 
-  title={(post.data.metaTitle || post.data.title) + ' | Chiropraxia Košice'}
-  description={post.data.seoDescription}
+  title={pageTitle + ' | Chiropraxia Košice'}
+  description={seoDescription}
   keywords={post.data.keywords || "blog chiropraxia kosice, zdravotne clanky, bolest chrbta rady"}
 >
   <!-- Advanced Schema -->
@@ -126,11 +132,11 @@ const articleSchema = {
         </div>
         
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-chrome mb-6 leading-tight text-balance">
-          {post.data.title}
+          {pageTitle}
         </h1>
         
         <p class="text-xl md:text-2xl text-chrome-gray/90 leading-relaxed max-w-2xl text-balance">
-          {post.data.seoDescription}
+          {seoDescription}
         </p>
       </header>
 
@@ -243,7 +249,7 @@ const articleSchema = {
     client:load
     title={post.data.title}
     metaTitle={post.data.metaTitle ?? null}
-    seoDescription={post.data.seoDescription}
+    seoDescription={seoDescription}
     slug={post.slug}
     focusKeyword={post.data.focusKeyword ?? null}
     coverImageAlt={post.data.coverImageAlt ?? null}

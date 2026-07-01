@@ -1,11 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 
+const optionalString = z.preprocess(
+  (value) => (typeof value === 'string' ? value.trim() : ''),
+  z.string()
+);
+
 const blogCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string().trim().min(1).max(120),
+    title: optionalString.default('Článok'),
     metaTitle: z.string().optional(),
-    seoDescription: z.string().trim().min(1).max(160),
+    seoDescription: optionalString.default(''),
     keywords: z.string().optional(),
     focusKeyword: z.string().optional(),
     advancedSeo: z
@@ -14,15 +19,24 @@ const blogCollection = defineCollection({
         schemaType: z.string().optional().default('Article'),
       })
       .optional(),
-    readingTimeMinutes: z.number().min(1).max(60).optional().default(5),
+    readingTimeMinutes: z.preprocess((value) => {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return 5;
+      return Math.min(60, Math.max(1, Math.round(parsed)));
+    }, z.number()).optional().default(5),
     coverImage: z.string().optional(),
     coverImageAlt: z.string().optional(),
-    publishDate: z.date(),
-    author: z.string().default('Dr. Martin Kováč'),
-    category: z
-      .enum(['back-pain', 'headache', 'prevention', 'rehabilitation', 'general'])
-      .default('general'),
-    status: z.enum(['published', 'draft']).default('published'),
+    publishDate: z.preprocess((value) => {
+      if (!value) return new Date();
+      const parsed = new Date(value as string);
+      return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+    }, z.date()).optional().default(() => new Date()),
+    author: z.string().optional().default('Dr. Martin Kováč'),
+    category: z.string().optional().default('general'),
+    status: z.preprocess(
+      (value) => (value === 'draft' ? 'draft' : 'published'),
+      z.enum(['published', 'draft'])
+    ).optional().default('published'),
   }),
 });
 
