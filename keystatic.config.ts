@@ -49,7 +49,7 @@ export default config({
       schema: {
         title: fields.text({
           label: 'N\u00e1zov \u010dl\u00e1nku',
-          validation: { isRequired: true, length: { min: 10, max: 120 } },
+          validation: { isRequired: true },
           description: 'Odpor\u00fa\u010dan\u00e1 d\u013a\u017eka pre SEO: 50\u201360 znakov.',
         }),
         metaTitle: fields.text({
@@ -62,7 +62,7 @@ export default config({
         seoDescription: fields.text({
           label: 'SEO Popis',
           description: 'Meta description pre vyh\u013ead\u00e1va\u010de. Odpor\u00fa\u010dan\u00fdch 120\u2013160 znakov.',
-          validation: { isRequired: true, length: { max: 160 } },
+          validation: { isRequired: true },
           multiline: true,
         }),
         keywords: fields.text({
