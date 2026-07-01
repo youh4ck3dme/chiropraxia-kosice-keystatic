@@ -5,7 +5,7 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string().trim().min(1).max(120),
     metaTitle: z.string().optional(),
-    seoDescription: z.string().trim().min(1),
+    seoDescription: z.string().trim().min(1).max(160),
     keywords: z.string().optional(),
     focusKeyword: z.string().optional(),
     advancedSeo: z
