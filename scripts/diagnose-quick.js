@@ -48,8 +48,8 @@ function section(title) {
 section('1. Prostredie');
 const nodeVer = process.version;
 const nodeMajor = parseInt(nodeVer.slice(1).split('.')[0], 10);
-if (nodeMajor >= 20) log('ok', `Node ${nodeVer} OK`);
-else log('warn', `Node ${nodeVer} – odporúča sa 20.x`);
+if (nodeMajor >= 24) log('ok', `Node ${nodeVer} OK`);
+else log('warn', `Node ${nodeVer} – odporúča sa 24.x`);
 
 const npmVer = run('npm -v', { timeout: 5000 }).trim();
 if (npmVer) log('ok', `npm ${npmVer}`);

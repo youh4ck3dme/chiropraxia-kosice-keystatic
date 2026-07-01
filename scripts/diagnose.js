@@ -71,8 +71,8 @@ async function main() {
   section('1. PROSTREDIE');
   const nodeVer = process.version;
   const majorNode = parseInt(nodeVer.slice(1).split('.')[0]);
-  if (majorNode >= 20) log('ok', `Node ${nodeVer} OK`);
-  else log('warn', `Node ${nodeVer} – odporúča sa v20+`);
+  if (majorNode >= 24) log('ok', `Node ${nodeVer} OK`);
+  else log('warn', `Node ${nodeVer} – odporúča sa v24+`);
 
   const npmVer = safeExec('npm -v');
   npmVer ? log('ok', `npm ${npmVer}`) : log('err', 'npm -v zlyhalo');
